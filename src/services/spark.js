@@ -112,7 +112,7 @@ export function createEmail(id){
 }
 
 export function createEmailMustache(id){
-    var url = process.env.REACT_APP_API + "/spark/emails/" + id + "/mustache";
+    var url = process.env.REACT_APP_API + "spark/emails/" + id + "/mustache";
     return new Promise(function(resolve, reject){
         var options = {
             url: url,
