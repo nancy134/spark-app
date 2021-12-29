@@ -23,7 +23,7 @@ class Preview extends React.Component{
 
     handleUploadEmail(){
         this.setState({
-            showWizardUplaod: true
+            showWizardUpload: true
         });
     }
 
