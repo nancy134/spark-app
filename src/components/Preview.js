@@ -11,12 +11,16 @@ class Preview extends React.Component{
     constructor(props){
         super(props);
         this.handlePreviewEmail = this.handlePreviewEmail.bind(this);
+        this.handleUploadEmail = this.handleUploadEmail.bind(this);
     }
 
     handlePreviewEmail(){
          window.open(this.props.previewUrl, "_blank");
     }
 
+    handleUploadEmail(){
+        console.log("handleUploadEmail");
+    }
     render(){
         return(
         <React.Fragment>
@@ -28,7 +32,7 @@ class Preview extends React.Component{
                 </Container>
             </Navbar>
             <div className="text-center p-2">
-                <span>
+                <span className="px-3">
                 <Button
                    onClick={this.props.onGenerateEmail}
                 >
@@ -38,7 +42,8 @@ class Preview extends React.Component{
                 </Button>
                 </span>
                 { this.props.previewUrl ? 
-                <span className="pl-3">
+		<span>
+                <span className="px-3">
                 <Button
                     onClick={this.handlePreviewEmail}
                 >
@@ -47,6 +52,15 @@ class Preview extends React.Component{
                     <div>new window</div>
                 </Button>
                 </span>
+                <span className="px-3">
+                <Button onClick={this.handleUploadEmail}>
+                      
+                    <div>Upload</div>
+                    <div>to</div>
+                    <div>Constant Contact</div>
+                </Button>
+                </span>
+		</span>
                 : null }
 
             </div>
