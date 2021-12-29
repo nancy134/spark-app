@@ -6,12 +6,15 @@ import {
     Spinner
 }
 from 'react-bootstrap';
-
+import WizardUpload from '../components/WizardUpload';
 class Preview extends React.Component{
     constructor(props){
         super(props);
         this.handlePreviewEmail = this.handlePreviewEmail.bind(this);
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
+        this.state = {
+            showWizardUpload: false
+        };
     }
 
     handlePreviewEmail(){
@@ -19,11 +22,18 @@ class Preview extends React.Component{
     }
 
     handleUploadEmail(){
-        console.log("handleUploadEmail");
+        this.setState({
+            showWizardUplaod: true
+        });
     }
+
+
     render(){
         return(
         <React.Fragment>
+            <WizardUpload
+            show={this.state.showWizardUpload}
+            />
             <div className="main-container">
             <div className="child scrollable">
             <Navbar bg="light" expand="lg" sticky="top">
