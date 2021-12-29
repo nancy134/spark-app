@@ -43,6 +43,7 @@ html, body {
 .frame-container{
     width: 100%;
     height: calc(100% - 70px);
+    border: 1;
 }
 
 .homeLeft{
@@ -53,5 +54,5 @@ html, body {
     position:relative;
 }
 .homeFrame{
-    width: 70%
+    width: 50%
 }

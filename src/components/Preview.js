@@ -1,11 +1,13 @@
 import React from 'react';
 import {
     Navbar,
-    Button
+    Button,
+    Container,
+    Spinner
 }
 from 'react-bootstrap';
 
-class CollectionPreview extends React.Component{
+class Preview extends React.Component{
     constructor(props){
         super(props);
         this.handlePreviewEmail = this.handlePreviewEmail.bind(this);
@@ -20,8 +22,10 @@ class CollectionPreview extends React.Component{
         <React.Fragment>
             <div className="main-container">
             <div className="child scrollable">
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" sticky="top">
+                <Container>
                 <Navbar.Brand>Preview</Navbar.Brand>
+                </Container>
             </Navbar>
             <div className="text-center p-2">
                 <span>
@@ -46,7 +50,14 @@ class CollectionPreview extends React.Component{
                 : null }
 
             </div>
+            { this.props.loading ?
+            <Spinner
+                animation="border"
+                variant="primary"
+            />
+            :
              <iframe title="preview" frameBorder="0" src={this.props.previewUrl} className="frame-container" />
+            }
         </div>
         </div>
         </React.Fragment>
@@ -54,4 +65,4 @@ class CollectionPreview extends React.Component{
     }
 }
 
-export default CollectionPreview;
+export default Preview;

@@ -70,6 +70,9 @@ class App extends React.Component {
         console.log("handleSparkGenerateEmail");
         console.log(id);
         var that = this;
+        that.setState({
+            loading: true
+        });
         sparkHelper.generateEmail(that, that.state.selectedSavedSearch);
     }
 
@@ -115,6 +118,7 @@ class App extends React.Component {
 
             />
             <AppRoutes
+              loading={this.state.loading}
               loggedIn={this.state.loggedIn}
               accessToken={this.state.accessToken}
               refreshToken={this.state.refreshToken}

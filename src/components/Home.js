@@ -7,17 +7,17 @@ class Home extends React.Component{
             { this.props.loading ?
             <div>Loading...</div>
             :
-            <div className="main-container">
-                <div className="homeLeft">
+            <div >
+                <div >
                     <div className="text-center p-5">
                         <h1>Create Beautiful Emails</h1>
                         <h1>from FlexMLS</h1>
                         <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Use your FlexMLS Account and your Saved Searches to automatically generate beautiful emails with our professionally designed templates</p> 
-                        <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Upload your emails to your email marketing system as Constant Contact and MailChimp</p>
+                        <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Upload your emails to your email marketing system such as Constant Contact and MailChimp</p>
                     </div>
                 </div>
         
-                <div className="homeRight">
+                <div className="text-center p-5">
                     <h2>Example auto-generated email</h2>
                     <iframe
                         title="preview"

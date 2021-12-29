@@ -2,7 +2,8 @@ import React from 'react';
 import {
     ListGroup,
     Navbar,
-    Spinner
+    Spinner,
+    Container
 } from 'react-bootstrap';
 
 const Strings = {};
@@ -38,8 +39,10 @@ class Listings extends React.Component{
         return(
         <React.Fragment>
             <div className="spark-listings pr-1">
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" sticky="top">
+                <Container>
                 <Navbar.Brand>Listings</Navbar.Brand>
+                </Container>
             </Navbar>
             { listings ?
             <ListGroup>

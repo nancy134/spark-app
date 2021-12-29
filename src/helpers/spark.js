@@ -163,10 +163,14 @@ function generateEmail(that, id){
             console.log("email:");
             console.log(email);
             that.setState({
+                loading: false,
                 previewUrl: email.Location,
             });
 
         }).catch(function(err){
+            that.setState({
+                loading: false
+            });
             console.log(err);
         });
 

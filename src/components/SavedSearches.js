@@ -1,7 +1,9 @@
 import React from 'react';
 import {
     ListGroup,
-    Navbar
+    Navbar,
+    Spinner,
+    Container
 } from 'react-bootstrap';
 
 function SavedSearchItem(props){
@@ -33,12 +35,13 @@ class SavedSearches extends React.Component{
     render(){
 
         var savedSearches = this.props.savedSearches;
-        if (savedSearches){
         return(
         <React.Fragment>
             <div className="pl-1 pr-1">
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" stick="top">
+                <Container>
                 <Navbar.Brand>SavedSearches</Navbar.Brand>
+                </Container>
             </Navbar>
             { savedSearches ?
             <ListGroup>
@@ -54,14 +57,14 @@ class SavedSearches extends React.Component{
                 ))}
             </ListGroup>
             :
-            <div>loadings...</div> 
+            <Spinner
+                animation="border"
+                variant="primary"
+            />
             }
             </div>
         </React.Fragment>
         );
-       } else {
-           return(<div>loading...</div>);
-       }
     }
 }
 

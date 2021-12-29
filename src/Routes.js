@@ -5,6 +5,7 @@ import {
     Route
 } from 'react-router-dom';
 import HomePage from './containers/HomePage';
+import SavedSearchesPage from './containers/SavedSearchesPage';
 import Spark from './containers/Spark';
 
 class AppRoutes extends React.Component {
@@ -13,9 +14,17 @@ class AppRoutes extends React.Component {
             <BrowserRouter>
             <Routes>
             <Route
-                path="/"
+                path="/home"
                 element={
                     <HomePage
+                    />
+                }
+            />
+            <Route
+                path="/savedsearches"
+                element={
+                    <SavedSearchesPage
+                        loading={this.props.loading}
                         loggedIn={this.props.loggedIn}
                         accessToken={this.props.accessToken}
                         refreshToken={this.props.refreshToken}
