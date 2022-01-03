@@ -1,13 +1,13 @@
 import React from 'react';
 import './HomePage.css';
-import Home from '../components/Home';
+import Help from '../components/Help';
 
 export class HelpPage extends React.Component {
 
     render(){
         return(
             <React.Fragment>
-                <Home
+                <Help
                     loading={this.props.loading}
                 />
             </React.Fragment>
