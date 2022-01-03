@@ -1,21 +1,84 @@
 import sparkService from '../services/spark';
 import memoryStorageService from '../services/memoryStorage';
 
-function initialize(that, accessToken, refreshToken){
+function checkAuthentication(that, accessToken, refreshToken){
     return new Promise(function(resolve, reject){
+        sparkService.getSystem(accessToken).then(function(system){
+            initializeHome(that, accessToken, refreshToken, system).then(function(result){
+                resolve(result);
+            }).catch(function(err){
+                reject(err);
+            });
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
 
+function getSystem(that, accessToken, refreshToken){
+    return new Promise(function(resolve, reject){
         memoryStorageService.setAccessToken(accessToken);
         memoryStorageService.setRefreshToken(refreshToken);
-
-        getSavedSearches(that, accessToken, refreshToken).then(function(result){
+        sparkService.getSystem().the(function(result){
             resolve(result);
         }).catch(function(err){
             reject(err);
         });
     });
 }
+
+function initializeHome(that, accessToken, refreshToken, system){
+    return new Promise(function(resolve, reject){
+        if (!system){
+            getSystem(that, accessToken, refreshToken).then(function(system){
+                var user = system.D.Results[0];
+                var id = user.Id;
+                sparkService.getAccount(id).then(function(account){
+                    console.log(account);
+                    that.setState({
+                        loading: false,
+                        loggedIn: true,
+                        accessToken: accessToken,
+                        refreshToken: refreshToken,
+                        user: user,
+                        account: account
+                    });
+                }).catch(function(err){
+                    console.log(err);
+                    reject(err);
+                });
+            }).catch(function(err){
+                reject(err);
+            });
+        } else {
+            var user = system.D.Results[0];
+            var id = user.Id;
+            sparkService.getAccount(id).then(function(account){
+                console.log(account);
+                that.setState({
+                    loading: false,
+                    loggedIn: true,
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                    user: user,
+                    account: account
+                });
+            }).catch(function(err){
+                console.log(err);
+                reject(err);
+            });
+        }
+    });
+}
+
+function initializeSavedSearches(that){
+    getSavedSearches(that).then(function(result){
+    }).catch(function(err){
+        console.log(err);
+    });
+}
+
 function logout(that){
-    console.log("logout()");
     memoryStorageService.sparkClearAll();
     that.setState({
        accessToken: null,
@@ -60,12 +123,13 @@ function getCollections(that, accessToken, refreshToken){
     });
 }
 
-function getSavedSearches(that, accessToken, refreshToken){
+function getSavedSearches(that){
     return new Promise(function(resolve, reject){
         that.setState({
             loadingSavedSearches: true
         });
         sparkService.getSavedSearches().then(function(savedSearches){
+            console.log(savedSearches);
             if (savedSearches.D.Results.length > 0){
                 var savedSearchId = savedSearches.D.Results[0].Id;
                 var savedSearchName = savedSearches.D.Results[0].Name;
@@ -77,45 +141,27 @@ function getSavedSearches(that, accessToken, refreshToken){
                             selectedSavedSearch: savedSearchId,
                             selectedSavedSearchName: savedSearchName,
                             listings: savedSearchListings,
-                            accessToken: accessToken,
-                            refreshToken: refreshToken
                         });
                     resolve("ok");
 
                 }).catch(function(err){
+                    console.log(err);
                     that.setState({
                         loadingSavedSearches: false
                     });
                     reject(err);
                 });
             } else {
-                console.log("No saved searches");
                 that.setState({
-                    loadingSavedSearches: false,
-                    accessToken: accessToken,
-                    refreshToken: refreshToken
+                    loadingSavedSearches: false
                 });
             }
         }).catch(function(err){
+            console.log(err);
             that.setState({
                 loadingSavedSearches: false
             });
             reject(err);
-        });
-    });
-}
-
-function checkAuthentication(that, accessToken, refreshToken){
-    console.log("checkingAuthentication: accessToken: "+ accessToken + " refreshToken: "+refreshToken);
-    return new Promise(function(resolve, reject){
-        sparkService.getSystem(accessToken).then(function(system){
-            initialize(that, accessToken, refreshToken).then(function(result){
-                resolve(result);
-            }).catch(function(err){
-                reject(err);
-            });
-        }).catch(function(err){
-            reject(err); 
         });
     });
 }
@@ -157,14 +203,12 @@ function savedSearchSelect(that, accessToken, id, name){
 
 function generateEmail(that, id){
 
-        console.log("generateEmail()");
-        console.log("id: "+id);
         sparkService.createEmailMustache(id).then(function(email){
-            console.log("email:");
             console.log(email);
             that.setState({
                 loading: false,
                 previewUrl: email.Location,
+                htmlContent: email.content
             });
 
         }).catch(function(err){
@@ -177,12 +221,14 @@ function generateEmail(that, id){
 }
 
 const spark = {
-    initialize,
+    initializeHome,
     collectionSelect,
     checkAuthentication,
     savedSearchSelect,
     getCollections,
     generateEmail,
-    logout
+    logout,
+    getSystem,
+    initializeSavedSearches
 };
 export default spark;

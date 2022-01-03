@@ -44,7 +44,6 @@ export class AccountButton extends Component{
            var url =
                result +
                redirect_uri;
-           console.log(url);
            //that.openLogoutWindow(url, "Spark Logout");
            that.props.onSparkLogout();
        }).catch(function(err){
@@ -58,13 +57,10 @@ export class AccountButton extends Component{
     receiveMessage (event){
         var that = this;
         window.removeEventListener('message', this.receiveMessage);
-        console.log("event.data: "+event.data);
         var check = event.data.substring(1,5);
-        console.log("check: "+check);
         if (check  === "code"){
         var code = event.data.substring(6);
 
-        console.log("code: "+code);
         this.setState({
             authorizationCode: event.data.substring(6)
         });
@@ -73,7 +69,6 @@ export class AccountButton extends Component{
             redirect_uri: this.state.redirect_uri
         };
         authService.getSparkAuthToken(body).then(function(result){
-            console.log(result);
             that.updateAccessToken(result.access_token, result.refresh_token);
         }).catch(function(err){
             console.log(err);
@@ -88,8 +83,6 @@ export class AccountButton extends Component{
 
     receiveMessage2 (event){
         window.removeEventListener('message', this.receiveMessage);
-        console.log("event.data:");
-        console.log(event.data);
     }
 
     openLogoutWindow(url, name){
@@ -145,11 +138,9 @@ export class AccountButton extends Component{
     componentDidMount(){
        var that = this;
        authService.getSparkAuthUrl().then(function(result){
-           console.log(result);
            if (result.access_token){
                that.updateAccessToken(result.access_token, result.refresh_token);
            }
-           console.log(result);
            var hostname = window.location.hostname;
            var protocol = window.location.protocol;
            var redirect_uri =
@@ -161,7 +152,6 @@ export class AccountButton extends Component{
            var url =
                result.authUrl +
                redirect_uri;
-           console.log("url: "+url);
            that.setState({
                authUrl: url,
                redirect_uri: redirect_uri
@@ -175,7 +165,11 @@ export class AccountButton extends Component{
         window.location.href = url;
     }
     render(){
-        var userName="Logged In Spark";
+        var userName="Logged In";
+        if (this.props.user){
+            userName = this.props.user.Name;
+        }
+        
         return(
         <span>
             <span className="align-top text-danger">
@@ -198,7 +192,6 @@ export class AccountButton extends Component{
                 <span>
                     <Button 
                         onClick={this.handleSignin} 
-                        variant="success"
                         id="account-button"
                     >
                         Login with FlexMLS

@@ -36,6 +36,7 @@ class AppNavBar extends React.Component {
                             accessToken={this.props.accessToken}
                             refreshToken={this.props.refreshToken}
                             onLogout={this.props.onLogout}
+                            user={this.props.user}
                         />
                     </Nav.Link>
                 </Nav.Item>

@@ -16,6 +16,7 @@ class App extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSavedSearchSelect = this.handleSavedSearchSelect.bind(this);
         this.handleGenerateEmail = this.handleGenerateEmail.bind(this);
+        this.handleInitializeSavedSearches = this.handleInitializeSavedSearches.bind(this);
 
         this.state = {
             loading: true,
@@ -24,33 +25,30 @@ class App extends React.Component {
             refreshToken: null,
             listings: null,
             savedSearches: null,
-            selectedSavedSearch: null
+            selectedSavedSearch: null,
+            previewUrl: null,
+            htmlContent: null
         };
     }
 
     handleLogin(accessToken, refreshToken){
-        console.log("handleLogin()");
-        console.log("accessToken: "+accessToken);
         this.setState({
             loading: true
         });
         if (accessToken && refreshToken){
             var that = this;
-            sparkHelper.initialize(that, accessToken, refreshToken).then(function(result){
+            sparkHelper.initializeHome(that, accessToken, refreshToken).then(function(result){
                 that.setState({
                     loggedIn: true,
                     loading: false
                 });
-                console.log(result);
             }).catch(function(err){
                 that.setState({
                     loggedIn: false,
                     loading: false
                 });
-                console.log(err);
             });
         } else {
-            console.log("accessToken and refreshToken are null");
             that.setState({
                 loading: false
             });
@@ -61,14 +59,17 @@ class App extends React.Component {
         sparkHelper.logout(this);
     }
 
+    handleInitializeSavedSearches(){
+        var that = this;
+        sparkHelper.initializeSavedSearches(that);
+    }
+
     handleSavedSearchSelect(id, name){
         var that = this;
         sparkHelper.savedSearchSelect(that, that.state.accessToken, id, name);
     }
 
     handleGenerateEmail(id){
-        console.log("handleSparkGenerateEmail");
-        console.log(id);
         var that = this;
         that.setState({
             loading: true
@@ -81,23 +82,18 @@ class App extends React.Component {
       var accessToken = memoryStorageService.accessToken();
       var refreshToken = memoryStorageService.refreshToken();
       if (accessToken){
-          console.log("has authentication token, checking validity");
 
           sparkHelper.checkAuthentication(that, accessToken, refreshToken).then(function(result){
               that.setState({
                   loggedIn: true
               });
-              console.log("found valid authentication");
           }).catch(function(err){
-              console.log("authentication invalid");
-              console.log(err);
               that.setState({
                   loggedIn: false,
                   loading: false
               });
           });
       } else {
-          console.log("No authentication token");
           this.setState({
               loggedIn: false,
               loading: false
@@ -115,7 +111,7 @@ class App extends React.Component {
                 onLogout={this.handleLogout}
                 accessToken={this.state.accessToken}
                 refreshToken={this.state.refreshToken}
-
+                user={this.state.user}
             />
             <AppRoutes
               loading={this.state.loading}
@@ -128,7 +124,11 @@ class App extends React.Component {
               selectedSavedSearch={this.state.selectedSavedSearch}
               selectedSavedSearchName={this.state.selectedSavedSearchName}
               previewUrl={this.state.previewUrl}
+              htmlContent={this.state.htmlContent}
               onGenerateEmail={this.handleGenerateEmail}
+              user={this.state.user}
+              account={this.state.account}
+              onInitializeSavedSearches={this.handleInitializeSavedSearches}
           >
           </AppRoutes>
 

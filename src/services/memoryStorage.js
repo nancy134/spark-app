@@ -1,8 +1,10 @@
 const MemoryStorage = (function(){
 
     var _service;
-    var __accessToken = null;
+    var __accessToken = 'd74j7mkxe9gym1hs156exm3i4';
     var __refreshToken = null;
+    var __ccAccessToken = null;
+    var __ccRefreshToken = null;
 
     function _getService(){
         if (!_service){
@@ -19,7 +21,6 @@ const MemoryStorage = (function(){
         __accessToken = accessToken;
     }
     function _accessToken(){
-        console.log("__accessToken: "+__accessToken);
         return __accessToken;
     }
 
@@ -32,10 +33,33 @@ const MemoryStorage = (function(){
     function _refreshToken(){
         return __refreshToken;
     }
+
+    //
+    // CC Access Token
+    //
+    function _setCCAccessToken(ccAccessToken){
+        __ccAccessToken = ccAccessToken;
+    }
+    function _ccAccessToken(){
+        return __ccAccessToken;
+    }
+
+    //
+    // CC Refresh Token
+    //
+    function _setCCRefreshToken(ccRefreshToken){
+        __ccRefreshToken = ccRefreshToken;
+    }
+    function _ccRefreshToken(){
+        return __ccRefreshToken;
+    }
+
     // Spark Clear All
     function _sparkClearAll(){
         __accessToken = null;
         __refreshToken = null; 
+        __ccAccessToken = null;
+        __ccRefreshToken = null;
     }
 
     return {
@@ -48,6 +72,14 @@ const MemoryStorage = (function(){
         // Spark refreshToken
         refreshToken: _refreshToken,
         setRefreshToken: _setRefreshToken,
+
+        // CC accessToken
+        ccAccessToken: _ccAccessToken,
+        setCCAccessToken: _setCCAccessToken,
+
+        // CC refreshToken
+        ccRefreshToken: _ccRefreshToken,
+        setCCRefreshToken: _setCCRefreshToken,
 
         // Spark Clear All
         sparkClearAll: _sparkClearAll,

@@ -7,6 +7,7 @@ import {
 import HomePage from './containers/HomePage';
 import SavedSearchesPage from './containers/SavedSearchesPage';
 import Spark from './containers/Spark';
+import ConstantContact from './containers/ConstantContact';
 
 class AppRoutes extends React.Component {
     render(){
@@ -38,13 +39,21 @@ class AppRoutes extends React.Component {
                         selectedSavedSearch={this.props.selectedSavedSearch}
                         selectedSavedSearchName={this.props.selectedSavedSearchName}
                         previewUrl={this.props.previewUrl}
+                        htmlContent={this.props.htmlContent}
                         onGenerateEmail={this.props.onGenerateEmail}
+                        user={this.props.user}
+                        account={this.props.account}
+                        onInitialize={this.props.onInitializeSavedSearches}
                     />
                 }
             />
             <Route
                 path="/sparkauth"
                 element={<Spark />}
+            />
+            <Route
+                path="/constantcontact"
+                element={<ConstantContact/>} />
             />
             </Routes>
             </BrowserRouter>

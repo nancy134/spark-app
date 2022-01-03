@@ -7,6 +7,8 @@ import {
 }
 from 'react-bootstrap';
 import WizardUpload from '../components/WizardUpload';
+import sparkService from '../services/spark';
+
 class Preview extends React.Component{
     constructor(props){
         super(props);
@@ -32,7 +34,13 @@ class Preview extends React.Component{
         return(
         <React.Fragment>
             <WizardUpload
-            show={this.state.showWizardUpload}
+                start={this.state.showWizardUpload}
+                html={this.props.previewUrl}
+                htmlContent={this.props.htmlContent}
+                user={this.props.user}
+                account={this.props.account}
+                selectedSavedSearch={this.props.selectedSavedSearch}
+                selectedSavedSearchName={this.props.selectedSavedSearchName}
             />
             <div className="main-container">
             <div className="child scrollable">

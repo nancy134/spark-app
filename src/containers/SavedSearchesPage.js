@@ -6,6 +6,9 @@ import {
 } from 'react-bootstrap';
 
 export class SavedSearchesPage extends React.Component {
+    componentDidMount(){
+        this.props.onInitialize();
+    }
     render(){
         return(
             <React.Fragment>
@@ -32,9 +35,12 @@ export class SavedSearchesPage extends React.Component {
                         <Preview
                             loading={this.props.loading}
                             previewUrl={this.props.previewUrl}
+                            htmlContent={this.props.htmlContent}
                             selectedSavedSearch={this.props.selectedSavedSearch}
                             onGenerateEmail={this.props.onGenerateEmail}
                             selectedSavedSearchName={this.props.selectedSavedSearchName}
+                            user={this.props.user}
+                            account={this.props.account}
                         />
                     </div>
                 </div>

@@ -1,27 +1,72 @@
 import React from 'react';
-import {
-    Modal
-} from 'react-bootstrap';
+import UploadAuthConstant from '../components/UploadAuthConstant';
+import UploadConstant from '../components/UploadConstant';
 
 class WizardUpload extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.handleUploadAuthConstantNext = this.handleUploadAuthConstantNext.bind(this);
+        this.handleUploadAuthConstantCancel = this.handleUploadAuthConstantCancel.bind(this);
+
+        this.handleUploadConstantNext = this.handleUploadConstantNext.bind(this);
+        this.handleUploadConstantCancel = this.handleUploadConstantCancel.bind(this);
+
+        this.state = {
+            showUploadAuthConstant: true,
+            showUplaodConstant: false
+        };
+    }
+
+    handleUploadAuthConstantNext(){
+        console.log("handleUploadAuthConstantNext()");
+        this.setState({
+            showUploadAuthConstant: false,
+            showUploadConstant: true
+        });
+    }
+
+    handleUploadAuthConstantCancel(){
+        this.setState({
+            showUploadAuthConstant: false
+        });
+    }
+
+    handleUploadConstantNext(){
+        console.log("handleUploadConstantNext");
+    }
+
+    handleUploadConstantCancel(){
+        this.setState({
+            showUplaodConstant: false
+        });
+    }
+
     render(){
+        var startWizard = this.props.start && this.state.showUploadAuthConstant;
         return(
-        <Modal
-            show={this.props.show}
-            onHide={this.props.onCancel}
-            animation={false}
-            dialogClassName="modal-60w"
-        >
-            <Modal.Header closeButton>
-                <Modal.Title>
-                    <span>
-                        Upload to Constant Contact
-                    </span>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            </Modal.Body>
-        </Modal>
+        <React.Fragment>
+            { startWizard ?
+            <UploadAuthConstant
+                show={this.props.start}
+                onNext={this.handleUploadAuthConstantNext}
+                onCancel={this.handleUploadAuthConstantCancel}
+            />
+            : null }
+            { this.state.showUploadConstant ?
+            <UploadConstant
+                html={this.props.html}
+                htmlContent={this.props.htmlContent}
+                user={this.props.user}
+                account={this.props.account}
+                show={this.state.showUploadConstant}
+                onNext={this.handleUploadConstantNext}
+                onCancel={this.handleUploadConstantCancel}
+                selectedSavedSearch={this.props.selectedSavedSearch}
+                selectedSavedSearchName={this.props.selectedSavedSearchName}
+            />
+            : null }
+        </React.Fragment>
         );
     }
 }

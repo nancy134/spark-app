@@ -3,15 +3,16 @@ import MemoryStorage from './memoryStorage';
 
 const memoryStorageService = MemoryStorage.getService();
 
-const axiosSpark = axios.create({withCredentials: true});
+const axiosConstant = axios.create({withCredentials: true});
 
-axiosSpark.interceptors.request.use(
+axiosConstant.interceptors.request.use(
     config => {
-        const token = memoryStorageService.accessToken();
+        const token = memoryStorageService.ccAccessToken();
         if (token){
             config.headers['Authorization'] = 'Bearer ' + token;
         }
         config.headers['Content-Type'] = 'application/json';
+        console.log(config);
         return config;
     },
     error => {
@@ -19,27 +20,27 @@ axiosSpark.interceptors.request.use(
         Promise.reject(error);
     });
 
-axiosSpark.interceptors.response.use((response) => {
+axiosConstant.interceptors.response.use((response) => {
     return response
 }, function(error){
     const originalRequest = error.config;
 
     if (error.response.status === 401 && !originalRequest._retry){
         originalRequest._retry = true;
-        const refreshToken = memoryStorageService.refreshToken();
+        const refreshToken = memoryStorageService.ccRefreshToken();
 
-        return axiosSpark.post(process.env.REACT_APP_API+'spark/refreshToken',
+        return axiosConstant.post(process.env.REACT_APP_API+'cc/refreshToken',
             {
                 "refreshToken": refreshToken
             }).then(res => {
                 if (res.status === 201) {
-                    memoryStorageService.setAccessToken(res.data.access_token);
-                    axiosSpark.defaults.headers.common['Authorization'] = 'Bearer ' + memoryStorageService.accessToken();
-                    return axiosSpark(originalRequest)
+                    memoryStorageService.ccSetAccessToken(res.data.access_token);
+                    axiosConstant.defaults.headers.common['Authorization'] = 'Bearer ' + memoryStorageService.ccAccessToken();
+                    return axiosConstant(originalRequest)
                 }
             })
     }
     return Promise.reject(error);
 });
 
-export default axiosSpark;
+export default axiosConstant;

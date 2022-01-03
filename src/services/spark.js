@@ -74,7 +74,6 @@ export function getSavedSearches(){
         axiosSpark(options).then(function(result){
             resolve(result.data);
         }).catch(function(err){
-            console.log(err);
             reject(err);
         });
     });
@@ -126,6 +125,36 @@ export function createEmailMustache(id){
     });
 }
 
+export function getAccount(id){
+    return new Promise(function(resolve, reject){
+        var url = process.env.REACT_APP_API + "spark/accounts/" + id;
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosSpark(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
+export function getConstant(savedSearchId){
+    return new Promise(function(resolve, reject){
+        var url = process.env.REACT_APP_API + "spark/constants?savedSearchId="+savedSearchId;
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosSpark(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
 const spark = {
     getCollections,
     getCollection,
@@ -134,6 +163,8 @@ const spark = {
     getSavedSearches,
     getSavedSearchListings,
     createEmail,
-    createEmailMustache
+    createEmailMustache,
+    getAccount,
+    getConstant
 };
 export default spark;
