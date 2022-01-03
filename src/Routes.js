@@ -8,6 +8,7 @@ import HomePage from './containers/HomePage';
 import SavedSearchesPage from './containers/SavedSearchesPage';
 import Spark from './containers/Spark';
 import ConstantContact from './containers/ConstantContact';
+import HelpPage from './containers/HelpPage';
 
 class AppRoutes extends React.Component {
     render(){
@@ -47,6 +48,12 @@ class AppRoutes extends React.Component {
                     />
                 }
             />
+            <Route
+                path="/help"
+                element={<HelpPage />}
+            />
+
+
             <Route
                 path="/sparkauth"
                 element={<Spark />}

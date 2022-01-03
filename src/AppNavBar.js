@@ -19,13 +19,20 @@ class AppNavBar extends React.Component {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
                 <Nav.Item>
-                    <Nav.Link href="/home">
+                <Nav.Link style={{color: "white"}} href="/home">
                         <span>Home</span>
                     </Nav.Link>
               
                 </Nav.Item>
+
                 <Nav.Item>
-                    <Nav.Link href="/savedsearches">
+                    <Nav.Link style={{color: "white"}} href="/help">
+                        <span>Help</span>
+                    </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                <Nav.Link style={{color: "white"}} href="/savedsearches">    
                         <span>Saved Searches</span>
                     </Nav.Link>
                 </Nav.Item>

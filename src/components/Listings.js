@@ -46,7 +46,7 @@ class Listings extends React.Component{
             </Navbar>
             { listings ?
             <ListGroup>
-                {listings.map((listing, index) =>
+                {listings.slice(0, 7).map((listing, index) =>
                 (
                     <ListingItem
                         index={index}

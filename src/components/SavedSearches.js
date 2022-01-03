@@ -15,6 +15,7 @@ function SavedSearchItem(props){
     return(
        <ListGroup.Item
            active={active}
+           style={{cursor: "pointer"}}
            onClick={() => props.onSavedSearchSelect(props.savedSearch.Id, props.savedSearch.Name)}
        >
            <span>{props.savedSearch.Name}</span>
