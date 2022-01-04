@@ -26,16 +26,24 @@ class AppNavBar extends React.Component {
                 </Nav.Item>
 
                 <Nav.Item>
+                <Nav.Link style={{color: "white"}} href="/savedsearches">    
+                        <span>Saved Searches</span>
+                    </Nav.Link>
+                </Nav.Item>
+                
+                <Nav.Item>
+                    <Nav.Link style={{color: "white"}} href="/contacts">
+                        <span>Contacts</span>
+                    </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
                     <Nav.Link style={{color: "white"}} href="/help">
                         <span>Help</span>
                     </Nav.Link>
                 </Nav.Item>
 
-                <Nav.Item>
-                <Nav.Link style={{color: "white"}} href="/savedsearches">    
-                        <span>Saved Searches</span>
-                    </Nav.Link>
-                </Nav.Item>
+
                 <Nav.Item>
                     <Nav.Link eventKey="link-1">
                         <AccountButton

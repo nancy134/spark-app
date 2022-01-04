@@ -9,12 +9,19 @@ import SavedSearchesPage from './containers/SavedSearchesPage';
 import Spark from './containers/Spark';
 import ConstantContact from './containers/ConstantContact';
 import HelpPage from './containers/HelpPage';
+import ContactPage from './containers/ContactPage';
 
 class AppRoutes extends React.Component {
     render(){
         return(
             <BrowserRouter>
             <Routes>
+                
+            <Route
+                path="/contacts"
+                element={<ContactPage />}
+            />
+
             <Route
                 path="/"
                 element={
