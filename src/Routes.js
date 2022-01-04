@@ -16,6 +16,13 @@ class AppRoutes extends React.Component {
             <BrowserRouter>
             <Routes>
             <Route
+                path="/"
+                element={
+                    <HomePage
+                    />
+                }
+            />
+            <Route
                 path="/home"
                 element={
                     <HomePage
