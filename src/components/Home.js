@@ -23,6 +23,46 @@ class Home extends React.Component{
                   </MDBCol>
               </MDBRow>
               </MDBContainer>
+              
+              <MDBRow className="bg-light">
+                  <MDBCol>
+                  </MDBCol>
+                  <MDBCol >
+                      <div className="text-center px-5 pt-3">
+                          <h1>Sync Constant Contacts</h1>
+                          <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">
+                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                          </p>
+                      </div>
+                  </MDBCol>
+              </MDBRow>
+
+              <MDBRow className="bg-light">
+                  <MDBCol>
+                  </MDBCol>
+                  <MDBCol >
+                      <div className="text-center px-5 pt-3">
+                          <h1>Generate Constant Contact Email</h1>
+                          <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">
+                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                          </p>
+                      </div>
+                  </MDBCol>
+              </MDBRow>
+              <MDBRow >
+                  <MDBCol >
+                      <div className="text-center px-5 pt-3">
+                          <h1>Pricing</h1>
+                          <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">
+                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                          </p>
+                      </div>
+                  </MDBCol>
+                  <MDBCol>
+                  </MDBCol>
+              </MDBRow>
+
+
               <MDBFooter backgroundColor='light' className='text-center text-lg-left'>
               <MDBContainer className='p-4'>    
               <MDBRow>
