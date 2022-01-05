@@ -22,7 +22,6 @@ class Home extends React.Component{
                   <MDBCol>
                   </MDBCol>
               </MDBRow>
-              </MDBContainer>
               
               <MDBRow className="bg-light">
                   <MDBCol>
@@ -37,9 +36,7 @@ class Home extends React.Component{
                   </MDBCol>
               </MDBRow>
 
-              <MDBRow className="bg-light">
-                  <MDBCol>
-                  </MDBCol>
+              <MDBRow>
                   <MDBCol >
                       <div className="text-center px-5 pt-3">
                           <h1>Generate Constant Contact Email</h1>
@@ -48,8 +45,12 @@ class Home extends React.Component{
                           </p>
                       </div>
                   </MDBCol>
+                  <MDBCol>
+                  </MDBCol>
               </MDBRow>
-              <MDBRow >
+              <MDBRow className="bg-light" >
+                  <MDBCol>
+                  </MDBCol>
                   <MDBCol >
                       <div className="text-center px-5 pt-3">
                           <h1>Pricing</h1>
@@ -58,10 +59,8 @@ class Home extends React.Component{
                           </p>
                       </div>
                   </MDBCol>
-                  <MDBCol>
-                  </MDBCol>
               </MDBRow>
-
+              </MDBContainer>
 
               <MDBFooter backgroundColor='light' className='text-center text-lg-left'>
               <MDBContainer className='p-4'>    
