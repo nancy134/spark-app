@@ -20,13 +20,22 @@ class Home extends React.Component{
                       </div>
                   </MDBCol>
                   <MDBCol>
+                      <img 
+                          src="https://mu-s3-images.s3.amazonaws.com/PlaceholderImage.png"
+                          class="img-fluid" 
+                          alt="placeholder" 
+                      />
                   </MDBCol>
               </MDBRow>
               
               <MDBRow className="bg-light">
-                  <MDBCol>
-                  </MDBCol>
-                  <MDBCol >
+              <MDBCol>
+                      <img 
+                          src="https://mu-s3-images.s3.amazonaws.com/PlaceholderImage.png"
+                          class="img-fluid" 
+                          alt="placeholder" 
+                      />
+                  </MDBCol>                  <MDBCol >
                       <div className="text-center px-5 pt-3">
                           <h1>Sync Constant Contacts</h1>
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">
@@ -46,10 +55,20 @@ class Home extends React.Component{
                       </div>
                   </MDBCol>
                   <MDBCol>
+                      <img 
+                          src="https://mu-s3-images.s3.amazonaws.com/PlaceholderImage.png"
+                          class="img-fluid" 
+                          alt="placeholder" 
+                      />
                   </MDBCol>
               </MDBRow>
               <MDBRow className="bg-light" >
-                  <MDBCol>
+              <MDBCol>
+                      <img 
+                          src="https://mu-s3-images.s3.amazonaws.com/PlaceholderImage.png"
+                          class="img-fluid" 
+                          alt="placeholder" 
+                      />
                   </MDBCol>
                   <MDBCol >
                       <div className="text-center px-5 pt-3">
