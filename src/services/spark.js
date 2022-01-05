@@ -155,6 +155,22 @@ export function getConstant(savedSearchId){
     });
 }
 
+export function createConstant(body){
+    return new Promise(function(resolve, reject){
+        var url = process.env.REACT_APP_API + "/spark/constants";
+        var options = {
+            url: url,
+            method: 'POST',
+            data: body
+        };
+        axiosSpark(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+             reject(err);
+        });
+    });
+}
+
 const spark = {
     getCollections,
     getCollection,
@@ -165,6 +181,7 @@ const spark = {
     createEmail,
     createEmailMustache,
     getAccount,
-    getConstant
+    getConstant,
+    createConstant
 };
 export default spark;

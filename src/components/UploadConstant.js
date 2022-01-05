@@ -22,7 +22,7 @@ class UploadConstant extends React.Component {
     }
 
     handleUpload(){
-        var name = "[test2 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test6 murban] " + this.props.selectedSavedSearchName;
         var emailCampaignActivity = {
             format_type: 5,
             from_email: this.props.account.email,
@@ -32,17 +32,23 @@ class UploadConstant extends React.Component {
             html_content: this.props.htmlContent,
             preHeader: "Your Listings"
         };
+        var accessToken = memoryService.ccAccessToken();
+        var constantBody = {
+            accessToken: accessToken,
+            name: name,
+            email_campaign_activities: [emailCampaignActivity]
+        };
+
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
             console.log(result);
+            constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
+                console.log(campaign);
+            }).catch(function(err){
+                console.log(err);
+            });
         }).catch(function(err){
             if (err && err.response && err.response.data === "not found"){
-                var accessToken = memoryService.ccAccessToken();
-                var constantBody = {
-                    accessToken: accessToken,
-                    name: name,
-                    email_campaign_activities: [emailCampaignActivity]
-                };
                 constantService.createCampaign(JSON.stringify(constantBody)).then(function(campaign){
                     console.log(campaign);
                     var savedSearchBody = {
@@ -50,9 +56,16 @@ class UploadConstant extends React.Component {
                         constantId: campaign.campaign_id
                     };
                     console.log(savedSearchBody);
+                    sparkService.createConstant(savedSearchBody).then(function(constant){
+                        console.log(constant);
+                    }).catch(function(err){
+                        console.log(err);
+                    });
                 }).catch(function(err){
                     console.log(err);
                 });
+            } else {
+                console.log(err);
             }
         });
     }
