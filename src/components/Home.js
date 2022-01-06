@@ -96,23 +96,23 @@ class Home extends React.Component{
                   <h5 className='text-uppercase'>Links</h5>
                   <ul className='list-unstyled mb-0'>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 1
+                    <a href='/Home' className='text-dark'>
+                        Home
                       </a>
                     </li>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 2
+                    <a href='/savedsearches' className='text-dark'>
+                        Saved Searches
                       </a>
                     </li>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 3
+                    <a href='/contacts' className='text-dark'>
+                        Contacts
                       </a>
                     </li>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 4
+                    <a href='/help' className='text-dark'>
+                        Help
                       </a>
                     </li>
                   </ul>
@@ -121,23 +121,28 @@ class Home extends React.Component{
                   <h5 className='text-uppercase mb-0'>Links</h5>
                   <ul className='list-unstyled'>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 1
+                    <a href='/AboutPage' className='text-dark'>
+                        About
                       </a>
                     </li>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 2
+                    <a href='/savedsearches' className='text-dark'>
+                        Saved Searches
                       </a>
                     </li>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 3
+                    <a href='/contacts' className='text-dark'>
+                        Contacts
                       </a>
                     </li>
                     <li>
-                      <a href='#!' className='text-dark'>
-                        Link 4
+                    <a href='/help' className='text-dark'>
+                        Help
+                      </a>
+                    </li>
+                    <li>
+                    <a href='/contacts' className='text-dark'>
+                        Contacts
                       </a>
                     </li>
                   </ul>

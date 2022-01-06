@@ -13,7 +13,7 @@ class AppNavBar extends React.Component {
        <Navbar bg="dark" variant="dark">
             <Container>
             <Navbar.Brand href="./home">
-<img src="https://img.icons8.com/ios/50/ffffff/cottage--v1.png"/>
+            <img src="https://img.icons8.com/ios/50/ffffff/cottage--v1.png"/>
                 <span>&nbsp;Murban</span>
             </Navbar.Brand>
             <Navbar.Toggle />

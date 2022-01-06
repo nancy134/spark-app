@@ -10,6 +10,7 @@ import Spark from './containers/Spark';
 import ConstantContact from './containers/ConstantContact';
 import HelpPage from './containers/HelpPage';
 import ContactPage from './containers/ContactPage';
+import AboutPage from './containers/AboutPage';
 
 class AppRoutes extends React.Component {
     render(){
@@ -67,6 +68,10 @@ class AppRoutes extends React.Component {
                 element={<HelpPage />}
             />
 
+            <Route
+                path="/about"
+                element={<AboutPage />}
+            />
 
             <Route
                 path="/sparkauth"
