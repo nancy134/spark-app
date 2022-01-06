@@ -140,11 +140,25 @@ class Home extends React.Component{
                         Help
                       </a>
                     </li>
+                    
                     <li>
-                    <a href='/contacts' className='text-dark'>
-                        Contacts
+                      <a href='/terms' className='text-dark'>
+                        Terms
                       </a>
                     </li>
+
+                    <li>
+                      <a href='/privacy' className='text-dark'>
+                        Privacy
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href='/contact' className='text-dark'>
+                        Contact
+                      </a>
+                    </li>
+
                   </ul>
                 </MDBCol>
               </MDBRow>
