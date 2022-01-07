@@ -115,6 +115,13 @@ class Home extends React.Component{
                         Help
                       </a>
                     </li>
+
+                    <li>
+                    <a href='/pricing' className='text-dark'>
+                        Pricing
+                      </a>
+                    </li>
+
                   </ul>
                 </MDBCol>
                 <MDBCol lg='2' md='6' className='mb-4 mb-md-0'>

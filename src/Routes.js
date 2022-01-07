@@ -4,6 +4,7 @@ import {
     Routes,
     Route
 } from 'react-router-dom';
+
 import HomePage from './containers/HomePage';
 import SavedSearchesPage from './containers/SavedSearchesPage';
 import Spark from './containers/Spark';
@@ -11,6 +12,8 @@ import ConstantContact from './containers/ConstantContact';
 import HelpPage from './containers/HelpPage';
 import ContactPage from './containers/ContactPage';
 import AboutPage from './containers/AboutPage';
+import AccountPage from './containers/AccountPage';
+import Privacy from './containers/Privacy';
 
 class AppRoutes extends React.Component {
     render(){
@@ -71,6 +74,16 @@ class AppRoutes extends React.Component {
             <Route
                 path="/about"
                 element={<AboutPage />}
+            />
+
+            <Route
+                path="/account"
+                element={<AccountPage />}
+            />
+
+            <Route
+                path="/privacy"
+                element={<Privacy />}
             />
 
             <Route
