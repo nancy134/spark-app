@@ -93,7 +93,7 @@ class Home extends React.Component{
                   </p>
                 </MDBCol>
                 <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                  <h5 className='text-uppercase'>Links</h5>
+                  <h5 className='text-uppercase'>Features</h5>
                   <ul className='list-unstyled mb-0'>
                     <li>
                     <a href='/Home' className='text-dark'>
@@ -118,28 +118,14 @@ class Home extends React.Component{
                   </ul>
                 </MDBCol>
                 <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                  <h5 className='text-uppercase mb-0'>Links</h5>
+                  <h5 className='text-uppercase mb-0'>About Us</h5>
                   <ul className='list-unstyled'>
                     <li>
                     <a href='/AboutPage' className='text-dark'>
                         About
                       </a>
                     </li>
-                    <li>
-                    <a href='/savedsearches' className='text-dark'>
-                        Saved Searches
-                      </a>
-                    </li>
-                    <li>
-                    <a href='/contacts' className='text-dark'>
-                        Contacts
-                      </a>
-                    </li>
-                    <li>
-                    <a href='/help' className='text-dark'>
-                        Help
-                      </a>
-                    </li>
+ 
                     
                     <li>
                       <a href='/terms' className='text-dark'>
@@ -165,8 +151,8 @@ class Home extends React.Component{
             </MDBContainer>
             <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
               &copy; {new Date().getFullYear()}{' '}
-              <a className='text-dark' href='https://mdbootstrap.com/'>
-                MDBootstrap.com
+              <a className='text-dark' href='/home'>
+                Murban, LLC.
               </a>
             </div>
           </MDBFooter>
