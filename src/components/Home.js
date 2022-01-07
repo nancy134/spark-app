@@ -93,7 +93,7 @@ class Home extends React.Component{
                   </p>
                 </MDBCol>
                 <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                  <h5 className='text-uppercase'>Features</h5>
+                  <h5 className='text-uppercase'>FEATURES</h5>
                   <ul className='list-unstyled mb-0'>
                     <li>
                     <a href='/Home' className='text-dark'>
@@ -118,7 +118,7 @@ class Home extends React.Component{
                   </ul>
                 </MDBCol>
                 <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                  <h5 className='text-uppercase mb-0'>About Us</h5>
+                  <h5 className='text-uppercase mb-0'>ABOUT US</h5>
                   <ul className='list-unstyled'>
                     <li>
                     <a href='/AboutPage' className='text-dark'>
@@ -147,7 +147,32 @@ class Home extends React.Component{
 
                   </ul>
                 </MDBCol>
+
+
+
+                <MDBCol lg='2' md='6' className='mb-4 mb-md-0'>
+                  <h5 className='text-uppercase mb-0'>ACCOUNT</h5>
+                  <ul className='list-unstyled'>
+                    <li>
+                    <a href='/MyAccount' className='text-dark'>
+                        My Account
+                      </a>
+                    </li>
+ 
+                    
+                    <li>
+                      <a href='/Logout' className='text-dark'>
+                        Logout
+                      </a>
+                    </li>
+
+
+                  </ul>
+                </MDBCol>
+
+
               </MDBRow>
+
             </MDBContainer>
             <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
               &copy; {new Date().getFullYear()}{' '}
