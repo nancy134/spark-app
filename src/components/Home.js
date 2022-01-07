@@ -92,7 +92,7 @@ class Home extends React.Component{
                     cumque eum delectus sint!
                   </p>
                 </MDBCol>
-                <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
+                <MDBCol lg='2' md='6' className='mb-4 mb-md-0'>
                   <h5 className='text-uppercase'>FEATURES</h5>
                   <ul className='list-unstyled mb-0'>
                     <li>
@@ -117,7 +117,7 @@ class Home extends React.Component{
                     </li>
                   </ul>
                 </MDBCol>
-                <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
+                <MDBCol lg='2' md='6' className='mb-4 mb-md-0'>
                   <h5 className='text-uppercase mb-0'>ABOUT US</h5>
                   <ul className='list-unstyled'>
                     <li>
