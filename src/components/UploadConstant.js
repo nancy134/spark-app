@@ -72,8 +72,12 @@ class UploadConstant extends React.Component {
     }
 
     componentDidMount(){
-        constantService.getCampaigns().then(function(campaigns){
-            console.log(campaigns);
+        var that = this;
+        sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
+            console.log(result);
+            that.setState({
+                campaign_name: result.name
+            });
         }).catch(function(err){
             console.log(err);
         });
@@ -95,15 +99,16 @@ class UploadConstant extends React.Component {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Row>
-                    <Col>
-                        <Button
-                            onClick={this.handleUpload}
+            <Row>
+                <Col>
+                    <Button
+                        onClick={this.handleUpload}
                         >
-                            Upload to Constant Contact
-                        </Button>
-                    </Col>
-                </Row>
+                        Upload to Constant Contact
+                    </Button>
+                    <p>{this.state.campaign_name}</p>
+                </Col>
+            </Row>
             </Modal.Body>
             <Modal.Footer>
                 <Button
