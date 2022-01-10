@@ -63,6 +63,12 @@ class UploadAuthConstant extends React.Component {
             constantHelper.getAuthToken(that, code, this.state.redirect_uri).then(function(result){
                 console.log(result);
                 constantService.getAccount().then(function(account){
+                    var name = account.first_name + " " + account.last_name;
+                    var organization = account.organization_name;
+                    that.setState({
+                        name: name,
+                        organization: organization
+                    });
                     console.log(account);
                 }).catch(function(err){
                     console.log(err);
@@ -134,8 +140,13 @@ class UploadAuthConstant extends React.Component {
                             Login Constant Contact
                         </Button>
                         :
-                        <p>You're logged into Constant Contact</p> 
+                        <div>
+                        <p>You're logged into Constant Contact</p>
+                        <p>{this.state.name}</p>
+                        <p>{this.state.organization}</p>
+                        </div>
                         }
+
                     </Col>
                 </Row>
             </Modal.Body>
