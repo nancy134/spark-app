@@ -33,12 +33,16 @@ function createAuthUrl(that){
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
             console.log(result);
-            var hostname = window.location.hostname;
+
+ var hostname = window.location.hostname;
             var protocol = window.location.protocol;
+            var port = window.location.port;
             var redirect_uri =
                 protocol +
                 "//" +
                 hostname +
+                ":" +
+                port +
                 "/constantcontact";
 
             var url =

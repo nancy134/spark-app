@@ -22,7 +22,8 @@ class UploadConstant extends React.Component {
     }
 
     handleUpload(){
-        var name = "[test6 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test7 murban] " + this.props.selectedSavedSearchName;
+
         var emailCampaignActivity = {
             format_type: 5,
             from_email: this.props.account.email,

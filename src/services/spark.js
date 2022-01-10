@@ -157,7 +157,8 @@ export function getConstant(savedSearchId){
 
 export function createConstant(body){
     return new Promise(function(resolve, reject){
-        var url = process.env.REACT_APP_API + "/spark/constants";
+        //var url = process.env.REACT_APP_API + "/spark/constants";
+          var url = process.env.REACT_APP_API + "spark/constants";
         var options = {
             url: url,
             method: 'POST',
