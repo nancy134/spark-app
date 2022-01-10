@@ -30,6 +30,7 @@ class WizardUpload extends React.Component{
         this.setState({
             showUploadAuthConstant: false
         });
+        this.props.onCancel();
     }
 
     handleUploadConstantNext(){
@@ -40,6 +41,7 @@ class WizardUpload extends React.Component{
         this.setState({
             showUplaodConstant: false
         });
+        this.props.onCancel();
     }
 
     render(){

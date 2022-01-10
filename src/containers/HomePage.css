@@ -42,8 +42,7 @@ html, body {
 }
 .frame-container{
     width: 100%;
-    height: calc(100% - 70px);
-    border: 1;
+    height: calc(100% - 170px);
 }
 
 .homeLeft{

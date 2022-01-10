@@ -71,11 +71,27 @@ function updateCampaign(campaignId, body){
     });
 }
 
+function getAccount(){
+    var url = process.env.REACT_APP_API + 'cc/accounts';
+    return new Promise(function(resolve, reject){
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosInstance(options).then(function(response){
+            resolve(response.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
 const constant = {
     createCampaign,
     tokenInfo,
     updateCampaign,
-    getCampaigns
+    getCampaigns,
+    getAccount
 };
 export default constant;
 

@@ -7,13 +7,14 @@ import {
 }
 from 'react-bootstrap';
 import WizardUpload from '../components/WizardUpload';
-import sparkService from '../services/spark';
 
 class Preview extends React.Component{
     constructor(props){
         super(props);
         this.handlePreviewEmail = this.handlePreviewEmail.bind(this);
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
+        this.handleUploadEmailCancel = this.handleUploadEmailCancel.bind(this);
+
         this.state = {
             showWizardUpload: false
         };
@@ -29,10 +30,16 @@ class Preview extends React.Component{
         });
     }
 
+    handleUploadEmailCancel(){
+        this.setState({
+            showWizardUpload: false
+        });
+    }
 
     render(){
         return(
         <React.Fragment>
+            { this.state.showWizardUpload ?
             <WizardUpload
                 start={this.state.showWizardUpload}
                 html={this.props.previewUrl}
@@ -41,7 +48,9 @@ class Preview extends React.Component{
                 account={this.props.account}
                 selectedSavedSearch={this.props.selectedSavedSearch}
                 selectedSavedSearchName={this.props.selectedSavedSearchName}
+                onCancel={this.handleUploadEmailCancel}
             />
+            : null }
             <div className="main-container">
             <div className="child scrollable">
             <Navbar bg="light" expand="lg" sticky="top">

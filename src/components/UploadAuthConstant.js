@@ -6,6 +6,7 @@ import {
     Col
 } from 'react-bootstrap';
 import constantHelper from '../helpers/constant';
+import constantService from '../services/constant';
 
 let windowObjectReference = null;
 let previousUrl = null;
@@ -29,6 +30,11 @@ class UploadAuthConstant extends React.Component {
         var that = this;
         constantHelper.getAuthUrl(that).then(function(result){
             console.log(result);
+            constantService.getAccount().then(function(account){
+                console.log(account);
+            }).catch(function(err){
+                console.log(err);
+            });
         }).catch(function(err){
             console.log(err);
         });    
@@ -56,6 +62,11 @@ class UploadAuthConstant extends React.Component {
 
             constantHelper.getAuthToken(that, code, this.state.redirect_uri).then(function(result){
                 console.log(result);
+                constantService.getAccount().then(function(account){
+                    console.log(account);
+                }).catch(function(err){
+                    console.log(err);
+                });
             }).catch(function(err){
                 console.log(err);
             });
