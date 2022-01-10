@@ -1,5 +1,5 @@
 import memoryStorageService from '../services/memoryStorage';
-import constantService from '../services/spark';
+import constantService from '../services/constant';
 import authService from '../services/auth';
 
 function updateAccessToken(that, accessToken, refreshToken){
