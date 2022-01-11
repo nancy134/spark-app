@@ -26,7 +26,7 @@ class UploadConstant extends React.Component {
         this.setState({
             loading: true
         });
-        var name = "[test7 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test8 murban] " + this.props.selectedSavedSearchName;
 
         var emailCampaignActivity = {
             format_type: 5,
@@ -47,9 +47,9 @@ class UploadConstant extends React.Component {
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
-                this.stateState({ loading: false});
+                that.setState({ loading: false});
             }).catch(function(err){
-                this.stateState({ loading: false});
+                that.setState({ loading: false});
             });
         }).catch(function(err){
             if (err && err.response && err.response.data === "not found"){
@@ -59,15 +59,18 @@ class UploadConstant extends React.Component {
                         constantId: campaign.campaign_id
                     };
                     sparkService.createConstant(savedSearchBody).then(function(constant){
-                        this.stateState({ loading: false});
+                        that.setState({ 
+                            loading: false,
+                            campaign_name: campaign.name
+                        });
                     }).catch(function(err){
-                        this.stateState({ loading: false});
+                        that.setState({ loading: false});
                     });
                 }).catch(function(err){
-                    this.stateState({ loading: false});
+                    that.setState({ loading: false});
                 });
             } else {
-                this.stateState({ loading: false});
+                that.setState({ loading: false});
             }
         });
     }
@@ -114,10 +117,12 @@ class UploadConstant extends React.Component {
                     </Button>
 
                     <p>{this.state.campaign_name}</p>
+                    { this.state.loading ?
                     <Spinner
                         animation="border"
                         variant="primary"
                     />
+                    : null}
 
                 </Col>
             </Row>
@@ -129,7 +134,7 @@ class UploadConstant extends React.Component {
                     Cancel
                 </Button>
                 <Button
-                    onClick={this.handleNext}
+                    onClick={this.props.onNext}
                 >
                     Done
                 </Button>
