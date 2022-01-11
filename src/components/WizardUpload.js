@@ -34,7 +34,7 @@ class WizardUpload extends React.Component{
     }
 
     handleUploadConstantNext(){
-        console.log("handleUploadConstantNext");
+        this.props.onDone();
     }
 
     handleUploadConstantCancel(){

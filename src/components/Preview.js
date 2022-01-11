@@ -14,6 +14,7 @@ class Preview extends React.Component{
         this.handlePreviewEmail = this.handlePreviewEmail.bind(this);
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
         this.handleUploadEmailCancel = this.handleUploadEmailCancel.bind(this);
+        this.handleUploadEmailDone = this.handleUploadEmailDone.bind(this);
 
         this.state = {
             showWizardUpload: false
@@ -36,7 +37,13 @@ class Preview extends React.Component{
         });
     }
 
+    handleUploadEmailDone(){
+        this.setState({
+            showWizardUpload: false
+        });
+    }
     render(){
+
         return(
         <React.Fragment>
             { this.state.showWizardUpload ?
@@ -49,6 +56,7 @@ class Preview extends React.Component{
                 selectedSavedSearch={this.props.selectedSavedSearch}
                 selectedSavedSearchName={this.props.selectedSavedSearchName}
                 onCancel={this.handleUploadEmailCancel}
+                onDone={this.handleUploadEmailDone}
             />
             : null }
             <div className="main-container">

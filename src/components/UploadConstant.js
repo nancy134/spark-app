@@ -3,7 +3,8 @@ import {
     Modal,
     Button,
     Row,
-    Col
+    Col,
+    Spinner
 } from 'react-bootstrap';
 import constantService from '../services/constant';
 import sparkService from '../services/spark';
@@ -22,6 +23,9 @@ class UploadConstant extends React.Component {
     }
 
     handleUpload(){
+        this.setState({
+            loading: true
+        });
         var name = "[test7 murban] " + this.props.selectedSavedSearchName;
 
         var emailCampaignActivity = {
@@ -42,41 +46,43 @@ class UploadConstant extends React.Component {
 
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
-            console.log(result);
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
-                console.log(campaign);
+                this.stateState({ loading: false});
             }).catch(function(err){
-                console.log(err);
+                this.stateState({ loading: false});
             });
         }).catch(function(err){
             if (err && err.response && err.response.data === "not found"){
                 constantService.createCampaign(JSON.stringify(constantBody)).then(function(campaign){
-                    console.log(campaign);
                     var savedSearchBody = {
                         savedSearchId: that.props.selectedSavedSearch,
                         constantId: campaign.campaign_id
                     };
-                    console.log(savedSearchBody);
                     sparkService.createConstant(savedSearchBody).then(function(constant){
-                        console.log(constant);
+                        this.stateState({ loading: false});
                     }).catch(function(err){
-                        console.log(err);
+                        this.stateState({ loading: false});
                     });
                 }).catch(function(err){
-                    console.log(err);
+                    this.stateState({ loading: false});
                 });
             } else {
-                console.log(err);
+                this.stateState({ loading: false});
             }
         });
     }
+
 
     componentDidMount(){
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
             console.log(result);
-            that.setState({
-                campaign_name: result.name
+            constantService.getCampaign(result.constantId).then(function(campaign){
+                that.setState({
+                    campaign_name: campaign.name
+                });
+            }).catch(function(err){
+                console.log(err);
             });
         }).catch(function(err){
             console.log(err);
@@ -106,7 +112,13 @@ class UploadConstant extends React.Component {
                         >
                         Upload to Constant Contact
                     </Button>
+
                     <p>{this.state.campaign_name}</p>
+                    <Spinner
+                        animation="border"
+                        variant="primary"
+                    />
+
                 </Col>
             </Row>
             </Modal.Body>
@@ -119,7 +131,7 @@ class UploadConstant extends React.Component {
                 <Button
                     onClick={this.handleNext}
                 >
-                    Next
+                    Done
                 </Button>
             </Modal.Footer>
         </Modal>

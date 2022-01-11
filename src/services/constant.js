@@ -86,12 +86,32 @@ function getAccount(){
     });
 }
 
+function getCampaign(id){
+    var url = process.env.REACT_APP_API + 'cc/emails/' +id;
+    return new Promise(function(resolve, reject){
+        var options = {
+            url: url,
+            method: 'GET'
+        }
+        axiosInstance(options).then(function(response){
+            resolve(response.data);
+        }).catch(function(err){
+            if (err.response && err.response.data)
+                reject(err.response.data);
+            else
+                reject(err);
+        });
+    });
+}
+
 const constant = {
     createCampaign,
     tokenInfo,
     updateCampaign,
     getCampaigns,
+    getCampaign,
     getAccount
 };
+
 export default constant;
 
