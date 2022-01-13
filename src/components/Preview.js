@@ -15,7 +15,7 @@ class Preview extends React.Component{
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
         this.handleUploadEmailCancel = this.handleUploadEmailCancel.bind(this);
         this.handleUploadEmailDone = this.handleUploadEmailDone.bind(this);
-
+        this.handleViewEmail = this.handleViewEmail.bind(this);
         this.state = {
             showWizardUpload: false
         };
@@ -38,11 +38,16 @@ class Preview extends React.Component{
     }
 
     handleUploadEmailDone(id){
-        console.log("handleUploadEmailDone id: "+id);
-            this.setState({
-            showWizardUpload: false
+        this.setState({
+            showWizardUpload: false,
+            constantId: id
         });
     }
+    handleViewEmail(){
+        console.log("handleViewEmail");
+    }
+
+
     render(){
 
         return(
@@ -89,12 +94,22 @@ class Preview extends React.Component{
                 </Button>
                 </span>
                 <span className="px-3">
-                <Button onClick={this.handleUploadEmail}>
-                      
-                    <div>Upload</div>
-                    <div>to</div>
-                    <div>Constant Contact</div>
-                </Button>
+
+                { this.state.constantId ?
+                     <Button onClick={this.handleViewEmail}>
+                     <div>View Email</div>
+                     <div>in</div>
+                     <div>Constant Contact</div>
+                 </Button>
+                 :
+                 <Button onClick={this.handleUploadEmail}>
+
+                     <div>Upload</div>
+                     <div>to</div>
+                     <div>Constant Contact</div>
+                 </Button>
+                 }
+
                 </span>
 		</span>
                 : null }
