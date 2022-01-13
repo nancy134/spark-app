@@ -37,8 +37,9 @@ class Preview extends React.Component{
         });
     }
 
-    handleUploadEmailDone(){
-        this.setState({
+    handleUploadEmailDone(id){
+        console.log("handleUploadEmailDone id: "+id);
+            this.setState({
             showWizardUpload: false
         });
     }
