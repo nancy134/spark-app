@@ -16,6 +16,7 @@ class UploadConstant extends React.Component {
         super(props);
 
         this.handleUpload = this.handleUpload.bind(this);
+        this.handleDone = this.handleDone.bind(this);
 
         this.state = {
             numCampaigns: 0
@@ -47,7 +48,11 @@ class UploadConstant extends React.Component {
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
-                that.setState({ loading: false});
+                that.setState({
+                    loading: false,
+                    constantId: result.constantId
+                });
+               that.setState({ loading: false});
             }).catch(function(err){
                 that.setState({ loading: false});
             });
@@ -76,6 +81,11 @@ class UploadConstant extends React.Component {
     }
 
 
+    handleDone(){
+        console.log("this.state.constantId: "+this.state.constantId);
+        this.props.onNext(this.state.constantId);
+    }
+
     componentDidMount(){
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
@@ -93,6 +103,8 @@ class UploadConstant extends React.Component {
     }
 
    render(){
+        var doneDisabled = true;
+        if (this.state.constantId) doneDisabled = false;
        return(
         <Modal
             show={this.props.show}
@@ -134,8 +146,9 @@ class UploadConstant extends React.Component {
                     Cancel
                 </Button>
                 <Button
-                    onClick={this.props.onNext}
-                >
+                     disabled={doneDisabled}
+                     onClick={this.handleDone}
+                 >
                     Done
                 </Button>
             </Modal.Footer>
