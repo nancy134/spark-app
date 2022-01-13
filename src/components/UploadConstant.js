@@ -50,7 +50,7 @@ class UploadConstant extends React.Component {
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
                 that.setState({
                     loading: false,
-                    constantId: result.constantId
+                    constantId: campaign.campaign_activity_id
                 });
                that.setState({ loading: false});
             }).catch(function(err){
@@ -61,7 +61,7 @@ class UploadConstant extends React.Component {
                 constantService.createCampaign(JSON.stringify(constantBody)).then(function(campaign){
                     var savedSearchBody = {
                         savedSearchId: that.props.selectedSavedSearch,
-                        constantId: campaign.campaign_id
+                        constantId: campaign.campaign_activity_id
                     };
                     sparkService.createConstant(savedSearchBody).then(function(constant){
                         that.setState({ 
