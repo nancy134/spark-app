@@ -43,8 +43,13 @@ class Preview extends React.Component{
             constantId: id
         });
     }
+    
     handleViewEmail(){
-        console.log("handleViewEmail");
+        var url =
+            "https://app.constantcontact.com/pages/ace/v1#/" +
+            this.state.constantId;
+
+        window.open(url, "_blank");
     }
 
 
