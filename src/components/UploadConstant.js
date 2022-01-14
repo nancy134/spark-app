@@ -27,7 +27,7 @@ class UploadConstant extends React.Component {
         this.setState({
             loading: true
         });
-        var name = "[test8 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test10 murban] " + this.props.selectedSavedSearchName;
 
         var emailCampaignActivity = {
             format_type: 5,
@@ -48,9 +48,11 @@ class UploadConstant extends React.Component {
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
+                console.log("update campaign:");
+                console.log(campaign);
                 that.setState({
                     loading: false,
-                    constantId: campaign.campaign_activity_id
+                    activityId: campaign.campaign_activity_id
                 });
                that.setState({ loading: false});
             }).catch(function(err){
@@ -59,14 +61,25 @@ class UploadConstant extends React.Component {
         }).catch(function(err){
             if (err && err.response && err.response.data === "not found"){
                 constantService.createCampaign(JSON.stringify(constantBody)).then(function(campaign){
+                    console.log("create campaign:");
+                    console.log(campaign);
                     var savedSearchBody = {
                         savedSearchId: that.props.selectedSavedSearch,
-                        constantId: campaign.campaign_activity_id
+                        constantId: campaign.campaign_id
                     };
+                    console.log("savedSearchBody:");
+                    console.log(savedSearchBody);
                     sparkService.createConstant(savedSearchBody).then(function(constant){
+                        var activityId = null;
+                        for (var i=0; i<campaign.campaign_activities.length; i++){
+                            if (campaign.campaign_activities[i].role === "primary_email"){
+                                activityId = campaign.campaign_activities[i].campaign_activity_id;
+                            }
+                        }
                         that.setState({ 
                             loading: false,
-                            campaign_name: campaign.name
+                            campaign_name: campaign.name,
+                            activityId: activityId 
                         });
                     }).catch(function(err){
                         that.setState({ loading: false});
@@ -82,8 +95,8 @@ class UploadConstant extends React.Component {
 
 
     handleDone(){
-        console.log("this.state.constantId: "+this.state.constantId);
-        this.props.onNext(this.state.constantId);
+        console.log("this.state.activityId: "+this.state.activityId);
+        this.props.onNext(this.state.activityId);
     }
 
     componentDidMount(){
@@ -103,8 +116,9 @@ class UploadConstant extends React.Component {
     }
 
    render(){
+        console.log("this.state.activityId: "+this.state.activityId);
         var doneDisabled = true;
-        if (this.state.constantId) doneDisabled = false;
+        if (this.state.activityId) doneDisabled = false;
        return(
         <Modal
             show={this.props.show}

@@ -16,6 +16,7 @@ class App extends React.Component {
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSavedSearchSelect = this.handleSavedSearchSelect.bind(this);
         this.handleGenerateEmail = this.handleGenerateEmail.bind(this);
+        this.handleUploadEmail = this.handleUploadEmail.bind(this);
         this.handleInitializeSavedSearches = this.handleInitializeSavedSearches.bind(this);
 
         this.state = {
@@ -77,6 +78,13 @@ class App extends React.Component {
         sparkHelper.generateEmail(that, that.state.selectedSavedSearch);
     }
 
+    handleUploadEmail(id){
+        console.log("handleUploadEmail: "+id);
+        this.setState({
+            activityId: id
+        });
+    }
+
     componentDidMount(){
       var that = this;
       var accessToken = memoryStorageService.accessToken();
@@ -129,6 +137,8 @@ class App extends React.Component {
               user={this.state.user}
               account={this.state.account}
               onInitializeSavedSearches={this.handleInitializeSavedSearches}
+              activityId={this.state.activityId}
+              onUploadEmail={this.handleUploadEmail}
           >
           </AppRoutes>
 

@@ -41,6 +41,8 @@ export class SavedSearchesPage extends React.Component {
                             selectedSavedSearchName={this.props.selectedSavedSearchName}
                             user={this.props.user}
                             account={this.props.account}
+                            activityId={this.props.activityId}
+                            onUploadEmail={this.props.onUploadEmail}
                         />
                     </div>
                 </div>

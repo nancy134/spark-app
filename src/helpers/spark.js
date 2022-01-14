@@ -190,7 +190,8 @@ function savedSearchSelect(that, accessToken, id, name){
                 listings: savedSearchListings,
                 selectedSavedSearch: id,
                 selectedSavedSearchName: name,
-                previewUrl: null
+                previewUrl: null,
+                activityId: null
             });
         
     }).catch(function(err){

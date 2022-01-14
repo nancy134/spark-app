@@ -40,21 +40,23 @@ class Preview extends React.Component{
     handleUploadEmailDone(id){
         this.setState({
             showWizardUpload: false,
-            constantId: id
         });
+        this.props.onUploadEmail(id);
     }
     
     handleViewEmail(){
         var url =
             "https://app.constantcontact.com/pages/ace/v1#/" +
-            this.state.constantId;
+            this.props.activityId;
 
         window.open(url, "_blank");
     }
 
 
     render(){
-
+        console.log("this.props.activityId: "+this.props.activityId);
+        var disableGenerateEmail = false;
+        if (this.props.previewUrl) disableGenerateEmail=true;
         return(
         <React.Fragment>
             { this.state.showWizardUpload ?
@@ -80,6 +82,7 @@ class Preview extends React.Component{
             <div className="text-center p-2">
                 <span className="px-3">
                 <Button
+                   disabled={disableGenerateEmail}
                    onClick={this.props.onGenerateEmail}
                 >
                    <div>Generate Email</div>
@@ -100,7 +103,7 @@ class Preview extends React.Component{
                 </span>
                 <span className="px-3">
 
-                { this.state.constantId ?
+                { this.props.activityId ?
                      <Button onClick={this.handleViewEmail}>
                      <div>View Email</div>
                      <div>in</div>
