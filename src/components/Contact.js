@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     MDBRow,
-    MDBCol,    
+    MDBCol,
+    MDBBtn,   
     MDBTable,
     MDBTableHead, 
     MDBTableBody
@@ -34,10 +35,16 @@ class Contact extends React.Component{
                         <td>Thornton</td>
                     </tr>
                 </MDBTableBody>
-            </MDBTable>
+
+                </MDBTable>
+            </MDBCol>
+            <MDBCol size="2">
+                <MDBBtn>Sync Contacts</MDBBtn>
             </MDBCol>
             <MDBCol>
             <MDBTable>
+
+
                 <MDBTableHead>
                     <tr>
                         <th scope='col'>#</th>
