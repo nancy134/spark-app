@@ -1,20 +1,65 @@
 import React from 'react';
+import {
+    MDBRow,
+    MDBCol,    
+    MDBTable,
+    MDBTableHead, 
+    MDBTableBody
+} from 'mdb-react-ui-kit';
 
 class Contact extends React.Component{
 
     render(){
         return(
         <React.Fragment>
-            <div >
-                <div >
-                    <div className="text-center px-5 pt-3">
-                        <h1>Constant Contact integration for FlexMLS Users</h1>
-                        <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Automatically generate Constant Contact emails from your FlexMLS Saved Searches</p>
-                        <p></p>
-                        <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Modified page</p>
-                    </div>
-                </div>
-            </div>
+            <MDBRow>
+            <MDBCol>
+            <MDBTable>
+                <MDBTableHead>
+                    <tr>
+                        <th scope='col'>#</th>
+                        <th scope='col'>First</th>
+                        <th scope='col'>Last</th>
+                    </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                    <tr>
+                        <th scope='row'>1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope='row'>2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                </MDBTableBody>
+            </MDBTable>
+            </MDBCol>
+            <MDBCol>
+            <MDBTable>
+                <MDBTableHead>
+                    <tr>
+                        <th scope='col'>#</th>
+                        <th scope='col'>First</th>
+                        <th scope='col'>Last</th>
+                    </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                    <tr>
+                        <th scope='row'>1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope='row'>2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                </MDBTableBody>
+            </MDBTable>
+            </MDBCol>
+            </MDBRow>            
         </React.Fragment>
         );
     }
