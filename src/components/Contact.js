@@ -1,12 +1,26 @@
 import React from 'react';
+import MaterialTable, {
+    Column
+} from '@material-table/core';
 import {
     MDBRow,
-    MDBCol,
-    MDBBtn,   
-    MDBTable,
-    MDBTableHead, 
-    MDBTableBody
+    MDBCol
 } from 'mdb-react-ui-kit';
+
+const lookup = { true: "Available", false: "Unavailable" };
+
+const columns = [
+  { title: "First Name", field: "firstName" },
+  { title: "Last Name", field: "lastName" },
+  { title: "Birth Year", field: "birthYear", type: "numeric" },
+  { title: "Availablity", field: "availability", lookup }
+];
+
+const data = [
+  { firstName: "Tod", lastName: "Miles", birthYear: 1987, availability: true },
+  { firstName: "Jess", lastName: "Smith", birthYear: 2000, availability: false }
+];
+
 
 class Contact extends React.Component{
 
@@ -14,59 +28,19 @@ class Contact extends React.Component{
         return(
         <React.Fragment>
             <MDBRow>
-            <MDBCol>
-            <MDBTable>
-                <MDBTableHead>
-                    <tr>
-                        <th scope='col'>#</th>
-                        <th scope='col'>First</th>
-                        <th scope='col'>Last</th>
-                    </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                    <tr>
-                        <th scope='row'>1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                    </tr>
-                </MDBTableBody>
-
-                </MDBTable>
-            </MDBCol>
-            <MDBCol size="2">
-                <MDBBtn>Sync Contacts</MDBBtn>
-            </MDBCol>
-            <MDBCol>
-            <MDBTable>
-
-
-                <MDBTableHead>
-                    <tr>
-                        <th scope='col'>#</th>
-                        <th scope='col'>First</th>
-                        <th scope='col'>Last</th>
-                    </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                    <tr>
-                        <th scope='row'>1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope='row'>2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                    </tr>
-                </MDBTableBody>
-            </MDBTable>
-            </MDBCol>
-            </MDBRow>            
+                <MDBCol>
+                <MaterialTable
+                    columns={columns}
+                    data={data}
+                />
+                </MDBCol>
+                <MDBCol>
+                <MaterialTable
+                    columns={columns}
+                    data={data}
+                />
+                </MDBCol>
+            </MDBRow>
         </React.Fragment>
         );
     }
