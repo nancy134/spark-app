@@ -2,23 +2,23 @@ import React from 'react';
 import MaterialTable, {
     Column
 } from '@material-table/core';
+
 import {
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBBtn
 } from 'mdb-react-ui-kit';
 
-const lookup = { true: "Available", false: "Unavailable" };
 
 const columns = [
   { title: "First Name", field: "firstName" },
   { title: "Last Name", field: "lastName" },
-  { title: "Birth Year", field: "birthYear", type: "numeric" },
-  { title: "Availablity", field: "availability", lookup }
 ];
 
 const data = [
-  { firstName: "Tod", lastName: "Miles", birthYear: 1987, availability: true },
-  { firstName: "Jess", lastName: "Smith", birthYear: 2000, availability: false }
+    { firstName: "Tod", lastName: "Miles" },
+    { firstName: "Jess", lastName: "Smith" }
+  
 ];
 
 
@@ -29,15 +29,21 @@ class Contact extends React.Component{
         <React.Fragment>
             <MDBRow>
                 <MDBCol>
+                <MDBBtn>Login into FlexMLS</MDBBtn>
                 <MaterialTable
                     columns={columns}
                     data={data}
-                />
+                    title="FlexMLS Contacts"
+                />                
+                </MDBCol>
+                <MDBCol size="2">
+                    <MDBBtn>Sync Contacts</MDBBtn>
                 </MDBCol>
                 <MDBCol>
-                <MaterialTable
-                    columns={columns}
+                <MDBBtn>Login into Constant Contact</MDBBtn>
+                <MaterialTable                    columns={columns}
                     data={data}
+                    title="Constant Contacts"
                 />
                 </MDBCol>
             </MDBRow>
