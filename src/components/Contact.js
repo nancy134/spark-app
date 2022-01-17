@@ -34,7 +34,22 @@ class Contact extends React.Component{
                     columns={columns}
                     data={data}
                     title="FlexMLS Contacts"
-                />                
+                    options={{
+                        selection: true
+                      }}
+                    detailPanel={({rowData}) => {
+                    return (
+                        <div
+                            style={{
+                                fontSize: 20,
+                                textAlign: 'center',
+                                height: 100
+                            }}
+                        >
+                        This is a detailed panel for {rowData.firstName}
+                        </div>
+                    )}}
+                />              
                 </MDBCol>
                 <MDBCol size="2">
                     <MDBBtn>Sync Contacts</MDBBtn>
@@ -44,6 +59,21 @@ class Contact extends React.Component{
                 <MaterialTable                    columns={columns}
                     data={data}
                     title="Constant Contacts"
+                    options={{
+                        selection: true
+                      }}
+                    detailPanel={({rowData}) => {
+                        return (
+                            <div
+                                style={{
+                                    fontSize: 20,
+                                    textAlign: 'center',
+                                    height: 100
+                                }}
+                            >
+                            This is a detailed panel for {rowData.firstName}
+                            </div>
+                        )}}
                 />
                 </MDBCol>
             </MDBRow>
