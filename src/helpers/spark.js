@@ -19,7 +19,7 @@ function getSystem(that, accessToken, refreshToken){
     return new Promise(function(resolve, reject){
         memoryStorageService.setAccessToken(accessToken);
         memoryStorageService.setRefreshToken(refreshToken);
-        sparkService.getSystem().the(function(result){
+        sparkService.getSystem().then(function(result){
             resolve(result);
         }).catch(function(err){
             reject(err);

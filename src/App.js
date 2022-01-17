@@ -44,12 +44,14 @@ class App extends React.Component {
                     loading: false
                 });
             }).catch(function(err){
+                console.log(err);
                 that.setState({
                     loggedIn: false,
                     loading: false
                 });
             });
         } else {
+            console.log(err);
             that.setState({
                 loading: false
             });
