@@ -23,7 +23,9 @@ const data = [
 
 
 class Contact extends React.Component{
-
+    handleSelectChange = (event, rowData) => {
+        console.log("[fired]::handleSelectionChange", rowData);
+    };
     render(){
         return(
         <React.Fragment>
@@ -34,6 +36,7 @@ class Contact extends React.Component{
                     columns={columns}
                     data={data}
                     title="FlexMLS Contacts"
+                    onSelectionChange={this.handleSelectChange}
                     options={{
                         selection: true
                       }}
