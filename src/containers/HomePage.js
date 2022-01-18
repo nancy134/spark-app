@@ -3,11 +3,13 @@ import './HomePage.css';
 import Home from '../components/Home';
 
 export class HomePage extends React.Component {
+    componentDidMount(){
+    }
+ 
     render(){
         return(
             <React.Fragment>
                 <Home
-                    loading={this.props.loading}
                 />
             </React.Fragment>
         );

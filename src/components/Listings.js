@@ -44,7 +44,7 @@ class Listings extends React.Component{
                 <Navbar.Brand>Listings</Navbar.Brand>
                 </Container>
             </Navbar>
-            { listings ?
+            { listings && !this.props.loadingSavedSearchListings ?
             <ListGroup>
                 {listings.slice(0, 7).map((listing, index) =>
                 (

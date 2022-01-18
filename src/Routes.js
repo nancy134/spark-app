@@ -16,6 +16,8 @@ import AccountPage from './containers/AccountPage';
 import Privacy from './containers/Privacy';
 
 class AppRoutes extends React.Component {
+    componentDidMount(){
+    }
     render(){
         return(
             <BrowserRouter>
@@ -44,16 +46,16 @@ class AppRoutes extends React.Component {
                 path="/savedsearches"
                 element={
                     <SavedSearchesPage
-                        loading={this.props.loading}
+                        appLoading={this.props.appLoading}
+                        loggingIn={this.props.loggingIn}
                         loggedIn={this.props.loggedIn}
-                        accessToken={this.props.accessToken}
-                        refreshToken={this.props.refreshToken}
                         collections={this.props.collections}
                         collectionListings={this.props.collectionListings}
                         onCollectionSelect={this.props.onCollectionSelect}
                         selectedCollection={this.props.selectedCollection}
                         savedSearches={this.props.savedSearches}
                         listings={this.props.listings}
+                        loadingSavedSearchListings={this.props.loadingSavedSearchListings}
                         onSavedSearchSelect={this.props.onSavedSearchSelect}
                         selectedSavedSearch={this.props.selectedSavedSearch}
                         selectedSavedSearchName={this.props.selectedSavedSearchName}
@@ -62,7 +64,7 @@ class AppRoutes extends React.Component {
                         onGenerateEmail={this.props.onGenerateEmail}
                         user={this.props.user}
                         account={this.props.account}
-                        onInitialize={this.props.onInitializeSavedSearches}
+                        onInitializeSavedSearches={this.props.onInitializeSavedSearches}
                         activityId={this.props.activityId}
                         onUploadEmail={this.props.onUploadEmail}
                     />

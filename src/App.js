@@ -1,12 +1,14 @@
 import React from 'react';
 
 import {
+    Spinner
 } from 'react-bootstrap';
 import AppNavBar from './AppNavBar';
 import './App.css';
 import AppRoutes from './Routes';
 import memoryStorageService from './services/memoryStorage';
 import sparkHelper from './helpers/spark';
+import authService from './services/auth';
 
 class App extends React.Component {
     constructor(props){
@@ -20,39 +22,48 @@ class App extends React.Component {
         this.handleInitializeSavedSearches = this.handleInitializeSavedSearches.bind(this);
 
         this.state = {
-            loading: true,
+
+            // App
+            appLoading: true,
+
+            // Authentication
+            redirect_uri: null,
+            authUrl: null,
+            loggingIn: false,
             loggedIn: false,
-            accessToken: null,
-            refreshToken: null,
-            listings: null,
+
+            // Saved Searches
             savedSearches: null,
             selectedSavedSearch: null,
+
+            // Listings
+            listings: null,
+            loadingSavedSearchListings: false,
+
+            // Preview
             previewUrl: null,
-            htmlContent: null
+            htmlContent: null,
         };
     }
 
     handleLogin(accessToken, refreshToken){
+        var that = this;
         this.setState({
-            loading: true
+            loggingIn: true
         });
         if (accessToken && refreshToken){
+
+            memoryStorageService.setAccessToken(accessToken);
+            memoryStorageService.setRefreshToken(refreshToken);
+
             var that = this;
-            sparkHelper.initializeHome(that, accessToken, refreshToken).then(function(result){
-                that.setState({
-                    loggedIn: true,
-                    loading: false
-                });
+            sparkHelper.initializeHome(that).then(function(result){
             }).catch(function(err){
                 console.log(err);
-                that.setState({
-                    loggedIn: false,
-                    loading: false
-                });
-            });
+           });
         } else {
             that.setState({
-                loading: false
+                loggingIn: false
             });
         }
     }
@@ -80,58 +91,71 @@ class App extends React.Component {
     }
 
     handleUploadEmail(id){
-        console.log("handleUploadEmail: "+id);
         this.setState({
             activityId: id
         });
     }
 
     componentDidMount(){
-      var that = this;
-      var accessToken = memoryStorageService.accessToken();
-      var refreshToken = memoryStorageService.refreshToken();
-      if (accessToken){
 
-          sparkHelper.checkAuthentication(that, accessToken, refreshToken).then(function(result){
-              that.setState({
-                  loggedIn: true
-              });
-          }).catch(function(err){
-              that.setState({
-                  loggedIn: false,
-                  loading: false
-              });
-          });
-      } else {
-          this.setState({
-              loggedIn: false,
-              loading: false
-          });
-      }
+       var that = this;
+       that.setState({
+           appLoading: true
+       });
+       authService.getSparkAuthUrl().then(function(result){
+           if (result.access_token){
+               that.handleLogin(result.access_token, result.refresh_token);
+           }
+           var hostname = window.location.hostname;
+           var protocol = window.location.protocol;
+           var redirect_uri =
+               protocol +
+               "//" +
+               hostname +
+               "/sparkauth";
 
+           var url =
+               result.authUrl +
+               redirect_uri;
+           that.setState({
+               authUrl: url,
+               redirect_uri: redirect_uri,
+               appLoading: false
+           });
+       }).catch(function(err){
+           that.setState({
+               appLoading: false
+           });
+           console.log(err);
+       });
     }
 
     render(){
         return(
         <React.Fragment>
             <AppNavBar 
+                appLoading={this.state.appLoading}
+                loggingIn={this.state.loggingIn}
                 onLogin={this.handleLogin}
                 loggedIn={this.state.loggedIn}
                 onLogout={this.handleLogout}
-                accessToken={this.state.accessToken}
-                refreshToken={this.state.refreshToken}
+                authUrl={this.state.authUrl}
+                redirect_uri={this.state.redirect_uri}
                 user={this.state.user}
             />
             <AppRoutes
-              loading={this.state.loading}
+              appLoading={this.state.appLoading}
+              loggingIn={this.state.loggingIn}
               loggedIn={this.state.loggedIn}
-              accessToken={this.state.accessToken}
-              refreshToken={this.state.refreshToken}
+
               listings={this.state.listings}
+              loadingSavedSearchListings={this.state.loadingSavedSearchListings}
+
               savedSearches={this.state.savedSearches}
               onSavedSearchSelect={this.handleSavedSearchSelect}
               selectedSavedSearch={this.state.selectedSavedSearch}
               selectedSavedSearchName={this.state.selectedSavedSearchName}
+
               previewUrl={this.state.previewUrl}
               htmlContent={this.state.htmlContent}
               onGenerateEmail={this.handleGenerateEmail}
@@ -142,7 +166,6 @@ class App extends React.Component {
               onUploadEmail={this.handleUploadEmail}
           >
           </AppRoutes>
-
         </React.Fragment>
         );
     }

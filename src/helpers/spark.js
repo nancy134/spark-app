@@ -1,73 +1,32 @@
 import sparkService from '../services/spark';
 import memoryStorageService from '../services/memoryStorage';
 
-function checkAuthentication(that, accessToken, refreshToken){
-    return new Promise(function(resolve, reject){
-        sparkService.getSystem(accessToken).then(function(system){
-            initializeHome(that, accessToken, refreshToken, system).then(function(result){
-                resolve(result);
-            }).catch(function(err){
-                reject(err);
-            });
-        }).catch(function(err){
-            reject(err);
-        });
-    });
-}
-
-function getSystem(that, accessToken, refreshToken){
-    return new Promise(function(resolve, reject){
-        memoryStorageService.setAccessToken(accessToken);
-        memoryStorageService.setRefreshToken(refreshToken);
-        sparkService.getSystem().then(function(result){
-            resolve(result);
-        }).catch(function(err){
-            reject(err);
-        });
-    });
-}
-
 function initializeHome(that, accessToken, refreshToken, system){
     return new Promise(function(resolve, reject){
-        if (!system){
-            getSystem(that, accessToken, refreshToken).then(function(system){
-                var user = system.D.Results[0];
-                var id = user.Id;
-                sparkService.getAccount(id).then(function(account){
-                    console.log(account);
-                    that.setState({
-                        loading: false,
-                        loggedIn: true,
-                        accessToken: accessToken,
-                        refreshToken: refreshToken,
-                        user: user,
-                        account: account
-                    });
-                }).catch(function(err){
-                    console.log(err);
-                    reject(err);
-                });
-            }).catch(function(err){
-                reject(err);
-            });
-        } else {
+        sparkService.getSystem().then(function(system){
             var user = system.D.Results[0];
             var id = user.Id;
             sparkService.getAccount(id).then(function(account){
-                console.log(account);
                 that.setState({
-                    loading: false,
                     loggedIn: true,
-                    accessToken: accessToken,
-                    refreshToken: refreshToken,
+                    loggingIn: false,
                     user: user,
                     account: account
                 });
+                resolve(account);
             }).catch(function(err){
+                that.setState({
+                    loggingIn: false
+                });
                 console.log(err);
                 reject(err);
             });
-        }
+        }).catch(function(err){
+            that.setState({
+                loggingIn: false
+            });
+            reject(err);
+        });
     });
 }
 
@@ -129,7 +88,6 @@ function getSavedSearches(that){
             loadingSavedSearches: true
         });
         sparkService.getSavedSearches().then(function(savedSearches){
-            console.log(savedSearches);
             if (savedSearches.D.Results.length > 0){
                 var savedSearchId = savedSearches.D.Results[0].Id;
                 var savedSearchName = savedSearches.D.Results[0].Name;
@@ -224,12 +182,10 @@ function generateEmail(that, id){
 const spark = {
     initializeHome,
     collectionSelect,
-    checkAuthentication,
     savedSearchSelect,
     getCollections,
     generateEmail,
     logout,
-    getSystem,
     initializeSavedSearches
 };
 export default spark;

@@ -32,7 +32,9 @@ class SavedSearches extends React.Component{
     handleSavedSearchSelect(id, name){
         this.props.onSavedSearchSelect(id, name);
     }
-
+    componentDidMount(){
+        this.props.onInitialize();
+    }
     render(){
 
         var savedSearches = this.props.savedSearches;

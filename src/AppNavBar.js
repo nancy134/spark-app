@@ -47,10 +47,13 @@ class AppNavBar extends React.Component {
                 <Nav.Item>
                     <Nav.Link eventKey="link-1">
                         <AccountButton
+                            appLoading={this.props.appLoading}
+                            loggingIn={this.props.loggingIn}
+                            authUrl={this.props.authUrl}
+                            redirect_uri={this.props.redirect_uri}
                             onLogin={this.props.onLogin}
-                            accessToken={this.props.accessToken}
-                            refreshToken={this.props.refreshToken}
                             onLogout={this.props.onLogout}
+                            loggedIn={this.props.loggedIn}
                             user={this.props.user}
                         />
                     </Nav.Link>

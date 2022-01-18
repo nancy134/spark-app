@@ -3,7 +3,8 @@ import { Component } from 'react';
 import {
     Button,
     Dropdown,
-    DropdownButton
+    DropdownButton,
+    Spinner
 } from 'react-bootstrap';
 import authService from '../services/auth';
 
@@ -21,14 +22,12 @@ export class AccountButton extends Component{
         this.updateAccessToken = this.updateAccessToken.bind(this);
 
         this.state = {
-            authUrl: null,
             authorizationCode: null,
-            loading: false,
-            loggedIn: false
+            loggingIn: false
         }
     }
     handleSignin(){
-         this.openSignInWindow(this.state.authUrl, "Spark Signin");
+         this.openSignInWindow(this.props.authUrl, "Spark Signin");
     }
     handleLogout(){
        var that = this;
@@ -59,20 +58,31 @@ export class AccountButton extends Component{
         window.removeEventListener('message', this.receiveMessage);
         var check = event.data.substring(1,5);
         if (check  === "code"){
-        var code = event.data.substring(6);
+            var code = event.data.substring(6);
 
-        this.setState({
-            authorizationCode: event.data.substring(6)
-        });
-        var body = {
-            code: code,
-            redirect_uri: this.state.redirect_uri
-        };
-        authService.getSparkAuthToken(body).then(function(result){
-            that.updateAccessToken(result.access_token, result.refresh_token);
-        }).catch(function(err){
-            console.log(err);
-        });
+            this.setState({
+                loggingIn: true,
+                authorizationCode: event.data.substring(6)
+            });
+            var body = {
+                code: code,
+                redirect_uri: this.props.redirect_uri
+            };
+            console.log("body:");
+            console.log(body);
+            authService.getSparkAuthToken(body).then(function(result){
+                that.setState({
+                    loggingIn: false
+                });
+                console.log("result:");
+                console.log(result);
+                that.updateAccessToken(result.access_token, result.refresh_token);
+            }).catch(function(err){
+                that.setState({
+                    loggingIn: false
+                });
+                console.log(err);
+            });
         } else {
             console.log("error logging in");
             this.setState({
@@ -105,6 +115,7 @@ export class AccountButton extends Component{
     }
 
     openSignInWindow (url, name) {
+        console.log("url: "+url);
         // remove any existing event listeners
         window.removeEventListener('message', this.receiveMessage);
 
@@ -136,29 +147,6 @@ export class AccountButton extends Component{
         previousUrl = url;
    }
     componentDidMount(){
-       var that = this;
-       authService.getSparkAuthUrl().then(function(result){
-           if (result.access_token){
-               that.updateAccessToken(result.access_token, result.refresh_token);
-           }
-           var hostname = window.location.hostname;
-           var protocol = window.location.protocol;
-           var redirect_uri =
-               protocol +
-               "//" +
-               hostname +
-               "/sparkauth";
-
-           var url =
-               result.authUrl +
-               redirect_uri;
-           that.setState({
-               authUrl: url,
-               redirect_uri: redirect_uri
-           });
-       }).catch(function(err){
-           console.log(err);
-       });
     }
     onMyAccount(){
         var url = window.location.protocol + "//" + window.location.hostname + "/account";
@@ -169,11 +157,21 @@ export class AccountButton extends Component{
         if (this.props.user){
             userName = this.props.user.Name;
         }
-        
+       
+        var appLoading = false;
+        var loggingIn = false;
+
+        if (this.state.loggingIn || this.props.loggingIn){
+            loggingIn = true;
+        }
+        if (this.props.appLoading){
+            appLoading = true;
+        }
+
         return(
         <span>
             <span className="align-top text-danger">
-            {this.props.accessToken ?
+            {this.props.loggedIn ?
                 ( 
                 <DropdownButton id="account-button-dropdown" title={userName}>
                     <Dropdown.Item
@@ -194,7 +192,15 @@ export class AccountButton extends Component{
                         onClick={this.handleSignin} 
                         id="account-button"
                     >
-                        Login with FlexMLS
+                        { appLoading ?
+                        <span>App Loading...</span>
+                        : null }
+                        { loggingIn ?
+                        <span>Logging in...</span>
+                        : null }
+                        { !appLoading && !loggingIn ?
+                        <span>Login with FlexMLS</span>
+                        : null}
                     </Button>
                 </span> 
                 )}
