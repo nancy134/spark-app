@@ -14,6 +14,8 @@ import ContactPage from './containers/ContactPage';
 import AboutPage from './containers/AboutPage';
 import AccountPage from './containers/AccountPage';
 import Privacy from './containers/Privacy';
+import TermsPage from './containers/TermsPage';
+
 
 class AppRoutes extends React.Component {
     componentDidMount(){
@@ -83,6 +85,11 @@ class AppRoutes extends React.Component {
             <Route
                 path="/account"
                 element={<AccountPage />}
+            />
+
+            <Route
+                path="/terms"
+                element={<TermsPage />}
             />
 
             <Route
