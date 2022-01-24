@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {
-    Spinner
-} from 'react-bootstrap';
+//import {
+//    Spinner
+//} from 'react-bootstrap';
 import AppNavBar from './AppNavBar';
 import './App.css';
 import AppRoutes from './Routes';
@@ -56,7 +56,7 @@ class App extends React.Component {
             memoryStorageService.setAccessToken(accessToken);
             memoryStorageService.setRefreshToken(refreshToken);
 
-            var that = this;
+            //var that = this;
             sparkHelper.initializeHome(that).then(function(result){
             }).catch(function(err){
                 console.log(err);

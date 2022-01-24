@@ -1,9 +1,5 @@
 import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import {
-    Row,
-    Col
-} from 'react-bootstrap';
 
 class Home extends React.Component{
     render(){

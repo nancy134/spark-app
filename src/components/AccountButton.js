@@ -3,8 +3,7 @@ import { Component } from 'react';
 import {
     Button,
     Dropdown,
-    DropdownButton,
-    Spinner
+    DropdownButton
 } from 'react-bootstrap';
 import authService from '../services/auth';
 
@@ -40,10 +39,7 @@ export class AccountButton extends Component{
                hostname +
                "/sparklogout";
 
-           var url =
-               result +
-               redirect_uri;
-           //that.openLogoutWindow(url, "Spark Logout");
+
            that.props.onSparkLogout();
        }).catch(function(err){
            console.log(err);
