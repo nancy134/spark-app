@@ -1,5 +1,7 @@
 import axiosSpark from './axiosSpark';
 
+
+
 export function getCollections(){
     var url = process.env.REACT_APP_API + "spark/collections";
     return new Promise(function(resolve, reject){
@@ -172,6 +174,21 @@ export function createConstant(body){
     });
 }
 
+export function getContacts(){
+    var url = process.env.REACT_APP_API + "spark/contacts";
+    return new Promise(function(resolve, reject){
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosSpark(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
 const spark = {
     getCollections,
     getCollection,
@@ -183,6 +200,7 @@ const spark = {
     createEmailMustache,
     getAccount,
     getConstant,
-    createConstant
+    createConstant,
+    getContacts
 };
 export default spark;

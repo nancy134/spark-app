@@ -8,6 +8,7 @@ import {
     MDBBtn
 } from 'mdb-react-ui-kit';
 
+import sparkService from '../services/spark';
 
 const columns = [
   { title: "First Name", field: "firstName" },
@@ -25,6 +26,15 @@ class Contact extends React.Component{
     handleSelectChange = (event, rowData) => {
         console.log("[fired]::handleSelectionChange", rowData);
     };
+
+    componentDidMount(){
+        sparkService.getContacts().then(function(contacts){
+            console.log(contacts);
+        }).catch(function(err){
+            console.log(err);
+        });
+    }
+
     render(){
         return(
         <React.Fragment>
