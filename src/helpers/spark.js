@@ -18,7 +18,6 @@ function initializeHome(that, accessToken, refreshToken, system){
                 that.setState({
                     loggingIn: false
                 });
-                console.log(err);
                 reject(err);
             });
         }).catch(function(err){

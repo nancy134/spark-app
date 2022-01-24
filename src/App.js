@@ -102,9 +102,14 @@ class App extends React.Component {
        that.setState({
            appLoading: true
        });
+
+       // Check for override
+       var hardCodedAccessToken = memoryStorageService.accessToken();
        authService.getSparkAuthUrl().then(function(result){
            if (result.access_token){
                that.handleLogin(result.access_token, result.refresh_token);
+           } else if (hardCodedAccessToken){
+               that.handleLogin(hardCodedAccessToken, "invalidrefreshtoken");
            }
            var hostname = window.location.hostname;
            var protocol = window.location.protocol;
@@ -115,8 +120,8 @@ class App extends React.Component {
                "/sparkauth";
 
            var url =
-               result.authUrl +
-               redirect_uri;
+              result.authUrl +
+              redirect_uri;
            that.setState({
                authUrl: url,
                redirect_uri: redirect_uri,
@@ -126,7 +131,6 @@ class App extends React.Component {
            that.setState({
                appLoading: false
            });
-           console.log(err);
        });
     }
 
