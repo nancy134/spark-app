@@ -31,15 +31,6 @@ export class AccountButton extends Component{
     handleLogout(){
        var that = this;
        authService.getSparkLogoutUrl().then(function(result){
-           var hostname = window.location.hostname;
-           var protocol = window.location.protocol;
-           var redirect_uri =
-               protocol +
-               "//" +
-               hostname +
-               "/sparklogout";
-
-
            that.props.onSparkLogout();
        }).catch(function(err){
            console.log(err);
