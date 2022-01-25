@@ -104,13 +104,29 @@ function getCampaign(id){
     });
 }
 
+function getContacts(){
+    var url = process.env.REACT_APP_API + 'cc/contacts';
+    return new Promise(function(resolve, reject){
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosInstance(options).then(function(response){
+            resolve(response.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
 const constant = {
     createCampaign,
     tokenInfo,
     updateCampaign,
     getCampaigns,
     getCampaign,
-    getAccount
+    getAccount,
+    getContacts
 };
 
 export default constant;

@@ -10,10 +10,18 @@ import {
 
 import sparkService from '../services/spark';
 
+import constantService from '../services/constant';
+
+const ccColumns = [
+    { title: "First Name", field: "GivenName" },
+    { title: "Last Name", field: "FamilyName" },
+  ];
+  
+
 const columns = [
-  { title: "First Name", field: "firstName" },
-  { title: "Last Name", field: "lastName" },
-];
+    { title: "First Name", field: "GivenName" },
+    { title: "Last Name", field: "FamilyName" },
+  ];
 
 const data = [
     { firstName: "Tod", lastName: "Miles" },
@@ -23,27 +31,51 @@ const data = [
 
 
 class Contact extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            sparkContacts: null
+        }
+    }
+
     handleSelectChange = (event, rowData) => {
         console.log("[fired]::handleSelectionChange", rowData);
     };
 
     componentDidMount(){
+        var that = this;
         sparkService.getContacts().then(function(contacts){
+            that.setState({
+                sparkContacts: contacts.D.Results
+            });
             console.log(contacts);
         }).catch(function(err){
             console.log(err);
         });
+
+        constantService.getContacts().then(function(contacts){
+            console.log(contacts);
+        }).catch(function(err){
+            console.log(err);
+        });
+
     }
+
+
+
 
     render(){
         return(
         <React.Fragment>
             <MDBRow>
+            { this.state.sparkContacts ?
                 <MDBCol>
                 <MDBBtn>Login into FlexMLS</MDBBtn>
                 <MaterialTable
                     columns={columns}
-                    data={data}
+                    data={this.state.sparkContacts}
                     title="FlexMLS Contacts"
                     onSelectionChange={this.handleSelectChange}
                     options={{
@@ -58,11 +90,12 @@ class Contact extends React.Component{
                                 height: 100
                             }}
                         >
-                        This is a detailed panel for {rowData.firstName}
+                        This is a detailed panel for {rowData.GivenName}
                         </div>
                     )}}
-                />              
+                />
                 </MDBCol>
+                : null }
                 <MDBCol size="2">
                     <MDBBtn>Sync Contacts</MDBBtn>
                 </MDBCol>
