@@ -85,12 +85,16 @@ class Contact extends React.Component{
                     return (
                         <div
                             style={{
+                                margin: "80px",
                                 fontSize: 20,
-                                textAlign: 'center',
-                                height: 100
+                                textAlign: 'left',
+                                height: 200
                             }}
                         >
-                        This is a detailed panel for {rowData.GivenName}
+                        <p><span>DisplayName: </span><span>{rowData.DisplayName}</span></p>
+                        <p><span>{rowData.HomeStreetAddress} {rowData.HomeLocality}, {rowData.HomeRegion} {rowData.HomePostalCode}</span></p>
+                        <p><span>{rowData.PrimaryEmail}</span></p>
+                        <p><span>{rowData.PrimaryPhoneNumber}</span></p>
                         </div>
                     )}}
                 />
