@@ -34,7 +34,7 @@ function createAuthUrl(that){
         authService.getCCAuthUrl().then(function(result){
             console.log(result);
 
- var hostname = window.location.hostname;
+            var hostname = window.location.hostname;
             var protocol = window.location.protocol;
             var port = window.location.port;
             var redirect_uri =
@@ -46,14 +46,19 @@ function createAuthUrl(that){
                 "/constantcontact";
 
             var url =
-                result +
+                result.authUrl +
                 redirect_uri;
             that.setState({
                 authUrl: url,
                 redirect_uri: redirect_uri
             });
 
-            resolve(url);
+            var ret = {
+                authUrl: url,
+                access_token: result.access_token,
+                refresh_token: result.refresh_token
+            };
+            resolve(ret);
         }).catch(function(err){
             reject(err);
         });
@@ -67,8 +72,14 @@ function getAuthUrl(that){
         var accessToken = memoryStorageService.ccAccessToken();
         var refreshToken = memoryStorageService.ccRefreshToken();
         if (!accessToken && !refreshToken){
-           createAuthUrl(that).then(function(url){
-               resolve(url);
+           createAuthUrl(that).then(function(result){
+               console.log("result:");
+               console.log(result);
+               if (result.access_token){
+                   updateAccessToken(that, result.access_token, result.refresh_token); 
+               }
+               // If accesstoken, use that;
+               resolve(result);
            }).catch(function(err){
                reject(err);
            });
