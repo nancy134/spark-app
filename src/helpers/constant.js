@@ -93,7 +93,7 @@ function getAuthUrl(that){
             }).catch(function(err){
                 authService.ccRefreshToken(refreshToken).then(function(result){
                     resolve("generated access token from refresh token");
-                    that.updateAccessToken(that, result.access_token, result.refresh_token);
+                    updateAccessToken(that, result.access_token, result.refresh_token);
                 }).catch(function(err){
                     console.log("getting authUrl...");
                     createAuthUrl(that).then(function(url){
@@ -111,8 +111,25 @@ function getAuthUrl(that){
     });
 }
 
+function checkAuth(){
+    return new Promise(function(resolve, reject){
+        authService.getCCAuthUrl().then(function(result){
+            console.log(result);
+            if (result.access_token){
+                memoryStorageService.setCCAccessToken(result.access_token);
+                memoryStorageService.setCCRefreshToken(result.refresh_token);
+            }
+            resolve(result);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+
+}
+
 const constant = {
     getAuthUrl,
-    getAuthToken
+    getAuthToken,
+    checkAuth
 };
 export default constant;

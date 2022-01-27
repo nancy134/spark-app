@@ -11,23 +11,19 @@ import {
 import sparkService from '../services/spark';
 
 import constantService from '../services/constant';
+import constantHelper from '../helpers/constant';
 
 const ccColumns = [
-    { title: "First Name", field: "GivenName" },
-    { title: "Last Name", field: "FamilyName" },
+    { title: "First Name", field: "first_name" },
+    { title: "Last Name", field: "last_name" },
   ];
   
 
-const columns = [
+const sparkColumns = [
     { title: "First Name", field: "GivenName" },
     { title: "Last Name", field: "FamilyName" },
   ];
 
-const data = [
-    { firstName: "Tod", lastName: "Miles" },
-    { firstName: "Jess", lastName: "Smith" }
-  
-];
 
 
 class Contact extends React.Component{
@@ -36,7 +32,8 @@ class Contact extends React.Component{
         super(props);
 
         this.state = {
-            sparkContacts: null
+            sparkContacts: null,
+            ccContacts: null
         }
     }
 
@@ -55,8 +52,15 @@ class Contact extends React.Component{
             console.log(err);
         });
 
-        constantService.getContacts().then(function(contacts){
-            console.log(contacts);
+        constantHelper.checkAuth().then(function(ccAuth){
+            constantService.getContacts().then(function(contacts){
+                console.log(contacts);
+                that.setState({
+                    ccContacts: contacts.contacts
+                });
+            }).catch(function(err){
+                console.log(err);
+            });
         }).catch(function(err){
             console.log(err);
         });
@@ -67,6 +71,8 @@ class Contact extends React.Component{
 
 
     render(){
+        console.log("this.state.ccContacts:");
+        console.log(this.state.ccContacts);
         return(
         <React.Fragment>
             <MDBRow>
@@ -74,7 +80,7 @@ class Contact extends React.Component{
                 <MDBCol>
                 <MDBBtn>Login into FlexMLS</MDBBtn>
                 <MaterialTable
-                    columns={columns}
+                    columns={sparkColumns}
                     data={this.state.sparkContacts}
                     title="FlexMLS Contacts"
                     onSelectionChange={this.handleSelectChange}
@@ -103,10 +109,11 @@ class Contact extends React.Component{
                 <MDBCol size="2">
                     <MDBBtn>Sync Contacts</MDBBtn>
                 </MDBCol>
+                { this.state.ccContacts ?
                 <MDBCol>
                 <MDBBtn>Login into Constant Contact</MDBBtn>
-                <MaterialTable                    columns={columns}
-                    data={data}
+                <MaterialTable                    columns={ccColumns}
+                    data={this.state.ccContacts}
                     title="Constant Contacts"
                     options={{
                         selection: true
@@ -125,6 +132,7 @@ class Contact extends React.Component{
                         )}}
                 />
                 </MDBCol>
+                : null }
             </MDBRow>
         </React.Fragment>
         );
