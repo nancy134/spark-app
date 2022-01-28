@@ -8,7 +8,7 @@ export class ContactPage extends React.Component {
         return(
             <React.Fragment>
                 <Contact
-                    loading={this.props.loading}
+                    loggedIn={this.props.loggedIn}
                 />
             </React.Fragment>
         );
