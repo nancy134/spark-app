@@ -2,15 +2,16 @@ import memoryStorageService from '../services/memoryStorage';
 import constantService from '../services/constant';
 import authService from '../services/auth';
 
+let windowObjectReference = null;
+let previousUrl = null;
+
 function updateAccessToken(that, accessToken, refreshToken){
     console.log("saving accesstoken and refreshtoken...");
     memoryStorageService.setCCAccessToken(accessToken);
     memoryStorageService.setCCRefreshToken(refreshToken);
 
     that.setState({
-        loggedIn: true,
-        accessToken: accessToken,
-        refreshToken: refreshToken
+        loggedIn: true
     });
 }
 
@@ -111,6 +112,24 @@ function getAuthUrl(that){
     });
 }
 
+function getAccount(that){
+    return new Promise(function(resolve, reject){
+        constantService.getAccount().then(function(account){
+            console.log("account:");
+            console.log(account);
+            var name = account.first_name + " " + account.last_name;
+            var organization = account.organization_name;
+            that.setState({
+                name: name,
+                organization: organization
+            });
+            resolve(account);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
 function checkAuth(){
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
@@ -132,9 +151,72 @@ function checkAuth(){
 
 }
 
+function openSignInWindow(that, url, name){
+    // remove any existing event listeners
+    window.removeEventListener('message', that.receiveMessage);
+
+    // window features
+    const strWindowFeatures =
+    'toolbar=no, menubar=no, width=600, height=700, top=100, left=100';
+
+    if (windowObjectReference === null || windowObjectReference.closed) {
+        /* if the pointer to the window object in memory does not exist
+         or if such pointer exists but the window was closed */
+        windowObjectReference = window.open(url, name, strWindowFeatures);
+    } else if (previousUrl !== url) {
+        /* if the resource to load is different,
+        then we load it in the already opened secondary window and then
+        we bring such window back on top/in front of its parent window. */
+        windowObjectReference = window.open(url, name, strWindowFeatures);
+        windowObjectReference.focus();
+    } else {
+        /* else the window reference must exist and the window
+        is not closed; therefore, we can bring it back on top of any other
+        window with the focus() method. There would be no need to re-create
+        the window or to reload the referenced resource. */
+        windowObjectReference.focus();
+    }
+
+    // add the listener for receiving a message from the popup
+    window.addEventListener('message', that.receiveMessage, false);
+    // assign the previous URL
+    previousUrl = url;
+
+}
+
+function receiveLoginMessage(that, event, redirect_uri){
+    console.log(event);
+    var code = null;
+    if (event.data){
+        code = event.data.substring(6);
+    }
+
+    if (code){
+        console.log("code: "+code);
+        window.removeEventListener('message', that.receiveMessage);
+        that.setState({
+            authorizationCode: event.data.substring(6)
+        });
+
+        getAuthToken(that, code, redirect_uri).then(function(result){
+            console.log(result);
+         
+            getAccount(that).then(function(account){
+                console.log(account);
+            }).catch(function(err){
+                console.log(err);
+            });
+        }).catch(function(err){
+            console.log(err);
+        });
+    }
+}
+
 const constant = {
     getAuthUrl,
     getAuthToken,
-    checkAuth
+    checkAuth,
+    openSignInWindow,
+    receiveLoginMessage
 };
 export default constant;
