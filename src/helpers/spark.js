@@ -1,29 +1,102 @@
 import sparkService from '../services/spark';
 import memoryStorageService from '../services/memoryStorage';
+import authService from '../services/auth';
+import constantHelper from '../helpers/constant';
 
-function initializeHome(that, accessToken, refreshToken, system){
+function initializeApp(that, accessToken, refreshToken){
+     that.setState({
+         appLoading: true
+     });
+
+     // Check for Spark authentication override
+     var hardCodedAccessToken = memoryStorageService.accessToken();
+     authService.getSparkAuthUrl().then(function(result){
+
+         var access_token = null;
+         var refresh_token = null;
+         if (result.access_token){
+             console.log("got access token from cookie: "+result.access_token);
+             access_token = result.access_token;
+             refresh_token = result.refresh_token;
+         } else if (hardCodedAccessToken){
+             console.log("got hardCodedAccessToken: "+hardCodedAccessToken);
+             access_token = hardCodedAccessToken;
+         }
+
+         if (access_token){
+             console.log("saving access_token and refresh_token");
+             memoryStorageService.setAccessToken(access_token);
+             memoryStorageService.setRefreshToken(refresh_token);
+
+             console.log("getting Spark account information");
+             initializeAccount(that).then(function(result){
+                 console.log(result);
+                 that.setState({
+                     appLoading: false,
+                     loggedIn: true,
+                     user: result.user,
+                     account: result.account
+                 });
+             }).catch(function(err){
+                 that.setState({
+                     appLoading: false
+                 });
+                 console.log(err);
+             });
+
+         } else {
+           console.log("No access token");
+           var hostname = window.location.hostname;
+           var protocol = window.location.protocol;
+           var redirect_uri =
+               protocol +
+               "//" +
+               hostname +
+               "/sparkauth";
+
+           var url =
+              result.authUrl +
+              redirect_uri;
+           that.setState({
+               authUrl: url,
+               redirect_uri: redirect_uri,
+               appLoading: false
+           });
+        }
+    }).catch(function(err){
+        that.setState({
+            appLoading: false
+        });
+    });
+
+    //Check for Constant Contact login
+    console.log("checking Constant Contact login");
+    constantHelper.checkAuth().then(function(result){
+        console.log(result);
+        that.setState({
+            ccLoggedIn: true,
+        });
+    }).catch(function(err){
+        console.log(err);
+    });
+
+}
+
+function initializeAccount(that){
     return new Promise(function(resolve, reject){
         sparkService.getSystem().then(function(system){
             var user = system.D.Results[0];
             var id = user.Id;
             sparkService.getAccount(id).then(function(account){
-                that.setState({
-                    loggedIn: true,
-                    loggingIn: false,
-                    user: user,
-                    account: account
-                });
-                resolve(account);
+                var ret = {
+                    account: account,
+                    user: user
+                };
+                resolve(ret);
             }).catch(function(err){
-                that.setState({
-                    loggingIn: false
-                });
                 reject(err);
             });
         }).catch(function(err){
-            that.setState({
-                loggingIn: false
-            });
             reject(err);
         });
     });
@@ -179,7 +252,8 @@ function generateEmail(that, id){
 }
 
 const spark = {
-    initializeHome,
+    initializeApp,
+    initializeAccount,
     collectionSelect,
     savedSearchSelect,
     getCollections,

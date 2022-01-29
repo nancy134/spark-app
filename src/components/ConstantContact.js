@@ -22,7 +22,6 @@ class ConstantContacts extends React.Component{
 
         this.state = {
             ccContacts: null,
-            constantLoggedIn: null
         }
     }
 

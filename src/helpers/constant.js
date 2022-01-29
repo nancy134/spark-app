@@ -114,12 +114,17 @@ function getAuthUrl(that){
 function checkAuth(){
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
-            console.log(result);
             if (result.access_token){
+                console.log("Saving CC access_token and refresh_token");
                 memoryStorageService.setCCAccessToken(result.access_token);
                 memoryStorageService.setCCRefreshToken(result.refresh_token);
+                resolve(result)
+            } else {
+                var ret = {
+                    access_token: null
+                }
+                reject(ret);
             }
-            resolve(result);
         }).catch(function(err){
             reject(err);
         });

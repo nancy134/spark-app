@@ -8,7 +8,6 @@ import './App.css';
 import AppRoutes from './Routes';
 import memoryStorageService from './services/memoryStorage';
 import sparkHelper from './helpers/spark';
-import authService from './services/auth';
 
 class App extends React.Component {
     constructor(props){
@@ -43,6 +42,9 @@ class App extends React.Component {
             // Preview
             previewUrl: null,
             htmlContent: null,
+
+            // Constant Contact Auth
+            ccLoggedIn: null
         };
     }
 
@@ -56,9 +58,17 @@ class App extends React.Component {
             memoryStorageService.setAccessToken(accessToken);
             memoryStorageService.setRefreshToken(refreshToken);
 
-            //var that = this;
-            sparkHelper.initializeHome(that).then(function(result){
+            sparkHelper.initializeAccount(that).then(function(result){
+                that.setState({
+                    loggingIn: false,
+                    loggedIn: true,
+                    user: result.user,
+                    account: result.account
+                });
             }).catch(function(err){
+                that.setState({
+                    loggingIn: false
+                });
                 console.log(err);
            });
         } else {
@@ -102,36 +112,8 @@ class App extends React.Component {
        that.setState({
            appLoading: true
        });
+       sparkHelper.initializeApp(that);
 
-       // Check for override
-       var hardCodedAccessToken = memoryStorageService.accessToken();
-       authService.getSparkAuthUrl().then(function(result){
-           if (result.access_token){
-               that.handleLogin(result.access_token, result.refresh_token);
-           } else if (hardCodedAccessToken){
-               that.handleLogin(hardCodedAccessToken, "invalidrefreshtoken");
-           }
-           var hostname = window.location.hostname;
-           var protocol = window.location.protocol;
-           var redirect_uri =
-               protocol +
-               "//" +
-               hostname +
-               "/sparkauth";
-
-           var url =
-              result.authUrl +
-              redirect_uri;
-           that.setState({
-               authUrl: url,
-               redirect_uri: redirect_uri,
-               appLoading: false
-           });
-       }).catch(function(err){
-           that.setState({
-               appLoading: false
-           });
-       });
     }
 
     render(){
@@ -168,6 +150,8 @@ class App extends React.Component {
               onInitializeSavedSearches={this.handleInitializeSavedSearches}
               activityId={this.state.activityId}
               onUploadEmail={this.handleUploadEmail}
+
+              ccLoggedIn={this.state.ccLoggedIn}
           >
           </AppRoutes>
         </React.Fragment>

@@ -9,6 +9,7 @@ export class ContactPage extends React.Component {
             <React.Fragment>
                 <Contact
                     loggedIn={this.props.loggedIn}
+                    ccLoggedIn={this.props.ccLoggedIn}
                 />
             </React.Fragment>
         );

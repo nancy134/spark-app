@@ -29,7 +29,8 @@ class AppRoutes extends React.Component {
                 path="/contacts"
                 element={
                     <ContactPage
-                        loggedIn={this.props.loggedIn}                    
+                        loggedIn={this.props.loggedIn}
+                        ccLoggedIn={this.props.ccLoggedIn}
                     />
                 }
             />
