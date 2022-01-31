@@ -64,7 +64,10 @@ class Preview extends React.Component{
                 html={this.props.previewUrl}
                 htmlContent={this.props.htmlContent}
                 user={this.props.user}
+                
                 account={this.props.account}
+                ccAccountId={this.props.ccAccountId}
+
                 selectedSavedSearch={this.props.selectedSavedSearch}
                 selectedSavedSearchName={this.props.selectedSavedSearchName}
                 onCancel={this.handleUploadEmailCancel}

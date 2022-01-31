@@ -152,6 +152,8 @@ class App extends React.Component {
               onUploadEmail={this.handleUploadEmail}
 
               ccLoggedIn={this.state.ccLoggedIn}
+              ccAccountId={this.state.ccAccountId}
+
           >
           </AppRoutes>
         </React.Fragment>

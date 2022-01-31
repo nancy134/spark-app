@@ -63,10 +63,13 @@ class UploadConstant extends React.Component {
                 constantService.createCampaign(JSON.stringify(constantBody)).then(function(campaign){
                     console.log("create campaign:");
                     console.log(campaign);
+                    
                     var savedSearchBody = {
                         savedSearchId: that.props.selectedSavedSearch,
-                        constantId: campaign.campaign_id
+                        constantId: campaign.campaign_id,
+                        ccAccountId: that.props.ccAccountId
                     };
+
                     console.log("savedSearchBody:");
                     console.log(savedSearchBody);
                     sparkService.createConstant(savedSearchBody).then(function(constant){

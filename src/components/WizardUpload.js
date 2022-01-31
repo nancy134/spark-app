@@ -60,7 +60,8 @@ class WizardUpload extends React.Component{
                 html={this.props.html}
                 htmlContent={this.props.htmlContent}
                 user={this.props.user}
-                account={this.props.account}
+                ccAccountId={this.props.ccAccountId}
+
                 show={this.state.showUploadConstant}
                 onNext={this.handleUploadConstantNext}
                 onCancel={this.handleUploadConstantCancel}

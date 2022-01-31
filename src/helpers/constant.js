@@ -119,10 +119,13 @@ function getAccount(that){
             console.log(account);
             var name = account.first_name + " " + account.last_name;
             var organization = account.organization_name;
+            
             that.setState({
                 name: name,
-                organization: organization
+                organization: organization,
+                encoded_account_id: account.encoded_account_id
             });
+
             resolve(account);
         }).catch(function(err){
             reject(err);

@@ -73,7 +73,9 @@ class AppRoutes extends React.Component {
                         account={this.props.account}
                         onInitializeSavedSearches={this.props.onInitializeSavedSearches}
                         activityId={this.props.activityId}
+
                         onUploadEmail={this.props.onUploadEmail}
+                        ccAccountId={this.props.ccAccountId}
                     />
                 }
             />
