@@ -24,10 +24,14 @@ class UploadConstant extends React.Component {
     }
 
     handleUpload(){
+        console.log("handleUpload()");
         this.setState({
             loading: true
         });
-        var name = "[test10 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test11 murban] " + this.props.selectedSavedSearchName;
+
+        console.log("this.props.account:");
+        console.log(this.props.account);
 
         var emailCampaignActivity = {
             format_type: 5,
@@ -38,6 +42,8 @@ class UploadConstant extends React.Component {
             html_content: this.props.htmlContent,
             preHeader: "Your Listings"
         };
+        console.log("emailCampaignActivity:");
+        console.log(emailCampaignActivity);
         var accessToken = memoryService.ccAccessToken();
         var constantBody = {
             accessToken: accessToken,
@@ -45,6 +51,8 @@ class UploadConstant extends React.Component {
             email_campaign_activities: [emailCampaignActivity]
         };
 
+        console.log("constantBody:");
+        console.log(constantBody);
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
@@ -56,6 +64,7 @@ class UploadConstant extends React.Component {
                 });
                that.setState({ loading: false});
             }).catch(function(err){
+                console.log(err);
                 that.setState({ loading: false});
             });
         }).catch(function(err){
@@ -85,12 +94,15 @@ class UploadConstant extends React.Component {
                             activityId: activityId 
                         });
                     }).catch(function(err){
+                        console.log(err);
                         that.setState({ loading: false});
                     });
                 }).catch(function(err){
+                    console.log(err);
                     that.setState({ loading: false});
                 });
             } else {
+                console.log("other error");
                 that.setState({ loading: false});
             }
         });
@@ -119,7 +131,6 @@ class UploadConstant extends React.Component {
     }
 
    render(){
-        console.log("this.state.activityId: "+this.state.activityId);
         var doneDisabled = true;
         if (this.state.activityId) doneDisabled = false;
        return(
