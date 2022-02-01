@@ -142,9 +142,11 @@ export function getAccount(id){
     });
 }
 
-export function getConstant(savedSearchId){
+export function getConstant(savedSearchId, ccAccountId){
     return new Promise(function(resolve, reject){
-        var url = process.env.REACT_APP_API + "spark/constants?savedSearchId="+savedSearchId;
+        var url = process.env.REACT_APP_API + 
+            "spark/constants?savedSearchId="+savedSearchId+
+            "&ccAccountId="+ccAccountId;
         var options = {
             url: url,
             method: 'GET'

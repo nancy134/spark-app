@@ -71,7 +71,7 @@ function initializeApp(that, accessToken, refreshToken){
 
     //Check for Constant Contact login
     console.log("checking Constant Contact login");
-    constantHelper.checkAuth().then(function(result){
+    constantHelper.checkAuth(that).then(function(result){
         console.log(result);
         that.setState({
             ccLoggedIn: true,

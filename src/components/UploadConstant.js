@@ -28,7 +28,7 @@ class UploadConstant extends React.Component {
         this.setState({
             loading: true
         });
-        var name = "[test11 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test12 murban] " + this.props.selectedSavedSearchName;
 
         console.log("this.props.account:");
         console.log(this.props.account);
@@ -54,7 +54,7 @@ class UploadConstant extends React.Component {
         console.log("constantBody:");
         console.log(constantBody);
         var that = this;
-        sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
+        sparkService.getConstant(this.props.selectedSavedSearch, this.props.ccAccountId).then(function(result){
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
                 console.log("update campaign:");
                 console.log(campaign);
@@ -116,11 +116,20 @@ class UploadConstant extends React.Component {
 
     componentDidMount(){
         var that = this;
-        sparkService.getConstant(this.props.selectedSavedSearch).then(function(result){
+        sparkService.getConstant(this.props.selectedSavedSearch, this.props.ccAccountId).then(function(result){
             console.log(result);
             constantService.getCampaign(result.constantId).then(function(campaign){
+                var activityId = null;
+                for (var i=0; i<campaign.campaign_activities.length; i++){
+                    if (campaign.campaign_activities[i].role === "primary_email"){
+                        activityId = campaign.campaign_activities[i].campaign_activity_id;
+                    }
+                }
+
+                console.log(campaign);
                 that.setState({
-                    campaign_name: campaign.name
+                    campaign_name: campaign.name,
+                    activityId: activityId
                 });
             }).catch(function(err){
                 console.log(err);

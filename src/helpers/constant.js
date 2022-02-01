@@ -123,7 +123,7 @@ function getAccount(that){
             that.setState({
                 name: name,
                 organization: organization,
-                encoded_account_id: account.encoded_account_id
+                ccAccountId: account.encoded_account_id
             });
 
             resolve(account);
@@ -133,14 +133,18 @@ function getAccount(that){
     });
 }
 
-function checkAuth(){
+function checkAuth(that){
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
             if (result.access_token){
                 console.log("Saving CC access_token and refresh_token");
                 memoryStorageService.setCCAccessToken(result.access_token);
                 memoryStorageService.setCCRefreshToken(result.refresh_token);
-                resolve(result)
+                getAccount(that).then(function(account){
+                    resolve(result);
+                }).catch(function(err){
+                    reject(err);
+                });
             } else {
                 var ret = {
                     access_token: null
