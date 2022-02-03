@@ -87,6 +87,7 @@ class UploadAuthConstant extends React.Component {
                         <p>You're logged into Constant Contact</p>
                         <p>{this.state.name}</p>
                         <p>{this.state.organization}</p>
+                        <p>{this.props.cc_access_token}</p>
                         </div>
                         }
 

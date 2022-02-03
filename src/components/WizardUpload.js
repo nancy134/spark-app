@@ -53,6 +53,7 @@ class WizardUpload extends React.Component{
                 show={this.props.start}
                 onNext={this.handleUploadAuthConstantNext}
                 onCancel={this.handleUploadAuthConstantCancel}
+                cc_access_token={this.props.cc_access_token}
             />
             : null }
             { this.state.showUploadConstant ?

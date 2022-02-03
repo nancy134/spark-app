@@ -20,6 +20,9 @@ function getAuthToken(that, code, redirect_uri){
         console.log("getting auth token...");
         authService.getCCAuthToken(code, redirect_uri).then(function(result){
             console.log(result);
+            that.setState({
+                cc_access_token: result.access_token
+            });
             updateAccessToken(that, result.access_token, result.refresh_token);
             resolve(result);
         }).catch(function(err){
@@ -56,7 +59,7 @@ function createAuthUrl(that){
 
             var ret = {
                 authUrl: url,
-                access_token: result.access_token,
+                cc_access_token: result.access_token,
                 refresh_token: result.refresh_token
             };
             resolve(ret);
@@ -137,6 +140,9 @@ function checkAuth(that){
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
             if (result.access_token){
+                that.setState({
+                    cc_access_token: result.access_token
+                });
                 console.log("Saving CC access_token and refresh_token");
                 memoryStorageService.setCCAccessToken(result.access_token);
                 memoryStorageService.setCCRefreshToken(result.refresh_token);

@@ -43,6 +43,7 @@ export class SavedSearchesPage extends React.Component {
                             activityId={this.props.activityId}
                             onUploadEmail={this.props.onUploadEmail}
                             ccAccountId={this.props.ccAccountId}
+                            cc_access_token={this.props.cc_access_token}
 
                         />
                     </div>

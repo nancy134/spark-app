@@ -117,6 +117,7 @@ class App extends React.Component {
     }
 
     render(){
+        console.log("this.state.cc_access_token: "+this.state.cc_access_token);
         return(
         <React.Fragment>
             <AppNavBar 
@@ -153,6 +154,7 @@ class App extends React.Component {
 
               ccLoggedIn={this.state.ccLoggedIn}
               ccAccountId={this.state.ccAccountId}
+              cc_access_token={this.state.cc_access_token}
 
           >
           </AppRoutes>
