@@ -11,9 +11,11 @@ import {
 import sparkService from '../services/spark';
 
 const sparkColumns = [
+    { title: "Email", field: "PrimaryEmail" },
     { title: "First Name", field: "GivenName" },
-    { title: "Last Name", field: "FamilyName" },
+    { title: "Last Name", field: "FamilyName" }
 ];
+
 
 class SparkContacts extends React.Component{
 
