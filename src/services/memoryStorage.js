@@ -2,8 +2,8 @@ const MemoryStorage = (function(){
 
     var _service;
 
-    var __accessToken = "d74j7mkxe9gym1hs156exm3i4";
-    //var __accessToken = null;    
+    //var __accessToken = "d74j7mkxe9gym1hs156exm3i4";
+    var __accessToken = null;    
     var __refreshToken = null;
 
     var __ccAccessToken = null;
