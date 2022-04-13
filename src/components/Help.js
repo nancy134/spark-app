@@ -69,8 +69,29 @@ class Help extends React.Component{
                         width="60%"
                     />
                 </div>
-                <p></p>
-                <p></p>
+                <div className="p-3"></div>
+                <div className="text-center px-5">
+                    <h2>Step 5. View Email in Constant Contact</h2>
+                    <p>After you have uploaded your email content to Constant Contacts, you can view it in Constant Contact by Selecting "View Email in Constant Contact"</p>
+                    <p>You will be asked to login to Constant Contact so you must already have an account</p>
+                    <img
+                        src="https://mu-s3-images.s3.amazonaws.com/MurbanViewEmailInConstantContact.png"
+                        alt="FlexMLS Login"
+                        width="60%"
+                    />
+                    <div className="p-3"></div>
+                </div>
+                <div className="text-center px-5">
+                    <h2>Step 6. Live Preview in Constant Contact</h2>
+                    <p>When viewing your email in Constant Contact, select "Live Preview" to see what the email will look like before sending.</p>
+                    <p>Select "Continue" to send the email to your contacts</p>
+                    <img
+                        src="https://mu-s3-images.s3.amazonaws.com/ConstantContactPreview.png"
+                        alt="FlexMLS Login"
+                        width="60%"
+                    />
+                </div>
+                <div className="p-3"></div>
             </div>
             }                     
         </React.Fragment>
