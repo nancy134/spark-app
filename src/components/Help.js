@@ -18,6 +18,12 @@ class Help extends React.Component{
                 <div className="text-center px-5">
                     <h2>Step 1. Login with FlexMLS</h2>
                     <img
+                        src="https://mu-s3-images.s3.amazonaws.com/LoginButton.png"
+                        alt="FlexMLS Login"
+                        width="30%"
+                    />
+                    <br></br>
+                    <img
                         src="https://mu-s3-images.s3.amazonaws.com/Login.png"
                         alt="FlexMLS Login"
                         width="30%"
@@ -33,7 +39,8 @@ class Help extends React.Component{
                         </span>
                     </p>
                     <img
-                        src="https://mu-s3-images.s3.amazonaws.com/SavedSearches.png"
+                        src="https://mu-s3-images.s3.amazonaws.com/MurbanSavedSearches.png"
+
                         alt="FlexMLS Login"
                         width="60%"
                     />
@@ -42,26 +49,28 @@ class Help extends React.Component{
                 <div className="text-center px-5">
                     <h2>Step 3. Generate the email for selected Saved Search</h2>
                     <p>
-                        <span>An email will be generated including the first seven listings in your saved searc.</span>
-                        <span>You will be able to preview your email before uploading it to Constant Contact</span>
-                    </p>
+                    <p>Select "Generate email..." to automatically generate the email content from the 1st seven listings in your Saved Search</p>
+                    <p>A preview of the email will be displayed below for review before uploading to Constant Contact</p>                    </p>
                     <img
-                        src="https://mu-s3-images.s3.amazonaws.com/SavedSearches.png"
+                        src="https://mu-s3-images.s3.amazonaws.com/MurbanGenerateEmail.png"
                         alt="FlexMLS Login"
                         width="60%"
                     />
                 </div>
  
+                <div className="p-3"></div>
                 <div className="text-center px-5">
-                    <h2>Example auto-generated email</h2>
-                    <iframe
-                        title="preview"
-                        height="70%"
-                        frameBorder="1"
-                        src="https://ph-mail-template.s3.amazonaws.com/mailPreview/2f94f040-5b3f-11ec-8bbc-f3477bdac08e.html" 
-                        className="homeFrame"
+                    <h2>Step 4. Upload to Constant Contact</h2>
+                    <p>Select "Upload to Constant Contact" to upload your email</p>
+                    <p>You will be asked to login to Constant Contact so you must already have an account</p>
+                    <img
+                        src="https://mu-s3-images.s3.amazonaws.com/MurbanUploadToConstantContact.png"
+                        alt="FlexMLS Login"
+                        width="60%"
                     />
                 </div>
+                <p></p>
+                <p></p>
             </div>
             }                     
         </React.Fragment>
