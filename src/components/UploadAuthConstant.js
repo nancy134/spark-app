@@ -25,13 +25,6 @@ class UploadAuthConstant extends React.Component {
         // Get authorization url or validate existing access token
         var that = this;
         constantHelper.getAuthUrl(that).then(function(result){
-            if (result.access_token){
-                constantHelper.getAccount(that).then(function(account){
-                    console.log(account);
-                }).catch(function(err){
-                    console.log(err);
-                });
-            }
         }).catch(function(err){
             console.log(err);
         });
@@ -45,8 +38,8 @@ class UploadAuthConstant extends React.Component {
         console.log("receiveMessage()");
         console.log("event:");
         console.log(event);
-        var that = this;
-        constantHelper.receiveLoginMessage(that, event, this.state.redirect_uri);
+        this.props.receiveLoginMessage(event, this.state.redirect_uri);
+        //constantHelper.receiveLoginMessage(that, event, this.state.redirect_uri);
     }
 
     openSignInWindow (url, name) {
@@ -57,7 +50,7 @@ class UploadAuthConstant extends React.Component {
     render(){
 
        var nextDisabled = true;
-       if (this.state.loggedIn) nextDisabled = false;
+       if (this.props.cc_access_token) nextDisabled = false;
 
        return(
         <Modal
@@ -76,7 +69,7 @@ class UploadAuthConstant extends React.Component {
             <Modal.Body>
                 <Row>
                     <Col>
-                        { !this.state.loggedIn ?
+                        { !this.props.cc_access_token ?
                         <Button
                             onClick={this.handleSignin}
                         >
@@ -85,14 +78,19 @@ class UploadAuthConstant extends React.Component {
                         :
                         <div>
                         <p>You're logged into Constant Contact</p>
-                        <p>{this.state.name}</p>
-                        <p>{this.state.organization}</p>
-                        <p>{this.props.cc_access_token}</p>
                         </div>
                         }
-
+                        <div className="pt-2"></div>
+                        <div style={{paddingTop: '5px', backgroundColor: 'grey'}}>
+                            <p>cc_access_token: {this.props.cc_access_token}</p>
+                            <p>ccAccountId: {this.props.ccAccountId} </p>
+                            <p>redirect_uri: {this.state.redirect_uri}</p>
+                        </div>
                     </Col>
                 </Row>
+            <Row>
+            </Row>
+
             </Modal.Body>
             <Modal.Footer>
                 <Button

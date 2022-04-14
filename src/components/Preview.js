@@ -68,6 +68,7 @@ class Preview extends React.Component{
                 account={this.props.account}
                 ccAccountId={this.props.ccAccountId}
                 cc_access_token={this.props.cc_access_token}
+                receiveLoginMessage={this.props.receiveLoginMessage}
 
                 selectedSavedSearch={this.props.selectedSavedSearch}
                 selectedSavedSearchName={this.props.selectedSavedSearchName}

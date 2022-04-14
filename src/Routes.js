@@ -77,6 +77,7 @@ class AppRoutes extends React.Component {
                         onUploadEmail={this.props.onUploadEmail}
                         ccAccountId={this.props.ccAccountId}
                         cc_access_token={this.props.cc_access_token}
+                        receiveLoginMessage={this.props.receiveLoginMessage}
                     />
                 }
             />

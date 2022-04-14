@@ -19,7 +19,8 @@ class UploadConstant extends React.Component {
         this.handleDone = this.handleDone.bind(this);
 
         this.state = {
-            numCampaigns: 0
+            numCampaigns: 0,
+            successMessage: null 
         };
     }
 
@@ -28,7 +29,7 @@ class UploadConstant extends React.Component {
         this.setState({
             loading: true
         });
-        var name = "[test12 murban] " + this.props.selectedSavedSearchName;
+        var name = "[test13 murban] " + this.props.selectedSavedSearchName;
 
         console.log("this.props.account:");
         console.log(this.props.account);
@@ -60,9 +61,9 @@ class UploadConstant extends React.Component {
                 console.log(campaign);
                 that.setState({
                     loading: false,
-                    activityId: campaign.campaign_activity_id
+                    activityId: campaign.campaign_activity_id,
+                    successMessage: "Email successfully updated"
                 });
-               that.setState({ loading: false});
             }).catch(function(err){
                 console.log(err);
                 that.setState({ loading: false});
@@ -91,11 +92,14 @@ class UploadConstant extends React.Component {
                         that.setState({ 
                             loading: false,
                             campaign_name: campaign.name,
-                            activityId: activityId 
+                            activityId: activityId,
+                            successMessage: "Email successfully created"
                         });
                     }).catch(function(err){
                         console.log(err);
-                        that.setState({ loading: false});
+                        that.setState({ 
+                            loading: false
+                        });
                     });
                 }).catch(function(err){
                     console.log(err);
@@ -164,16 +168,30 @@ class UploadConstant extends React.Component {
                         >
                         Upload to Constant Contact
                     </Button>
-
-                    <p>{this.state.campaign_name}</p>
+                   
                     { this.state.loading ?
                     <Spinner
                         animation="border"
                         variant="primary"
                     />
                     : null}
+                    { this.state.successMessage ?
+                    <div className="pt-3 pb-3">
+                        <p>{this.state.successMessage}</p>
+                        <p>Email Name: {this.state.campaign_name}</p>
+                    </div>
+                    : null }
+                    <div className="pt-2"></div>
+                    <div style={{paddingTop: '5px', backgroundColor: 'grey'}}>
+                        <h3>Debug Information</h3>
+                        <p>this.state.campaign_name: {this.state.campaign_name}</p>
+                        <p>this.props.cc_access_token: {this.props.cc_access_token}</p>
+                        <p>this.props.ccAccountId: {this.props.ccAccountId}</p>
+                    </div>
 
                 </Col>
+            </Row>
+            <Row>
             </Row>
             </Modal.Body>
             <Modal.Footer>

@@ -8,6 +8,7 @@ import './App.css';
 import AppRoutes from './Routes';
 import memoryStorageService from './services/memoryStorage';
 import sparkHelper from './helpers/spark';
+import constantHelper from './helpers/constant';
 
 class App extends React.Component {
     constructor(props){
@@ -19,6 +20,7 @@ class App extends React.Component {
         this.handleGenerateEmail = this.handleGenerateEmail.bind(this);
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
         this.handleInitializeSavedSearches = this.handleInitializeSavedSearches.bind(this);
+        this.receiveLoginMessage = this.receiveLoginMessage.bind(this);
 
         this.state = {
 
@@ -45,6 +47,7 @@ class App extends React.Component {
 
             // Constant Contact Auth
             ccLoggedIn: null
+
         };
     }
 
@@ -106,6 +109,11 @@ class App extends React.Component {
         });
     }
 
+    receiveLoginMessage(event, redirect_url){
+        var that = this;
+        constantHelper.receiveLoginMessage(that, event, redirect_url);
+    }
+
     componentDidMount(){
 
        var that = this;
@@ -155,6 +163,7 @@ class App extends React.Component {
               ccLoggedIn={this.state.ccLoggedIn}
               ccAccountId={this.state.ccAccountId}
               cc_access_token={this.state.cc_access_token}
+              receiveLoginMessage={this.receiveLoginMessage}
 
           >
           </AppRoutes>

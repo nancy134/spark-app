@@ -30,7 +30,7 @@ axiosSpark.interceptors.response.use((response) => {
 
         return axiosSpark.post(process.env.REACT_APP_API+'spark/refreshToken',
             {
-                "refreshToken": refreshToken
+                "refresh_token": refreshToken
             }).then(res => {
                 if (res.status === 201) {
                     memoryStorageService.setAccessToken(res.data.access_token);

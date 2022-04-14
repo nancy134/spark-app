@@ -52,6 +52,8 @@ function createAuthUrl(that){
             var url =
                 result.authUrl +
                 redirect_uri;
+
+            console.log("redirect_uri: "+redirect_uri);
             that.setState({
                 authUrl: url,
                 redirect_uri: redirect_uri
@@ -76,6 +78,7 @@ function getAuthUrl(that){
         var accessToken = memoryStorageService.ccAccessToken();
         var refreshToken = memoryStorageService.ccRefreshToken();
         if (!accessToken && !refreshToken){
+           console.log("creating auth url");
            createAuthUrl(that).then(function(result){
                console.log("result:");
                console.log(result);
@@ -139,6 +142,8 @@ function getAccount(that){
 function checkAuth(that){
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
+            console.log("getCCAuthurl()");
+            console.log(result);
             if (result.access_token){
                 that.setState({
                     cc_access_token: result.access_token
