@@ -7,8 +7,16 @@ import {
     MDBBtn
 } from 'mdb-react-ui-kit';
 
-
 class Home extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleLoginTimeout = this.handleTimeout.bind(this);
+    }
+
+    handleLoginTimeout(){
+        console.log("handleLoginTimeout()");
+    }
+
 
 
     render(){
