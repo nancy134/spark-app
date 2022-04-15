@@ -1,7 +1,16 @@
 import React from 'react';
-import { MDBFooter, MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { 
+    MDBFooter,
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBBtn
+} from 'mdb-react-ui-kit';
+
 
 class Home extends React.Component{
+
+
     render(){
 
         return(
@@ -27,7 +36,11 @@ class Home extends React.Component{
                           alt="placeholder"
                       />
                   </MDBCol>
-              </MDBRow>
+                  </MDBRow>
+
+                  <MDBBtn
+                  onClick={this.handleTimeout}
+              >Login Timeout Test</MDBBtn>
 
               </MDBContainer>
           <MDBFooter>
