@@ -7,14 +7,19 @@ import {
     MDBBtn
 } from 'mdb-react-ui-kit';
 
+import LoginTimeout from '../components/LoginTimeout.js';
+
 class Home extends React.Component{
     constructor(props){
         super(props);
-        this.handleLoginTimeout = this.handleTimeout.bind(this);
+        this.handleLoginTimeout = this.handleLoginTimeout.bind(this);
+
     }
 
     handleLoginTimeout(){
-        console.log("handleLoginTimeout()");
+        this.setState({
+            showLoginTimeout: true
+        });
     }
 
 
@@ -24,6 +29,10 @@ class Home extends React.Component{
         return(
 
             <React.Fragment>
+            <LoginTimeout
+                show={this.state.showLoginTimeout}
+            />
+
             <MDBContainer className='p-4'>
               <MDBRow >
                   <MDBCol >
@@ -47,7 +56,8 @@ class Home extends React.Component{
                   </MDBRow>
 
                   <MDBBtn
-                  onClick={this.handleTimeout}
+                  onClick={this.handleLoginTimeout}
+
               >Login Timeout Test</MDBBtn>
 
               </MDBContainer>
