@@ -139,10 +139,11 @@ class App extends React.Component {
                 redirect_uri={this.state.redirect_uri}
                 user={this.state.user}
             />
-            <AppRoutes
+        <AppRoutes
               appLoading={this.state.appLoading}
               loggingIn={this.state.loggingIn}
               loggedIn={this.state.loggedIn}
+              onLoginTimeout={this.handleLogout}
 
               listings={this.state.listings}
               loadingSavedSearchListings={this.state.loadingSavedSearchListings}

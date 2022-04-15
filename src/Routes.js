@@ -40,13 +40,16 @@ class AppRoutes extends React.Component {
                 path="/"
                 element={
                     <HomePage
+                        onLoginTimeout={this.props.onLoginTimeout}
                     />
+
                 }
             />
             <Route
                 path="/home"
                 element={
                     <HomePage
+                        onLoginTimeout={this.props.onLoginTimeout}
                     />
                 }
             />
