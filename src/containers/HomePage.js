@@ -9,8 +9,9 @@ export class HomePage extends React.Component {
     render(){
         return(
             <React.Fragment>
-                <Home
-                />
+                    <Home
+                    onLoginTimeout={this.props.onLoginTimeout}
+                    />
             </React.Fragment>
         );
     }

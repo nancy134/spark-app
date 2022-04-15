@@ -13,6 +13,10 @@ class Home extends React.Component{
     constructor(props){
         super(props);
         this.handleLoginTimeout = this.handleLoginTimeout.bind(this);
+        this.state = {
+            showLoginTimeout: false
+        }; 
+
 
     }
 
@@ -20,7 +24,9 @@ class Home extends React.Component{
         this.setState({
             showLoginTimeout: true
         });
+        this.props.onLoginTimeout();
     }
+
 
 
 

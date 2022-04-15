@@ -133,6 +133,7 @@ class App extends React.Component {
                 loggingIn={this.state.loggingIn}
                 onLogin={this.handleLogin}
                 loggedIn={this.state.loggedIn}
+                onLoginTimeout={this.handleLogout}
                 onLogout={this.handleLogout}
                 authUrl={this.state.authUrl}
                 redirect_uri={this.state.redirect_uri}
