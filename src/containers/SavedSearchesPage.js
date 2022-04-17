@@ -3,7 +3,10 @@ import Preview from '../components/Preview';
 import SavedSearches from '../components/SavedSearches';
 import Listings from '../components/Listings';
 import {
-    Spinner
+    Spinner,
+    Alert,
+    Row,
+    Col
 } from 'react-bootstrap';
 
 export class SavedSearchesPage extends React.Component {
@@ -20,6 +23,7 @@ export class SavedSearchesPage extends React.Component {
                             savedSearches={this.props.savedSearches}
                             onSavedSearchSelect={this.props.onSavedSearchSelect}
                             selectedSavedSearch={this.props.selectedSavedSearch}
+                            onLoginTimeout={this.props.onLoginTimeout}
                         />
                     </div>
                     <div className="middle">
@@ -37,6 +41,8 @@ export class SavedSearchesPage extends React.Component {
                             htmlContent={this.props.htmlContent}
                             selectedSavedSearch={this.props.selectedSavedSearch}
                             onGenerateEmail={this.props.onGenerateEmail}
+                            generatingEmail={this.props.generatingEmail}
+
                             selectedSavedSearchName={this.props.selectedSavedSearchName}
                             user={this.props.user}
                             account={this.props.account}
@@ -52,14 +58,22 @@ export class SavedSearchesPage extends React.Component {
                 </div>
                 :
                 
-                <div className="px-5">
+                <div className="text-center p-5">
                    { this.props.appLoading || this.props.loggingIn ?
                        <Spinner
                            animation="border"
                            variant="primary"
                        />
                    :
-                   <p>You must login with your FlexMLS account to see your Saved Searches</p>
+                   <Row>
+                       <Col xs={3}></Col>
+                       <Col>
+                           <Alert variant="danger">
+                               <p>You must login with your FlexMLS account to see your Saved Searches</p>
+                           </Alert>
+                       </Col>
+                       <Col xs={3}></Col>
+                   </Row>
                    }
                 </div>
                 }

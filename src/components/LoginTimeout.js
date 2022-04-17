@@ -35,9 +35,9 @@ class LoginTimeout extends React.Component {
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    onClick={this.props.onLogin}
+                    onClick={this.props.onCancel}
                 >
-                    Login
+                    Close 
                 </Button>
             </Modal.Footer>
         </Modal>

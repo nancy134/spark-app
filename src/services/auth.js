@@ -40,7 +40,12 @@ export function getSparkRefreshToken(body){
         axios.post(url, body).then(function(response){
             resolve(response.data);
         }).catch(function(err){
-            reject(err);
+            console.log(err);
+            if (err.response && err.response.data){
+                reject(err.reponse.data);
+            } else {
+                reject(err);
+            }
         });
     });
 }

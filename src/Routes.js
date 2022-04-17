@@ -60,6 +60,7 @@ class AppRoutes extends React.Component {
                         appLoading={this.props.appLoading}
                         loggingIn={this.props.loggingIn}
                         loggedIn={this.props.loggedIn}
+                        onLoginTimeout={this.props.onLoginTimeout}
                         collections={this.props.collections}
                         collectionListings={this.props.collectionListings}
                         onCollectionSelect={this.props.onCollectionSelect}
@@ -73,6 +74,8 @@ class AppRoutes extends React.Component {
                         previewUrl={this.props.previewUrl}
                         htmlContent={this.props.htmlContent}
                         onGenerateEmail={this.props.onGenerateEmail}
+                        generatingEmail={this.props.generatingEmail}
+
                         user={this.props.user}
                         account={this.props.account}
                         onInitializeSavedSearches={this.props.onInitializeSavedSearches}

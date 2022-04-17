@@ -54,6 +54,7 @@ class Preview extends React.Component{
 
 
     render(){
+        console.log("this.props.generatingEmail: "+this.props.generatingEmail); 
         var disableGenerateEmail = false;
         if (this.props.previewUrl) disableGenerateEmail=true;
         return(
@@ -127,11 +128,13 @@ class Preview extends React.Component{
                 : null }
 
             </div>
-            { this.props.loading ?
-            <Spinner
-                animation="border"
-                variant="primary"
-            />
+            { this.props.generatingEmail ?
+            <div className="text-center">
+                <Spinner
+                    animation="border"
+                    variant="primary"
+                />
+            </div>
             :
              <iframe title="preview" frameBorder="0" src={this.props.previewUrl} className="frame-container" />
             }

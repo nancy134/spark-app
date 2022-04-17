@@ -94,24 +94,37 @@ function initializeAccount(that){
                 };
                 resolve(ret);
             }).catch(function(err){
+                if (err.type && err.type === "LoginTimeout"){
+                    that.handleLogout();
+                }
                 reject(err);
             });
         }).catch(function(err){
+            if (err.type && err.type === "LoginTimeout"){
+                that.handleLogout();
+            }
             reject(err);
         });
     });
 }
 
 function initializeSavedSearches(that){
+    console.log("getting saved searches...");
     getSavedSearches(that).then(function(result){
     }).catch(function(err){
+        if (err.type && err.type === "LoginTimeout"){
+            that.props.onLoginTimeout();
+        }
         console.log(err);
     });
 }
 
 function logout(that){
     memoryStorageService.sparkClearAll();
+    const {cookies} = that.props;
+    cookies.remove("refresh_token");
     that.setState({
+       showLoginTimeout: true,
        accessToken: null,
        refresToken: null,
        loggedIn: false
@@ -175,6 +188,9 @@ function getSavedSearches(that){
                     resolve("ok");
 
                 }).catch(function(err){
+                    if (err.type && err.type === "LoginTimeout"){
+                        that.handleLogout();
+                    }   
                     console.log(err);
                     that.setState({
                         loadingSavedSearches: false
@@ -187,6 +203,9 @@ function getSavedSearches(that){
                 });
             }
         }).catch(function(err){
+            if (err.type && err.type === "LoginTimeout"){
+                that.handleLogout();
+            }
             console.log(err);
             that.setState({
                 loadingSavedSearches: false
@@ -225,6 +244,9 @@ function savedSearchSelect(that, accessToken, id, name){
             });
         
     }).catch(function(err){
+        if (err.type && err.type === "LoginTimeout"){
+            that.handleLogout();
+        }
         that.setState({
             loadingSavedSearchListings: false
         });
@@ -237,14 +259,18 @@ function generateEmail(that, id){
         sparkService.createEmailMustache(id).then(function(email){
             console.log(email);
             that.setState({
-                loading: false,
+                generatingEmail: false,
                 previewUrl: email.Location,
                 htmlContent: email.content
+              
             });
 
         }).catch(function(err){
+            if (err.type && err.type === "LoginTimeout"){
+                that.handleLogout();
+            }
             that.setState({
-                loading: false
+                generatingEmail: false
             });
             console.log(err);
         });

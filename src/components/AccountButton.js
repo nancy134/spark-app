@@ -63,6 +63,10 @@ export class AccountButton extends Component{
                 });
                 console.log("result:");
                 console.log(result);
+                var d = new Date();
+                d.setSeconds(d.getSeconds() + result.expires_in);
+                //var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                console.log(d.toLocaleString());
                 that.updateAccessToken(result.access_token, result.refresh_token);
             }).catch(function(err){
                 that.setState({

@@ -56,6 +56,8 @@ class SavedSearches extends React.Component{
                         savedSearch={savedSearch}
                         onSavedSearchSelect={this.handleSavedSearchSelect}
                         selectedSavedSearch={this.props.selectedSavedSearch}
+                        onLoginTimeout={this.props.onLoginTimeout}
+
                     />
                 ))}
             </ListGroup>

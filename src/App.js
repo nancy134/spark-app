@@ -9,6 +9,9 @@ import AppRoutes from './Routes';
 import memoryStorageService from './services/memoryStorage';
 import sparkHelper from './helpers/spark';
 import constantHelper from './helpers/constant';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import LoginTimeout from './components/LoginTimeout';
 
 class App extends React.Component {
     constructor(props){
@@ -26,12 +29,14 @@ class App extends React.Component {
 
             // App
             appLoading: true,
+            showLoginTimeout: false,
 
             // Authentication
             redirect_uri: null,
             authUrl: null,
             loggingIn: false,
             loggedIn: false,
+            cookies: instanceOf(Cookies).isRequired,
 
             // Saved Searches
             savedSearches: null,
@@ -44,6 +49,7 @@ class App extends React.Component {
             // Preview
             previewUrl: null,
             htmlContent: null,
+            generatingEmail: false,
 
             // Constant Contact Auth
             ccLoggedIn: null
@@ -98,7 +104,7 @@ class App extends React.Component {
     handleGenerateEmail(id){
         var that = this;
         that.setState({
-            loading: true
+            generatingEmail: true
         });
         sparkHelper.generateEmail(that, that.state.selectedSavedSearch);
     }
@@ -114,6 +120,12 @@ class App extends React.Component {
         constantHelper.receiveLoginMessage(that, event, redirect_url);
     }
 
+    handleLoginTimeoutCancel(){
+        this.setState({
+            showLoginTimeout: false
+        });
+    }
+
     componentDidMount(){
 
        var that = this;
@@ -125,9 +137,12 @@ class App extends React.Component {
     }
 
     render(){
-        console.log("this.state.cc_access_token: "+this.state.cc_access_token);
         return(
         <React.Fragment>
+            <LoginTimeout
+                show={this.state.showLoginTimeout}
+                onCancel={this.handleLoginTimeoutCance}
+            />
             <AppNavBar 
                 appLoading={this.state.appLoading}
                 loggingIn={this.state.loggingIn}
@@ -156,6 +171,8 @@ class App extends React.Component {
               previewUrl={this.state.previewUrl}
               htmlContent={this.state.htmlContent}
               onGenerateEmail={this.handleGenerateEmail}
+              generatingEmail={this.state.generatingEmail}
+
               user={this.state.user}
               account={this.state.account}
               onInitializeSavedSearches={this.handleInitializeSavedSearches}
@@ -174,5 +191,5 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withCookies(App);
 

@@ -141,22 +141,25 @@ function getAccount(that){
 
 function checkAuth(that){
     return new Promise(function(resolve, reject){
+        console.log("getting CC Authrl...");
         authService.getCCAuthUrl().then(function(result){
-            console.log("getCCAuthurl()");
             console.log(result);
             if (result.access_token){
+                console.log("cc access_token found");
                 that.setState({
                     cc_access_token: result.access_token
                 });
                 console.log("Saving CC access_token and refresh_token");
                 memoryStorageService.setCCAccessToken(result.access_token);
                 memoryStorageService.setCCRefreshToken(result.refresh_token);
+                console.log("getting CC account");
                 getAccount(that).then(function(account){
                     resolve(result);
                 }).catch(function(err){
                     reject(err);
                 });
             } else {
+                console.log("no access_token found");
                 var ret = {
                     access_token: null
                 }
