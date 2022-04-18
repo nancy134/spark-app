@@ -44,6 +44,7 @@ export class SavedSearchesPage extends React.Component {
                             generatingEmail={this.props.generatingEmail}
 
                             selectedSavedSearchName={this.props.selectedSavedSearchName}
+                            loadingSavedSearchListings={this.props.loadingSavedSearchListings}
                             user={this.props.user}
                             account={this.props.account}
                             activityId={this.props.activityId}

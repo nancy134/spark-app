@@ -86,6 +86,7 @@ class Preview extends React.Component{
             </Navbar>
             <div className="text-center p-2">
                 <span className="px-3">
+                { !this.props.loadingSavedSearchListings ?
                 <Button
                    disabled={disableGenerateEmail}
                    onClick={this.props.onGenerateEmail}
@@ -94,6 +95,7 @@ class Preview extends React.Component{
                    <div>for</div>
                    <div>{this.props.selectedSavedSearchName}</div>
                 </Button>
+                : null }
                 </span>
                 { this.props.previewUrl ? 
 		<span>

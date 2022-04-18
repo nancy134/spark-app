@@ -77,15 +77,10 @@ class UploadAuthConstant extends React.Component {
                         </Button>
                         :
                         <div>
-                        <p>You're logged into Constant Contact</p>
+                        <p>You're already logged into Constant Contact</p>
+                        <p>Select Next to upload your email to Constant contact</p> 
                         </div>
                         }
-                        <div className="pt-2"></div>
-                        <div style={{paddingTop: '5px', backgroundColor: 'grey'}}>
-                            <p>cc_access_token: {this.props.cc_access_token}</p>
-                            <p>ccAccountId: {this.props.ccAccountId} </p>
-                            <p>redirect_uri: {this.state.redirect_uri}</p>
-                        </div>
                     </Col>
                 </Row>
             <Row>

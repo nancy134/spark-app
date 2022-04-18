@@ -29,16 +29,12 @@ export class AccountButton extends Component{
          this.openSignInWindow(this.props.authUrl, "Spark Signin");
     }
     handleLogout(){
-       var that = this;
-       authService.getSparkLogoutUrl().then(function(result){
-           that.props.onSparkLogout();
-       }).catch(function(err){
-           console.log(err);
-       });
+       this.props.onLogout("NoDialog");
     }
+
     updateAccessToken(accessToken, refreshToken){
         this.props.onLogin(accessToken, refreshToken);
-}
+    }
 
     receiveMessage (event){
         var that = this;
@@ -164,7 +160,7 @@ export class AccountButton extends Component{
             <span className="align-top text-danger">
             {this.props.loggedIn ?
                 ( 
-                <DropdownButton id="account-button-dropdown" title={userName}>
+                <DropdownButton id="account-button-dropdown" className="murban-dropdown" title={userName}>
                     <Dropdown.Item
                         as="button"
                         id="account-button-my-account"

@@ -30,6 +30,7 @@ class Home extends React.Component{
                       <img
                           src="https://mu-s3-images.s3.amazonaws.com/CCEmailMobile.png"
                           className="img-fluid"
+                          style={{height: "80%"}}
                           alt="placeholder"
                       />
                   </MDBCol>

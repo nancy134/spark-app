@@ -119,12 +119,15 @@ function initializeSavedSearches(that){
     });
 }
 
-function logout(that){
+function logout(that, type){
     memoryStorageService.sparkClearAll();
     const {cookies} = that.props;
     cookies.remove("refresh_token");
+
+    var showLoginTimeout = true;
+    if (type === "NoDialog") showLoginTimeout = false;
     that.setState({
-       showLoginTimeout: true,
+       showLoginTimeout: showLoginTimeout,
        accessToken: null,
        refresToken: null,
        loggedIn: false

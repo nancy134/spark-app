@@ -4,7 +4,8 @@ import {
     Button,
     Row,
     Col,
-    Spinner
+    Spinner,
+    Form
 } from 'react-bootstrap';
 import constantService from '../services/constant';
 import sparkService from '../services/spark';
@@ -17,22 +18,33 @@ class UploadConstant extends React.Component {
 
         this.handleUpload = this.handleUpload.bind(this);
         this.handleDone = this.handleDone.bind(this);
-
+        this.handleNameChange = this.handleNameChange.bind(this);
         this.state = {
             numCampaigns: 0,
-            successMessage: null 
+            successMessage: null,
+            campaign_name: "",
+            proposedName: "[test13 murban] " + props.selectedSavedSearchName
+ 
         };
     }
 
+    handleNameChange(e){
+        this.setState({
+            campaign_name: e.target.value
+        });
+    }
+
     handleUpload(){
-        console.log("handleUpload()");
+
+        if (this.state.successMessage){
+            this.props.onCancel();
+            return;
+        }
+
         this.setState({
             loading: true
         });
-        var name = "[test13 murban] " + this.props.selectedSavedSearchName;
 
-        console.log("this.props.account:");
-        console.log(this.props.account);
 
         var emailCampaignActivity = {
             format_type: 5,
@@ -43,22 +55,16 @@ class UploadConstant extends React.Component {
             html_content: this.props.htmlContent,
             preHeader: "Your Listings"
         };
-        console.log("emailCampaignActivity:");
-        console.log(emailCampaignActivity);
         var accessToken = memoryService.ccAccessToken();
         var constantBody = {
             accessToken: accessToken,
-            name: name,
+            name: this.state.proposedName,
             email_campaign_activities: [emailCampaignActivity]
         };
 
-        console.log("constantBody:");
-        console.log(constantBody);
         var that = this;
         sparkService.getConstant(this.props.selectedSavedSearch, this.props.ccAccountId).then(function(result){
             constantService.updateCampaign(result.constantId, constantBody).then(function(campaign){
-                console.log("update campaign:");
-                console.log(campaign);
                 that.setState({
                     loading: false,
                     activityId: campaign.campaign_activity_id,
@@ -71,8 +77,6 @@ class UploadConstant extends React.Component {
         }).catch(function(err){
             if (err && err.response && err.response.data === "not found"){
                 constantService.createCampaign(JSON.stringify(constantBody)).then(function(campaign){
-                    console.log("create campaign:");
-                    console.log(campaign);
                     
                     var savedSearchBody = {
                         savedSearchId: that.props.selectedSavedSearch,
@@ -80,8 +84,6 @@ class UploadConstant extends React.Component {
                         ccAccountId: that.props.ccAccountId
                     };
 
-                    console.log("savedSearchBody:");
-                    console.log(savedSearchBody);
                     sparkService.createConstant(savedSearchBody).then(function(constant){
                         var activityId = null;
                         for (var i=0; i<campaign.campaign_activities.length; i++){
@@ -144,8 +146,10 @@ class UploadConstant extends React.Component {
     }
 
    render(){
-        var doneDisabled = true;
-        if (this.state.activityId) doneDisabled = false;
+        var editName = false;
+        var buttonName = "Upload Email";
+        if (this.state.successMessage) buttonName = "Done";
+
        return(
         <Modal
             show={this.props.show}
@@ -161,33 +165,33 @@ class UploadConstant extends React.Component {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+            { editName ?
+            <Row>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>Email name</Form.Label>
+                        <Form.Control
+                            value={this.state.campaign_name}
+                        /> 
+                    </Form.Group>
+                </Form>
+            </Row>
+            : null }
             <Row>
                 <Col>
-                    <Button
-                        onClick={this.handleUpload}
-                        >
-                        Upload to Constant Contact
-                    </Button>
-                   
-                    { this.state.loading ?
-                    <Spinner
-                        animation="border"
-                        variant="primary"
-                    />
-                    : null}
+                    { this.state.campaign_name ?
+                    <p>An email with the following name will be updated.<br/>
+                    <b>Email name:</b> {this.state.campaign_name}</p>
+                    :
+                    <p>A new email will be created with the following name:<br/>
+                    <b>Email name:</b> {this.state.proposedName}
+                    </p> 
+                    }
                     { this.state.successMessage ?
                     <div className="pt-3 pb-3">
                         <p>{this.state.successMessage}</p>
-                        <p>Email Name: {this.state.campaign_name}</p>
                     </div>
                     : null }
-                    <div className="pt-2"></div>
-                    <div style={{paddingTop: '5px', backgroundColor: 'grey'}}>
-                        <h3>Debug Information</h3>
-                        <p>this.state.campaign_name: {this.state.campaign_name}</p>
-                        <p>this.props.cc_access_token: {this.props.cc_access_token}</p>
-                        <p>this.props.ccAccountId: {this.props.ccAccountId}</p>
-                    </div>
 
                 </Col>
             </Row>
@@ -201,10 +205,19 @@ class UploadConstant extends React.Component {
                     Cancel
                 </Button>
                 <Button
-                     disabled={doneDisabled}
-                     onClick={this.handleDone}
+                     onClick={this.handleUpload}
                  >
-                    Done
+                 { this.state.loading ?
+                 <span><span>{buttonName}&nbsp;</span><Spinner
+                     as="span"
+                     animation="border"
+                     size="sm"
+                     role="status"
+                     aria-hidden="true"
+                 /></span>
+                 :
+                 <span>{buttonName}</span>
+                 }
                 </Button>
             </Modal.Footer>
         </Modal>

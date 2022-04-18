@@ -87,8 +87,8 @@ class App extends React.Component {
         }
     }
 
-    handleLogout(){
-        sparkHelper.logout(this);
+    handleLogout(type){
+        sparkHelper.logout(this, type);
     }
 
     handleInitializeSavedSearches(){
