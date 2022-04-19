@@ -8,6 +8,8 @@ import AccountButton from './components/AccountButton';
 
 class AppNavBar extends React.Component {
     render(){
+        var showContacts = false;
+        console.log("showContacts: "+showContacts);
         //var logo = process.env.REACT_APP_IMAGES + "WebsiteLogo.png";
         return(
        <Navbar bg="dark" variant="dark">
@@ -30,13 +32,13 @@ class AppNavBar extends React.Component {
                         <span>Saved Searches</span>
                     </Nav.Link>
                 </Nav.Item>
-                
+                { showContacts ? 
                 <Nav.Item>
                     <Nav.Link style={{color: "white"}} href="/contacts">
                         <span>Contacts</span>
                     </Nav.Link>
                 </Nav.Item>
-
+                : null }
                 <Nav.Item>
                     <Nav.Link style={{color: "white"}} href="/help">
                         <span>Help</span>

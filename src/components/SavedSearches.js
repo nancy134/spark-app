@@ -43,7 +43,7 @@ class SavedSearches extends React.Component{
             <div className="pl-1 pr-1">
             <Navbar bg="light" expand="lg" stick="top">
                 <Container>
-                <Navbar.Brand>SavedSearches</Navbar.Brand>
+                <Navbar.Brand>Saved Searches</Navbar.Brand>
                 </Container>
             </Navbar>
             { savedSearches ?

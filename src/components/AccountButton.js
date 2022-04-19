@@ -155,17 +155,20 @@ export class AccountButton extends Component{
             appLoading = true;
         }
 
+        var showAccount = false;
         return(
         <span>
             <span className="align-top text-danger">
             {this.props.loggedIn ?
                 ( 
                 <DropdownButton id="account-button-dropdown" className="murban-dropdown" title={userName}>
+                    { showAccount ?
                     <Dropdown.Item
                         as="button"
                         id="account-button-my-account"
                         onClick={() => {this.onMyAccount()}}
                     >My Account</Dropdown.Item>
+                    : null }
                     <Dropdown.Item
                         as="button"
                         id="account-button-logout"
