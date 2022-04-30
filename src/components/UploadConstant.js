@@ -28,7 +28,8 @@ class UploadConstant extends React.Component {
             domain +
             " " +
             this.props.ccAccountId +
-            "]";
+            "] " +
+             props.selectedSavedSearchName;
   
         console.log("proposedName: "+proposedName);          
         this.state = {
