@@ -9,7 +9,6 @@ import AccountButton from './components/AccountButton';
 class AppNavBar extends React.Component {
     render(){
         var showContacts = false;
-        console.log("showContacts: "+showContacts);
         //var logo = process.env.REACT_APP_IMAGES + "WebsiteLogo.png";
         return(
        <Navbar bg="dark" variant="dark">

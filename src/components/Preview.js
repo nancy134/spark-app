@@ -54,7 +54,6 @@ class Preview extends React.Component{
 
 
     render(){
-        console.log("this.props.generatingEmail: "+this.props.generatingEmail); 
         var disableGenerateEmail = false;
         if (this.props.previewUrl) disableGenerateEmail=true;
         return(

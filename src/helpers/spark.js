@@ -15,22 +15,17 @@ function initializeApp(that, accessToken, refreshToken){
          var access_token = null;
          var refresh_token = null;
          if (result.access_token){
-             console.log("got access token from cookie: "+result.access_token);
              access_token = result.access_token;
              refresh_token = result.refresh_token;
          } else if (hardCodedAccessToken){
-             console.log("got hardCodedAccessToken: "+hardCodedAccessToken);
              access_token = hardCodedAccessToken;
          }
 
          if (access_token){
-             console.log("saving access_token and refresh_token");
              memoryStorageService.setAccessToken(access_token);
              memoryStorageService.setRefreshToken(refresh_token);
 
-             console.log("getting Spark account information");
              initializeAccount(that).then(function(result){
-                 console.log(result);
                  that.setState({
                      appLoading: false,
                      loggedIn: true,
@@ -41,11 +36,9 @@ function initializeApp(that, accessToken, refreshToken){
                  that.setState({
                      appLoading: false
                  });
-                 console.log(err);
              });
 
          } else {
-           console.log("No access token");
            var hostname = window.location.hostname;
            var protocol = window.location.protocol;
            var redirect_uri =
@@ -70,9 +63,7 @@ function initializeApp(that, accessToken, refreshToken){
     });
 
     //Check for Constant Contact login
-    console.log("checking Constant Contact login");
     constantHelper.checkAuth(that).then(function(result){
-        console.log(result);
         that.setState({
             ccLoggedIn: true,
         });
@@ -109,7 +100,6 @@ function initializeAccount(that){
 }
 
 function initializeSavedSearches(that){
-    console.log("getting saved searches...");
     getSavedSearches(that).then(function(result){
     }).catch(function(err){
         if (err.type && err.type === "LoginTimeout"){
@@ -260,7 +250,6 @@ function savedSearchSelect(that, accessToken, id, name){
 function generateEmail(that, id){
 
         sparkService.createEmailMustache(id).then(function(email){
-            console.log(email);
             that.setState({
                 generatingEmail: false,
                 previewUrl: email.Location,

@@ -6,10 +6,10 @@ let windowObjectReference = null;
 let previousUrl = null;
 
 function updateAccessToken(that, accessToken, refreshToken){
-    console.log("saving accesstoken and refreshtoken...");
     memoryStorageService.setCCAccessToken(accessToken);
-    memoryStorageService.setCCRefreshToken(refreshToken);
-
+    if (refreshToken !== null && refreshToken !== 'null'){ 
+        memoryStorageService.setCCRefreshToken(refreshToken);
+    } 
     that.setState({
         loggedIn: true
     });
@@ -17,16 +17,15 @@ function updateAccessToken(that, accessToken, refreshToken){
 
 function getAuthToken(that, code, redirect_uri){
     return new Promise(function(resolve, reject){
-        console.log("getting auth token...");
         authService.getCCAuthToken(code, redirect_uri).then(function(result){
-            console.log(result);
             that.setState({
                 cc_access_token: result.access_token
             });
-            updateAccessToken(that, result.access_token, result.refresh_token);
+            var refresh_token = null;
+            if (result.refresh_token) refresh_token = result.refresh_token;
+            updateAccessToken(that, result.access_token, refresh_token);
             resolve(result);
         }).catch(function(err){
-            console.log(err);
             reject(err);
         });
     });
@@ -36,24 +35,19 @@ function createAuthUrl(that){
 
     return new Promise(function(resolve, reject){
         authService.getCCAuthUrl().then(function(result){
-            console.log(result);
 
             var hostname = window.location.hostname;
             var protocol = window.location.protocol;
-            var port = window.location.port;
             var redirect_uri =
                 protocol +
                 "//" +
                 hostname +
-                ":" +
-                port +
                 "/constantcontact";
 
             var url =
                 result.authUrl +
                 redirect_uri;
 
-            console.log("redirect_uri: "+redirect_uri);
             that.setState({
                 authUrl: url,
                 redirect_uri: redirect_uri
@@ -78,10 +72,7 @@ function getAuthUrl(that){
         var accessToken = memoryStorageService.ccAccessToken();
         var refreshToken = memoryStorageService.ccRefreshToken();
         if (!accessToken && !refreshToken){
-           console.log("creating auth url");
            createAuthUrl(that).then(function(result){
-               console.log("result:");
-               console.log(result);
                if (result.access_token){
                    updateAccessToken(that, result.access_token, result.refresh_token); 
                }
@@ -102,12 +93,9 @@ function getAuthUrl(that){
                     resolve("generated access token from refresh token");
                     updateAccessToken(that, result.access_token, result.refresh_token);
                 }).catch(function(err){
-                    console.log("getting authUrl...");
                     createAuthUrl(that).then(function(url){
-                        console.log("url: "+url);
                         resolve(url);
                     }).catch(function(err){
-                        console.log(err);
                         reject(err);
                     });
 
@@ -121,8 +109,6 @@ function getAuthUrl(that){
 function getAccount(that){
     return new Promise(function(resolve, reject){
         constantService.getAccount().then(function(account){
-            console.log("account:");
-            console.log(account);
             var name = account.first_name + " " + account.last_name;
             var organization = account.organization_name;
             
@@ -141,28 +127,24 @@ function getAccount(that){
 
 function checkAuth(that){
     return new Promise(function(resolve, reject){
-        console.log("getting CC Authrl...");
         authService.getCCAuthUrl().then(function(result){
-            console.log(result);
             if (result.access_token){
-                console.log("cc access_token found");
                 that.setState({
                     cc_access_token: result.access_token
                 });
-                console.log("Saving CC access_token and refresh_token");
                 memoryStorageService.setCCAccessToken(result.access_token);
                 memoryStorageService.setCCRefreshToken(result.refresh_token);
-                console.log("getting CC account");
                 getAccount(that).then(function(account){
                     resolve(result);
                 }).catch(function(err){
                     reject(err);
                 });
             } else {
-                console.log("no access_token found");
                 var ret = {
                     access_token: null
                 }
+                const {cookies} = that.props;
+                cookies.remove("cc_refresh_token");
                 reject(ret);
             }
         }).catch(function(err){
@@ -206,24 +188,26 @@ function openSignInWindow(that, url, name){
 }
 
 function receiveLoginMessage(that, event, redirect_uri){
-    console.log(event);
+
     var code = null;
-    if (event.data){
-        code = event.data.substring(6);
+    
+    if (event.data && !event.data.type){
+        var check = event.data.substring(1,5);
+        if (check === "code"){
+            var str = event.data;
+            var parts = str.split("&");
+            code = parts[0].substring(6);
+        }
     }
 
     if (code){
-        console.log("code: "+code);
         window.removeEventListener('message', that.receiveMessage);
         that.setState({
             authorizationCode: event.data.substring(6)
         });
 
         getAuthToken(that, code, redirect_uri).then(function(result){
-            console.log(result);
-         
             getAccount(that).then(function(account){
-                console.log(account);
             }).catch(function(err){
                 console.log(err);
             });
@@ -235,7 +219,7 @@ function receiveLoginMessage(that, event, redirect_uri){
 
 const constant = {
     getAuthUrl,
-    getAuthToken,
+    //getAuthToken,
     checkAuth,
     openSignInWindow,
     receiveLoginMessage
