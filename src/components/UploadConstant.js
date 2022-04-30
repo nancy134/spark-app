@@ -10,6 +10,7 @@ import {
 import constantService from '../services/constant';
 import sparkService from '../services/spark';
 import memoryService from '../services/memoryStorage';
+import {getDomain} from '../helpers/utilities';
 
 class UploadConstant extends React.Component {
 
@@ -19,11 +20,22 @@ class UploadConstant extends React.Component {
         this.handleUpload = this.handleUpload.bind(this);
         this.handleDone = this.handleDone.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
+
+        var domain = getDomain(window.location.hostname);
+
+        var proposedName = 
+            "[" +
+            domain +
+            " " +
+            this.props.ccAccountId +
+            "]";
+  
+        console.log("proposedName: "+proposedName);          
         this.state = {
             numCampaigns: 0,
             successMessage: null,
             campaign_name: "",
-            proposedName: "[test13 murban] " + props.selectedSavedSearchName
+            proposedName: proposedName 
  
         };
     }
@@ -37,6 +49,7 @@ class UploadConstant extends React.Component {
     handleUpload(){
 
         if (this.state.successMessage){
+            this.handleDone();
             this.props.onCancel();
             return;
         }
