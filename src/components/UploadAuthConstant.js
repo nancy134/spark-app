@@ -35,9 +35,6 @@ class UploadAuthConstant extends React.Component {
     }
 
     receiveMessage (event){
-        console.log("receiveMessage()");
-        console.log("event:");
-        console.log(event);
         this.props.receiveLoginMessage(event, this.state.redirect_uri);
         //constantHelper.receiveLoginMessage(that, event, this.state.redirect_uri);
     }

@@ -68,7 +68,6 @@ function initializeApp(that, accessToken, refreshToken){
             ccLoggedIn: true,
         });
     }).catch(function(err){
-        console.log(err);
     });
 
 }

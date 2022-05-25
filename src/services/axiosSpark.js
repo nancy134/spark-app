@@ -27,7 +27,6 @@ axiosSpark.interceptors.response.use((response) => {
     if (error.response.status === 401 && !originalRequest._retry){
         originalRequest._retry = true;
         const refreshToken = memoryStorageService.refreshToken();
-        console.log("refreshing token...");
         return axiosSpark.post(process.env.REACT_APP_API+'spark/refreshToken',
             {
                 "refresh_token": refreshToken

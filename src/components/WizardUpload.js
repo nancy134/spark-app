@@ -19,7 +19,6 @@ class WizardUpload extends React.Component{
     }
 
     handleUploadAuthConstantNext(){
-        console.log("handleUploadAuthConstantNext()");
         this.setState({
             showUploadAuthConstant: false,
             showUploadConstant: true
