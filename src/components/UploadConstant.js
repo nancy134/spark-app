@@ -157,7 +157,6 @@ class UploadConstant extends React.Component {
                         }
                         resolve(ret);
                     }).catch(function(err){
-                        console.log(err);
                         if (err && err.length && err[0].error_key === "email.emailcampaign.retrieve.failed"){
                             var id = len + 1;
                             ret.operation = "create";
