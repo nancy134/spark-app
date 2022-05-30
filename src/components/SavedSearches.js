@@ -5,6 +5,7 @@ import {
     Spinner,
     Container
 } from 'react-bootstrap';
+import ListPagination from '../components/ListPagination';
 
 function SavedSearchItem(props){
     var active = false;
@@ -38,6 +39,13 @@ class SavedSearches extends React.Component{
     render(){
 
         var savedSearches = this.props.savedSearches;
+        var loadingSavedSearches = this.props.loadingSavedSearches;
+        if (savedSearches){
+            var page = savedSearches.D.Pagination.CurrentPage;
+            var perPage = savedSearches.D.Pagination.PageSize;
+            var count = savedSearches.D.Pagination.TotalRows;
+        }
+
         return(
         <React.Fragment>
             <div className="pl-1 pr-1">
@@ -47,6 +55,14 @@ class SavedSearches extends React.Component{
                 </Container>
             </Navbar>
             { savedSearches ?
+            <ListPagination
+                page={page}
+                count={count}
+                perPage={perPage}
+                onNewPage={this.props.onNewSavedSearchPage}
+            />
+            : null }
+            { savedSearches && !loadingSavedSearches?
             <ListGroup>
                 {savedSearches.D.Results.map((savedSearch, index) =>
                 (
@@ -61,12 +77,13 @@ class SavedSearches extends React.Component{
                     />
                 ))}
             </ListGroup>
-            :
+            : null }
+            { loadingSavedSearches ?
             <Spinner
                 animation="border"
                 variant="primary"
             />
-            }
+            : null }
             </div>
         </React.Fragment>
         );

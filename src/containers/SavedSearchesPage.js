@@ -24,6 +24,8 @@ export class SavedSearchesPage extends React.Component {
                             onSavedSearchSelect={this.props.onSavedSearchSelect}
                             selectedSavedSearch={this.props.selectedSavedSearch}
                             onLoginTimeout={this.props.onLoginTimeout}
+                            onNewSavedSearchPage={this.props.onNewSavedSearchPage}
+                            loadingSavedSearches={this.props.loadingSavedSearches}
                         />
                     </div>
                     <div className="middle">

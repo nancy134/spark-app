@@ -66,8 +66,11 @@ export function getSystem(){
     });
 }
 
-export function getSavedSearches(){
+export function getSavedSearches(page){
     var url = process.env.REACT_APP_API + "spark/savedsearches";
+    if (page){
+        url += "?page="+page;
+    }
     return new Promise(function(resolve, reject){
         var options = {
             url: url,

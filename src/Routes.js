@@ -66,11 +66,13 @@ class AppRoutes extends React.Component {
                         onCollectionSelect={this.props.onCollectionSelect}
                         selectedCollection={this.props.selectedCollection}
                         savedSearches={this.props.savedSearches}
+                        loadingSavedSearches={this.props.loadingSavedSearches}
                         listings={this.props.listings}
                         loadingSavedSearchListings={this.props.loadingSavedSearchListings}
                         onSavedSearchSelect={this.props.onSavedSearchSelect}
                         selectedSavedSearch={this.props.selectedSavedSearch}
                         selectedSavedSearchName={this.props.selectedSavedSearchName}
+                        onNewSavedSearchPage={this.props.onNewSavedSearchPage}
                         previewUrl={this.props.previewUrl}
                         htmlContent={this.props.htmlContent}
                         onGenerateEmail={this.props.onGenerateEmail}

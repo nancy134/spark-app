@@ -20,6 +20,7 @@ class App extends React.Component {
         this.handleLogin = this.handleLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
         this.handleSavedSearchSelect = this.handleSavedSearchSelect.bind(this);
+        this.handleNewSavedSearchPage = this.handleNewSavedSearchPage.bind(this);
         this.handleGenerateEmail = this.handleGenerateEmail.bind(this);
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
         this.handleInitializeSavedSearches = this.handleInitializeSavedSearches.bind(this);
@@ -41,6 +42,7 @@ class App extends React.Component {
             // Saved Searches
             savedSearches: null,
             selectedSavedSearch: null,
+            loadingSavedSearches: false,
 
             // Listings
             listings: null,
@@ -99,6 +101,11 @@ class App extends React.Component {
     handleSavedSearchSelect(id, name){
         var that = this;
         sparkHelper.savedSearchSelect(that, that.state.accessToken, id, name);
+    }
+
+    handleNewSavedSearchPage(page){
+        var that = this;
+        sparkHelper.savedSearchNewPage(that, that.state.accessToken, page);
     }
 
     handleGenerateEmail(id){
@@ -167,6 +174,8 @@ class App extends React.Component {
               onSavedSearchSelect={this.handleSavedSearchSelect}
               selectedSavedSearch={this.state.selectedSavedSearch}
               selectedSavedSearchName={this.state.selectedSavedSearchName}
+              onNewSavedSearchPage={this.handleNewSavedSearchPage}
+              loadingSavedSearches={this.state.loadingSavedSearches}
 
               previewUrl={this.state.previewUrl}
               htmlContent={this.state.htmlContent}

@@ -99,7 +99,17 @@ function initializeAccount(that){
 }
 
 function initializeSavedSearches(that){
-    getSavedSearches(that).then(function(result){
+    getSavedSearches(that, 1).then(function(result){
+    }).catch(function(err){
+        if (err.type && err.type === "LoginTimeout"){
+            that.props.onLoginTimeout();
+        }
+        console.log(err);
+    });
+}
+
+function savedSearchNewPage(that, accessToken, page){
+    getSavedSearches(that, page).then(function(result){
     }).catch(function(err){
         if (err.type && err.type === "LoginTimeout"){
             that.props.onLoginTimeout();
@@ -159,12 +169,12 @@ function getCollections(that, accessToken, refreshToken){
     });
 }
 
-function getSavedSearches(that){
+function getSavedSearches(that, page){
     return new Promise(function(resolve, reject){
         that.setState({
             loadingSavedSearches: true
         });
-        sparkService.getSavedSearches().then(function(savedSearches){
+        sparkService.getSavedSearches(page).then(function(savedSearches){
             if (savedSearches.D.Results.length > 0){
                 var savedSearchId = savedSearches.D.Results[0].Id;
                 var savedSearchName = savedSearches.D.Results[0].Name;
@@ -276,6 +286,7 @@ const spark = {
     getCollections,
     generateEmail,
     logout,
-    initializeSavedSearches
+    initializeSavedSearches,
+    savedSearchNewPage
 };
 export default spark;
