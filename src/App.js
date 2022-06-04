@@ -120,12 +120,8 @@ class App extends React.Component {
             generatingEmail: true
         });
 
-        var header_text = null;
-        if (this.state.header_text){
-            header_text = this.state.header_text.replace(new RegExp('\\n','g'), "<br>");
-        }
         var body = {
-            header_text: header_text 
+            header_text: this.state.header_text 
         }
         sparkHelper.generateEmail(that, that.state.selectedSavedSearch, body);
     }
