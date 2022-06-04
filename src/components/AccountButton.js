@@ -39,7 +39,10 @@ export class AccountButton extends Component{
     receiveMessage (event){
         var that = this;
         window.removeEventListener('message', this.receiveMessage);
-        var check = event.data.substring(1,5);
+        var check = null;
+        if (event.data && !event.data.type){
+            check = event.data.substring(1,5);
+        }
         if (check  === "code"){
             var code = event.data.substring(6);
 

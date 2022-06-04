@@ -87,6 +87,12 @@ class AppRoutes extends React.Component {
                         ccAccountId={this.props.ccAccountId}
                         cc_access_token={this.props.cc_access_token}
                         receiveLoginMessage={this.props.receiveLoginMessage}
+
+                        onShowSettings={this.props.onShowSettings}
+                        onSaveSettings={this.props.onSaveSettings}
+                        onCancelSettings={this.props.onCancelSettings}
+                        showSettings={this.props.showSettings}
+                        templateId={this.props.templateId}
                     />
                 }
             />

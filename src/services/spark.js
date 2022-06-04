@@ -115,12 +115,13 @@ export function createEmail(id){
     });
 }
 
-export function createEmailMustache(id){
+export function createEmailMustache(id, body){
     var url = process.env.REACT_APP_API + "spark/emails/" + id + "/mustache";
     return new Promise(function(resolve, reject){
         var options = {
             url: url,
-            method: 'POST'
+            method: 'POST',
+            data: body
         };
         axiosSpark(options).then(function(result){
             resolve(result.data);
@@ -194,6 +195,36 @@ export function getContacts(){
     });
 }
 
+export function getTemplates(){
+    var url = process.env.REACT_APP_API + "spark/templates";
+    return new Promise(function(resolve, reject){
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosSpark(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
+export function getTemplate(id){
+    var url = process.env.REACT_APP_API + "spark/templates/" + id;
+    return new Promise(function(resolve, reject){
+        var options = {
+            url: url,
+            method: 'GET'
+        };
+        axiosSpark(options).then(function(result){
+            resolve(result.data);
+        }).catch(function(err){
+            reject(err);
+        });
+    });
+}
+
 const spark = {
     getCollections,
     getCollection,
@@ -206,6 +237,8 @@ const spark = {
     getAccount,
     getConstant,
     createConstant,
-    getContacts
+    getContacts,
+    getTemplates,
+    getTemplate
 };
 export default spark;

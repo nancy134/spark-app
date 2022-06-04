@@ -1,12 +1,14 @@
 import React from 'react';
 import {
     Navbar,
+    Nav,
     Button,
     Container,
     Spinner
 }
 from 'react-bootstrap';
 import WizardUpload from '../components/WizardUpload';
+import PreviewSettings from '../components/PreviewSettings';
 
 class Preview extends React.Component{
     constructor(props){
@@ -16,9 +18,17 @@ class Preview extends React.Component{
         this.handleUploadEmailCancel = this.handleUploadEmailCancel.bind(this);
         this.handleUploadEmailDone = this.handleUploadEmailDone.bind(this);
         this.handleViewEmail = this.handleViewEmail.bind(this);
+        this.handleNav = this.handleNav.bind(this);
+        this.handleSettingsCancel = this.handleSettingsCancel.bind(this); 
         this.state = {
             showWizardUpload: false
         };
+    }
+
+    handleNav(selectedKey){
+        if (selectedKey === "settings"){
+            this.props.onShowSettings();
+        }
     }
 
     handlePreviewEmail(){
@@ -52,6 +62,9 @@ class Preview extends React.Component{
         window.open(url, "_blank");
     }
 
+    handleSettingsCancel(){
+        this.props.onCancelSettings();
+    }
 
     render(){
         var disableGenerateEmail = false;
@@ -76,11 +89,29 @@ class Preview extends React.Component{
                 onDone={this.handleUploadEmailDone}
             />
             : null }
+            { this.props.showSettings ?
+            <PreviewSettings
+                show={this.props.showSettings}
+                onSave={this.props.onSaveSettings}
+                onCancel={this.handleSettingsCancel}
+                user={this.props.user}
+                templateId={this.props.templateId}
+            />
+            : null }
             <div className="main-container">
             <div className="child scrollable">
             <Navbar bg="light" expand="lg" sticky="top">
                 <Container>
                 <Navbar.Brand>Preview</Navbar.Brand>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav
+                        onSelect={(selectedKey) => this.handleNav(selectedKey)}
+                    >
+                        <Nav.Link
+                            eventKey="settings"
+                        >Customization</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
                 </Container>
             </Navbar>
             <div className="text-center p-2">

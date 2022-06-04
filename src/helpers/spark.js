@@ -256,9 +256,9 @@ function savedSearchSelect(that, accessToken, id, name){
     });
 }
 
-function generateEmail(that, id){
+function generateEmail(that, id, body){
 
-        sparkService.createEmailMustache(id).then(function(email){
+        sparkService.createEmailMustache(id, body).then(function(email){
             that.setState({
                 generatingEmail: false,
                 previewUrl: email.Location,

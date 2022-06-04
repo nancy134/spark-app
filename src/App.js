@@ -25,6 +25,9 @@ class App extends React.Component {
         this.handleUploadEmail = this.handleUploadEmail.bind(this);
         this.handleInitializeSavedSearches = this.handleInitializeSavedSearches.bind(this);
         this.receiveLoginMessage = this.receiveLoginMessage.bind(this);
+        this.handleShowSettings = this.handleShowSettings.bind(this);
+        this.handleSaveSettings = this.handleSaveSettings.bind(this);
+        this.handleCancelSettings = this.handleCancelSettings.bind(this);
 
         this.state = {
 
@@ -52,6 +55,9 @@ class App extends React.Component {
             previewUrl: null,
             htmlContent: null,
             generatingEmail: false,
+            header_text: null,
+            showSettings: false,
+            templateId: "noTemplate",
 
             // Constant Contact Auth
             ccLoggedIn: null
@@ -113,7 +119,15 @@ class App extends React.Component {
         that.setState({
             generatingEmail: true
         });
-        sparkHelper.generateEmail(that, that.state.selectedSavedSearch);
+
+        var header_text = null;
+        if (this.state.header_text){
+            header_text = this.state.header_text.replace(new RegExp('\\n','g'), "<br>");
+        }
+        var body = {
+            header_text: header_text 
+        }
+        sparkHelper.generateEmail(that, that.state.selectedSavedSearch, body);
     }
 
     handleUploadEmail(id){
@@ -130,6 +144,28 @@ class App extends React.Component {
     handleLoginTimeoutCancel(){
         this.setState({
             showLoginTimeout: false
+        });
+    }
+
+    handleShowSettings(){
+        this.setState({
+            showSettings: true
+        });
+    }
+
+    handleSaveSettings(id, settings){
+        this.setState({
+            header_text: settings,
+            templateId: id,
+            showSettings: false,
+            htmlContent: null,
+            previewUrl: null
+        });
+    }
+
+    handleCancelSettings(){
+        this.setState({
+            showSettings: false
         });
     }
 
@@ -181,12 +217,17 @@ class App extends React.Component {
               htmlContent={this.state.htmlContent}
               onGenerateEmail={this.handleGenerateEmail}
               generatingEmail={this.state.generatingEmail}
+              templateId={this.state.templateId}
 
               user={this.state.user}
               account={this.state.account}
               onInitializeSavedSearches={this.handleInitializeSavedSearches}
               activityId={this.state.activityId}
               onUploadEmail={this.handleUploadEmail}
+              onShowSettings={this.handleShowSettings}
+              onSaveSettings={this.handleSaveSettings}
+              onCancelSettings={this.handleCancelSettings}
+              showSettings={this.state.showSettings}
 
               ccLoggedIn={this.state.ccLoggedIn}
               ccAccountId={this.state.ccAccountId}
