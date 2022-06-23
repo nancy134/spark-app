@@ -1,6 +1,8 @@
 import React from 'react';
 import UploadAuthConstant from '../components/UploadAuthConstant';
 import UploadConstant from '../components/UploadConstant';
+import UploadAuthGoogle from '../components/UploadAuthGoogle';
+import SendGmail from '../components/SendGmail';
 
 class WizardUpload extends React.Component{
     constructor(props){
@@ -9,12 +11,20 @@ class WizardUpload extends React.Component{
         this.handleUploadAuthConstantNext = this.handleUploadAuthConstantNext.bind(this);
         this.handleUploadAuthConstantCancel = this.handleUploadAuthConstantCancel.bind(this);
 
+        this.handleUploadAuthGoogleNext = this.handleUploadAuthGoogleNext.bind(this);
+        this.handleUploadAuthGoogleCancel = this.handleUploadAuthGoogleCancel.bind(this);
+
         this.handleUploadConstantNext = this.handleUploadConstantNext.bind(this);
         this.handleUploadConstantCancel = this.handleUploadConstantCancel.bind(this);
 
+        this.handleSendGmailNext = this.handleSendGmailNext.bind(this);
+        this.handleSendGmailCancel = this.handleSendGmailCancel.bind(this);
+
         this.state = {
             showUploadAuthConstant: true,
-            showUplaodConstant: false
+            showUploadAuthGoogle: true,
+            showUplaodConstant: false,
+            showSendGmail: false
         };
     }
 
@@ -32,6 +42,20 @@ class WizardUpload extends React.Component{
         this.props.onCancel();
     }
 
+    handleUploadAuthGoogleNext(){
+        this.setState({
+            showUploadAuthGoogle: false,
+            showSendGmail: true
+        });
+    }
+
+    handleUploadAuthGoogleCancel(){
+        this.setState({
+            showUploadAuthGoogle: false
+        });
+        this.props.onCancel();
+    }
+
     handleUploadConstantNext(id){
         this.props.onDone(id);
     }
@@ -43,11 +67,31 @@ class WizardUpload extends React.Component{
         this.props.onCancel();
     }
 
+    handleSendGmailNext(){
+    }
+
+    handleSendGmailCancel(){
+        this.setState({
+            showSendGmail: false
+        });
+        this.props.onCancel();
+    }
+
     render(){
-        var startWizard = this.props.start && this.state.showUploadAuthConstant;
+        var startWizardCC = this.props.start && this.state.showUploadAuthConstant && this.props.startWizard === "CC";
+        var startWizardGmail = this.props.start && this.state.showUploadAuthGoogle && this.props.startWizard === "Gmail";
         return(
         <React.Fragment>
-            { startWizard ?
+            { startWizardGmail ?
+            <UploadAuthGoogle
+                show={this.props.start}
+                onGoogleSignin={this.props.onGoogleSignin}
+                googleLoggedIn={this.props.googleLoggedIn}
+                onNext={this.handleUploadAuthGoogleNext}
+                onCancel={this.handleUploadAuthGoogleCancel}
+            />
+            : null }
+            { startWizardCC ?
             <UploadAuthConstant
                 show={this.props.start}
                 onNext={this.handleUploadAuthConstantNext}
@@ -72,6 +116,15 @@ class WizardUpload extends React.Component{
                 selectedSavedSearch={this.props.selectedSavedSearch}
                 selectedSavedSearchName={this.props.selectedSavedSearchName}
             />
+            : null }
+            { this.state.showSendGmail ?
+                <SendGmail
+                    show={this.state.showSendGmail}
+                    onNext={this.handleSendGmailNext}
+                    onCancel={this.handleSendGmailCancel}
+                    previewUrl={this.props.previewUrl}
+                    htmlContent={this.props.htmlContent}
+                />
             : null }
         </React.Fragment>
         );

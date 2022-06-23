@@ -28,7 +28,7 @@ class App extends React.Component {
         this.handleShowSettings = this.handleShowSettings.bind(this);
         this.handleSaveSettings = this.handleSaveSettings.bind(this);
         this.handleCancelSettings = this.handleCancelSettings.bind(this);
-
+        this.handleGoogleSignin = this.handleGoogleSignin.bind(this);
         this.state = {
 
             // App
@@ -60,7 +60,10 @@ class App extends React.Component {
             templateId: "noTemplate",
 
             // Constant Contact Auth
-            ccLoggedIn: null
+            ccLoggedIn: null,
+
+            // Google Auth
+            googleLoggedIn: false 
 
         };
     }
@@ -165,6 +168,12 @@ class App extends React.Component {
         });
     }
 
+    handleGoogleSignin(){
+        this.setState({
+            googleLoggedIn: true
+        });
+    }
+
     componentDidMount(){
 
        var that = this;
@@ -230,6 +239,8 @@ class App extends React.Component {
               cc_access_token={this.state.cc_access_token}
               receiveLoginMessage={this.receiveLoginMessage}
 
+              onGoogleSignin={this.handleGoogleSignin}
+              googleLoggedIn={this.state.googleLoggedIn}
           >
           </AppRoutes>
         </React.Fragment>

@@ -9,6 +9,10 @@ const MemoryStorage = (function(){
     var __ccAccessToken = null;
     var __ccRefreshToken = null;
 
+    var __googleAccessToken = null;
+    var __googleRefreshToken = null;
+    var __googleTokens = null;
+
     function _getService(){
         if (!_service){
             _service = this;
@@ -61,12 +65,45 @@ const MemoryStorage = (function(){
         return __ccRefreshToken;
     }
 
+    //
+    // Google Access Token
+    //
+    function _setGoogleAccessToken(googleAccessToken){
+        __googleAccessToken = googleAccessToken;
+    }
+    function _googleAccessToken(){
+        return __googleAccessToken;
+    }
+
+    //
+    // Google Refresh Token
+    //
+    function _setGoogleRefreshToken(googleRefreshToken){
+        __googleRefreshToken = googleRefreshToken;
+    }
+    function _googleRefreshToken(){
+        return __googleRefreshToken;
+    }
+
+    //
+    // Google Tokens
+    //
+    function _setGoogleTokens(googleTokens){
+        __googleTokens = googleTokens;
+    }
+    function _googleTokens(){
+        return __googleTokens;
+    }
+
     // Spark Clear All
     function _sparkClearAll(){
         __accessToken = null;
         __refreshToken = null; 
         __ccAccessToken = null;
         __ccRefreshToken = null;
+        __googleAccessToken = null;
+        __googleRefreshToken = null;
+        __googleTokens = null;
     }
 
     return {
@@ -88,6 +125,18 @@ const MemoryStorage = (function(){
         ccRefreshToken: _ccRefreshToken,
         setCCRefreshToken: _setCCRefreshToken,
 
+        // Google accessToken
+        googleAccessToken: _googleAccessToken,
+        setGoogleAccessToken: _setGoogleAccessToken,
+
+        // Google refreshToken
+        googleRefreshToken: _googleRefreshToken,
+        setGoogleRefreshToken: _setGoogleRefreshToken,
+
+        // Google accessToken
+        googleTokens: _googleTokens,
+        setGoogleTokens: _setGoogleTokens,
+
         // Spark Clear All
         sparkClearAll: _sparkClearAll,
 
@@ -95,3 +144,4 @@ const MemoryStorage = (function(){
 }) ();
 
 export default MemoryStorage; 
+

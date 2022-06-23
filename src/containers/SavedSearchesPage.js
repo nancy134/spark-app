@@ -63,6 +63,8 @@ export class SavedSearchesPage extends React.Component {
                             showSettings={this.props.showSettings}
                             templateId={this.props.templateId}
 
+                            onGoogleSignin={this.props.onGoogleSignin}
+                            googleLoggedIn={this.props.googleLoggedIn}
                         />
                     </div>
                 </div>

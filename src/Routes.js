@@ -15,7 +15,7 @@ import AboutPage from './containers/AboutPage';
 import AccountPage from './containers/AccountPage';
 import Privacy from './containers/Privacy';
 import TermsPage from './containers/TermsPage';
-
+import GoogleAuth from './containers/GoogleAuth';
 
 class AppRoutes extends React.Component {
     componentDidMount(){
@@ -93,6 +93,9 @@ class AppRoutes extends React.Component {
                         onCancelSettings={this.props.onCancelSettings}
                         showSettings={this.props.showSettings}
                         templateId={this.props.templateId}
+
+                        onGoogleSignin={this.props.onGoogleSignin}
+                        googleLoggedIn={this.props.googleLoggedIn}
                     />
                 }
             />
@@ -128,6 +131,10 @@ class AppRoutes extends React.Component {
             <Route
                 path="/constantcontact"
                 element={<ConstantContact/>} />
+            />
+            <Route
+                path="/google"
+                element={<GoogleAuth/>} />
             />
             </Routes>
             </BrowserRouter>

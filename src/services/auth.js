@@ -85,6 +85,17 @@ export function ccRefreshToken(refreshToken){
         });
     });
 }
+
+export function getGoogleTokens(body){
+    return new Promise(function(resolve, reject){
+        var url = process.env.REACT_APP_API + 'google/auth';
+        axiosInstance.post(url, body).then(function(response){
+            resolve(response.data);
+        }).catch(function(err){
+            reject(err);
+        });        
+    });
+}
  
 const auth = {
     getSparkAuthUrl,
@@ -93,7 +104,8 @@ const auth = {
     getSparkRefreshToken,
     getCCAuthUrl,
     getCCAuthToken,
-    ccRefreshToken
+    ccRefreshToken,
+    getGoogleTokens
 };
 export default auth;
 

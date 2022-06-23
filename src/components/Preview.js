@@ -4,7 +4,9 @@ import {
     Nav,
     Button,
     Container,
-    Spinner
+    Spinner,
+    Dropdown,
+    DropdownButton
 }
 from 'react-bootstrap';
 import WizardUpload from '../components/WizardUpload';
@@ -20,8 +22,13 @@ class Preview extends React.Component{
         this.handleViewEmail = this.handleViewEmail.bind(this);
         this.handleNav = this.handleNav.bind(this);
         this.handleSettingsCancel = this.handleSettingsCancel.bind(this); 
+
+        this.handleUploadToCC = this.handleUploadToCC.bind(this);
+        this.handleSendViaGmail = this.handleSendViaGmail.bind(this);
+
         this.state = {
-            showWizardUpload: false
+            showWizardUpload: false,
+            startWizard: null
         };
     }
 
@@ -29,6 +36,20 @@ class Preview extends React.Component{
         if (selectedKey === "settings"){
             this.props.onShowSettings();
         }
+    }
+
+    handleUploadToCC(){
+        this.setState({
+            startWizard: "CC",
+            showWizardUpload: true
+        });
+    }
+
+    handleSendViaGmail(){
+        this.setState({
+            startWizard: "Gmail",
+            showWizardUpload: true
+        });
     }
 
     handlePreviewEmail(){
@@ -74,6 +95,7 @@ class Preview extends React.Component{
             { this.state.showWizardUpload ?
             <WizardUpload
                 start={this.state.showWizardUpload}
+                startWizard={this.state.startWizard}
                 html={this.props.previewUrl}
                 htmlContent={this.props.htmlContent}
                 user={this.props.user}
@@ -87,6 +109,10 @@ class Preview extends React.Component{
                 selectedSavedSearchName={this.props.selectedSavedSearchName}
                 onCancel={this.handleUploadEmailCancel}
                 onDone={this.handleUploadEmailDone}
+
+                onGoogleSignin={this.props.onGoogleSignin}
+                googleLoggedIn={this.props.googleLoggedIn}
+                previewUrl={this.props.previewUrl}
             />
             : null }
             { this.props.showSettings ?
@@ -115,6 +141,7 @@ class Preview extends React.Component{
                 </Container>
             </Navbar>
             <div className="text-center p-2">
+                <h3>{this.props.selectedSavedSearchName}</h3>
                 <span className="px-3">
                 { !this.props.loadingSavedSearchListings ?
                 <Button
@@ -122,22 +149,11 @@ class Preview extends React.Component{
                    onClick={this.props.onGenerateEmail}
                 >
                    <div>Generate Email</div>
-                   <div>for</div>
-                   <div>{this.props.selectedSavedSearchName}</div>
                 </Button>
                 : null }
                 </span>
                 { this.props.previewUrl ? 
 		<span>
-                <span className="px-3">
-                <Button
-                    onClick={this.handlePreviewEmail}
-                >
-                    <div>Preview email</div>
-                    <div>in</div>
-                    <div>new window</div>
-                </Button>
-                </span>
                 <span className="px-3">
 
                 { this.props.activityId ?
@@ -147,12 +163,20 @@ class Preview extends React.Component{
                      <div>Constant Contact</div>
                  </Button>
                  :
-                 <Button onClick={this.handleUploadEmail}>
-
-                     <div>Upload</div>
-                     <div>to</div>
-                     <div>Constant Contact</div>
-                 </Button>
+                 <DropdownButton as="span" title="Email Options">
+                    <Dropdown.Item
+                        as="button"
+                        onClick={() => {this.handleUploadToCC()}}
+                    >Upload to Constant Contact</Dropdown.Item>
+                    <Dropdown.Item
+                        as="button"
+                        onClick={() => {this.handleSendViaGmail()}}
+                    >Send via Gmail (Beta)</Dropdown.Item>
+                    <Dropdown.Item
+                        as="button"
+                        onClick={() => {this.handlePreviewEmail()}}
+                    >Preview in New Window</Dropdown.Item>
+                 </DropdownButton>
                  }
 
                 </span>
