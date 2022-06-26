@@ -156,18 +156,18 @@ class Preview extends React.Component{
 		<span>
                 <span className="px-3">
 
-                { this.props.activityId ?
-                     <Button onClick={this.handleViewEmail}>
-                     <div>View Email</div>
-                     <div>in</div>
-                     <div>Constant Contact</div>
-                 </Button>
-                 :
                  <DropdownButton as="span" title="Email Options">
+                    { this.props.activityId ?
+                    <Dropdown.Item
+                        as="button"
+                        onClick={this.handleViewEmail}
+                    >View in Constant Contact</Dropdown.Item>
+                    :
                     <Dropdown.Item
                         as="button"
                         onClick={() => {this.handleUploadToCC()}}
                     >Upload to Constant Contact</Dropdown.Item>
+                    }
                     <Dropdown.Item
                         as="button"
                         onClick={() => {this.handleSendViaGmail()}}
@@ -177,11 +177,10 @@ class Preview extends React.Component{
                         onClick={() => {this.handlePreviewEmail()}}
                     >Preview in New Window</Dropdown.Item>
                  </DropdownButton>
-                 }
 
                 </span>
 		</span>
-                : null }
+                : null}
 
             </div>
             { this.props.generatingEmail ?

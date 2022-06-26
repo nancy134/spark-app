@@ -17,8 +17,9 @@ class Home extends React.Component{
               <MDBRow >
                   <MDBCol >
                       <div className="text-center px-5 pt-3">
-                          <h3>Constant Contact integration<br/>for FlexMLS Users</h3>
-                          <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Automatically generate Constant Contact emails from your FlexMLS Saved Searches</p>
+                          <h3>Create HTML emails<br/>from FlexMLS</h3>
+                          <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Generate professional HTML emails from your FlexMLS Saved Searches</p>
+                          <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Send with Gmail or Constant Contact</p>
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Try now free for 7 days</p>
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">$7 / month</p>
                           <h3>Need Help?</h3>
