@@ -37,6 +37,9 @@ class Preview extends React.Component{
         if (selectedKey === "settings"){
             this.props.onShowSettings();
         }
+        if (selectedKey === "back"){
+            console.log("go back");
+        }
     }
 
     handleUploadToCC(){
@@ -132,7 +135,13 @@ class Preview extends React.Component{
             <div className="child scrollable">
             <Navbar bg="light" expand="lg" sticky="top">
                 <Container>
-                <Navbar.Brand>Preview</Navbar.Brand>
+                <Navbar.Brand>
+                    { this.props.width < 768 ?
+                    <a href="./savedsearches" >Back&nbsp;</a>
+                    :
+                    Preview
+                    }
+                </Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav
                         onSelect={(selectedKey) => this.handleNav(selectedKey)}

@@ -3,15 +3,17 @@ import {
     MDBFooter,
     MDBContainer,
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBBtn
 } from 'mdb-react-ui-kit';
+import { useNavigate } from 'react-router-dom';
 
-class Home extends React.Component{
-
-    render(){
-
-        return(
-
+function Home(){
+    const navigate = useNavigate();
+    function handleGetStarted(){ 
+        navigate("/savedsearches");
+    }
+    return(
         <React.Fragment>
             <MDBContainer className='p-4'>
               <MDBRow >
@@ -22,7 +24,10 @@ class Home extends React.Component{
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Send with Gmail or Constant Contact</p>
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Try now free for 7 days</p>
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">$7 / month</p>
-                          <h3>Need Help?</h3>
+                          <MDBBtn
+                              onClick={handleGetStarted}
+                          >Get Started Now!</MDBBtn>
+                          <h3 className="pt-5">Need Help?</h3>
                           <p>Contact us at <a href="mailto:support@murbansw.com">support@murbansw.com</a></p>
                           <p>Checkout our <a href="https://www.murbansw.com/help">Help Page</a></p>
                       </div>
@@ -48,8 +53,7 @@ class Home extends React.Component{
           </MDBFooter>
 
         </React.Fragment>
-        );
-    }
+    );
 }
 
 export default Home;

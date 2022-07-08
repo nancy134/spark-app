@@ -14,6 +14,7 @@ class AppNavBar extends React.Component {
                 bg="dark"
                 variant="dark"
                 expand="lg"
+                collapseOnSelect="true"
             >
                 <Container>
                     <Navbar.Brand
