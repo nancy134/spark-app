@@ -25,6 +25,7 @@ class Preview extends React.Component{
 
         this.handleUploadToCC = this.handleUploadToCC.bind(this);
         this.handleSendViaGmail = this.handleSendViaGmail.bind(this);
+        this.handleSendViaText = this.handleSendViaText.bind(this);
 
         this.state = {
             showWizardUpload: false,
@@ -52,6 +53,9 @@ class Preview extends React.Component{
         });
     }
 
+    handleSendViaText(){
+        this.props.onSendViaText();
+    }
     handlePreviewEmail(){
          window.open(this.props.previewUrl, "_blank");
     }
@@ -143,7 +147,8 @@ class Preview extends React.Component{
             <div className="text-center p-2">
                 <h3>{this.props.selectedSavedSearchName}</h3>
                 <span className="px-3">
-                { !this.props.loadingSavedSearchListings ?
+                { !this.props.loadingSavedSearchListings &&
+                  this.props.width >= 768 ?
                 <Button
                    disabled={disableGenerateEmail}
                    onClick={this.props.onGenerateEmail}
@@ -176,6 +181,12 @@ class Preview extends React.Component{
                         as="button"
                         onClick={() => {this.handlePreviewEmail()}}
                     >Preview in New Window</Dropdown.Item>
+                    { this.props.isMobile ?
+                    <Dropdown.Item
+                        as="button"
+                        onClick={() => {this.handleSendViaText()}}
+                    >Send via Text</Dropdown.Item>
+                    : null }
                  </DropdownButton>
 
                 </span>

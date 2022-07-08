@@ -15,7 +15,7 @@ class Home extends React.Component{
         <React.Fragment>
             <MDBContainer className='p-4'>
               <MDBRow >
-                  <MDBCol >
+                  <MDBCol sm="12" md="6">
                       <div className="text-center px-5 pt-3">
                           <h3>Create HTML emails<br/>from FlexMLS</h3>
                           <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Generate professional HTML emails from your FlexMLS Saved Searches</p>
@@ -28,13 +28,15 @@ class Home extends React.Component{
                       </div>
                       `
                   </MDBCol>
-                  <MDBCol >
+                  <MDBCol sm="12" md="6" >
+                      <div className="text-center">
                       <img
                           src="https://mu-s3-images.s3.amazonaws.com/CCEmailMobile.png"
                           className="img-fluid"
                           style={{height: "80%"}}
                           alt="placeholder"
                       />
+                      </div>
                   </MDBCol>
                   </MDBRow>
               </MDBContainer>

@@ -89,7 +89,6 @@ class SendGmail extends React.Component<IProps, IState> {
             show={this.props.show}
             onHide={this.props.onCancel}
             animation={false}
-            dialogClassName="modal-80w"
         >
             <Modal.Header closeButton>
                 <Modal.Title>

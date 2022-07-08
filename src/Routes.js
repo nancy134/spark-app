@@ -57,6 +57,7 @@ class AppRoutes extends React.Component {
                 path="/savedsearches"
                 element={
                     <SavedSearchesPage
+                        width={this.props.width}
                         appLoading={this.props.appLoading}
                         loggingIn={this.props.loggingIn}
                         loggedIn={this.props.loggedIn}
@@ -96,6 +97,10 @@ class AppRoutes extends React.Component {
 
                         onGoogleSignin={this.props.onGoogleSignin}
                         googleLoggedIn={this.props.googleLoggedIn}
+
+                        mobilePreview={this.props.mobilePreview}
+
+                        onSendViaText={this.props.onSendViaText}
                     />
                 }
             />

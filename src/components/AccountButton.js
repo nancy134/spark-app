@@ -1,9 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
 import {
-    Button,
-    Dropdown,
-    DropdownButton
+    NavDropdown,
+    Nav
 } from 'react-bootstrap';
 import authService from '../services/auth';
 
@@ -26,7 +25,9 @@ export class AccountButton extends Component{
         }
     }
     handleSignin(){
-         this.openSignInWindow(this.props.authUrl, "Spark Signin");
+         if (this.props.authUrl){
+             this.openSignInWindow(this.props.authUrl, "FlxexMLS Signin");
+         }
     }
     handleLogout(){
        this.props.onLogout("NoDialog");
@@ -152,47 +153,28 @@ export class AccountButton extends Component{
             appLoading = true;
         }
 
-        var showAccount = false;
+        var navLinkText = "Login";
+        if (appLoading) navLinkText = "App Loading...";
+        if (loggingIn) navLinkText = "Logging in...";
+
         return(
-        <span>
-            <span className="align-top text-danger">
-            {this.props.loggedIn ?
-                ( 
-                <DropdownButton id="account-button-dropdown" className="murban-dropdown" title={userName}>
-                    { showAccount ?
-                    <Dropdown.Item
-                        as="button"
-                        id="account-button-my-account"
-                        onClick={() => {this.onMyAccount()}}
-                    >My Account</Dropdown.Item>
-                    : null }
-                    <Dropdown.Item
-                        as="button"
-                        id="account-button-logout"
-                        onClick={() => {this.handleLogout()}}
-                    >Logout</Dropdown.Item>
-                </DropdownButton>
-                )
-                :( 
-                <span>
-                    <Button 
-                        onClick={this.handleSignin} 
-                        id="account-button"
-                    >
-                        { appLoading ?
-                        <span>App Loading...</span>
-                        : null }
-                        { loggingIn ?
-                        <span>Logging in...</span>
-                        : null }
-                        { !appLoading && !loggingIn ?
-                        <span>Login with FlexMLS</span>
-                        : null}
-                    </Button>
-                </span> 
-                )}
-            </span>
-        </span>
+        <React.Fragment>
+        { this.props.loggedIn ?
+        <NavDropdown
+            title={userName}
+            id="basic-nav-dropdown"
+            className="murban-dropdown"
+        >
+            <NavDropdown.Item
+                onClick={() => this.handleLogout()}   
+            >Logout</NavDropdown.Item>
+        </NavDropdown>
+        :
+        <Nav.Link
+            onClick={() => this.handleSignin()}
+        >{navLinkText}</Nav.Link>
+        }
+        </React.Fragment>
         );
     }
 }

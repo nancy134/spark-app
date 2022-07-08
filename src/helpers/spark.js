@@ -21,16 +21,30 @@ function initializeApp(that, accessToken, refreshToken){
              access_token = hardCodedAccessToken;
          }
 
+         var hostname = window.location.hostname;
+         var protocol = window.location.protocol;
+         var redirect_uri =
+             protocol +
+             "//" +
+             hostname +
+             "/sparkauth";
+
+         var url =
+            result.authUrl +
+            redirect_uri;
+
          if (access_token){
              memoryStorageService.setAccessToken(access_token);
              memoryStorageService.setRefreshToken(refresh_token);
 
-             initializeAccount(that).then(function(result){
+             initializeAccount(that).then(function(result2){
                  that.setState({
                      appLoading: false,
                      loggedIn: true,
-                     user: result.user,
-                     account: result.account
+                     user: result2.user,
+                     account: result2.account,
+                     authUrl: url,
+                     redirect_uri: redirect_uri
                  });
              }).catch(function(err){
                  that.setState({
@@ -39,17 +53,6 @@ function initializeApp(that, accessToken, refreshToken){
              });
 
          } else {
-           var hostname = window.location.hostname;
-           var protocol = window.location.protocol;
-           var redirect_uri =
-               protocol +
-               "//" +
-               hostname +
-               "/sparkauth";
-
-           var url =
-              result.authUrl +
-              redirect_uri;
            that.setState({
                authUrl: url,
                redirect_uri: redirect_uri,
@@ -98,8 +101,9 @@ function initializeAccount(that){
     });
 }
 
-function initializeSavedSearches(that){
-    getSavedSearches(that, 1).then(function(result){
+function initializeSavedSearches(that, mode){
+    var page = 1;
+    getSavedSearches(that, page, mode).then(function(result){
     }).catch(function(err){
         if (err.type && err.type === "LoginTimeout"){
             that.props.onLoginTimeout();
@@ -108,8 +112,8 @@ function initializeSavedSearches(that){
     });
 }
 
-function savedSearchNewPage(that, accessToken, page){
-    getSavedSearches(that, page).then(function(result){
+function savedSearchNewPage(that, accessToken, page, mode){
+    getSavedSearches(that, page, mode).then(function(result){
     }).catch(function(err){
         if (err.type && err.type === "LoginTimeout"){
             that.props.onLoginTimeout();
@@ -169,12 +173,13 @@ function getCollections(that, accessToken, refreshToken){
     });
 }
 
-function getSavedSearches(that, page){
+function getSavedSearches(that, page, mode){
     return new Promise(function(resolve, reject){
         that.setState({
             loadingSavedSearches: true
         });
         sparkService.getSavedSearches(page).then(function(savedSearches){
+            //if (savedSearches.D.Results.length > 0 && mode === null){
             if (savedSearches.D.Results.length > 0){
                 var savedSearchId = savedSearches.D.Results[0].Id;
                 var savedSearchName = savedSearches.D.Results[0].Name;
@@ -201,6 +206,7 @@ function getSavedSearches(that, page){
                 });
             } else {
                 that.setState({
+                    savedSearches: savedSearches,
                     loadingSavedSearches: false
                 });
             }
@@ -231,7 +237,7 @@ function collectionSelect(that, accessToken, id){
     });
 }
 
-function savedSearchSelect(that, accessToken, id, name){
+function savedSearchSelect(that, accessToken, id, name, mode){
     that.setState({
         loadingSavedSearchListings: true
     });
@@ -256,14 +262,17 @@ function savedSearchSelect(that, accessToken, id, name){
     });
 }
 
-function generateEmail(that, id, body){
+function generateEmail(that, id, body, mode){
+
+        var mobilePreview = false;
+        if (mode) mobilePreview = true;
 
         sparkService.createEmailMustache(id, body).then(function(email){
             that.setState({
                 generatingEmail: false,
                 previewUrl: email.Location,
-                htmlContent: email.content
-              
+                htmlContent: email.content,
+                mobilePreview: mobilePreview     
             });
 
         }).catch(function(err){
