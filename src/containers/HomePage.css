@@ -9,7 +9,7 @@ html, body {
     height: 100%;
 }
 .main-container {
-    height:calc(100% - 86px);
+/*    height:calc(100% - 40px);*/
     display:flex;
     flex-direction: row;
     align-content: stretch;
