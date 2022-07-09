@@ -263,7 +263,7 @@ function App() {
     }
 
     const handleSendViaText = () => {
-        window.location = "sms:?body=Select the link below to see some listings you may be interested in. \n"+previewUrl;
+        window.location = "sms:?&body=Select the link below to see some listings you may be interested in. \n"+previewUrl;
     }
 
     useEffect(() => {
