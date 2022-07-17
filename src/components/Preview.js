@@ -3,7 +3,6 @@ import {
     Navbar,
     Nav,
     Button,
-    Container,
     Spinner,
     Dropdown,
     DropdownButton
@@ -11,6 +10,7 @@ import {
 from 'react-bootstrap';
 import WizardUpload from '../components/WizardUpload';
 import PreviewSettings from '../components/PreviewSettings';
+import CopyToClipboardDialog from '../components/CopyToClipboardDialog';
 
 class Preview extends React.Component{
     constructor(props){
@@ -27,9 +27,13 @@ class Preview extends React.Component{
         this.handleSendViaGmail = this.handleSendViaGmail.bind(this);
         this.handleSendViaText = this.handleSendViaText.bind(this);
 
+        this.handleShowCopyLink = this.handleShowCopyLink.bind(this);
+        this.handleHideCopyLink = this.handleHideCopyLink.bind(this);
+
         this.state = {
             showWizardUpload: false,
-            startWizard: null
+            startWizard: null,
+            showCopyToClipboard: false
         };
     }
 
@@ -59,6 +63,20 @@ class Preview extends React.Component{
     handleSendViaText(){
         this.props.onSendViaText();
     }
+
+    handleShowCopyLink(){
+        console.log("handleShowCopyLink()");
+        this.setState({
+            showCopyToClipboard: true
+        });
+    }
+
+    handleHideCopyLink(){
+        this.setState({
+            showCopyToClipboard: false
+        });
+    }
+
     handlePreviewEmail(){
          window.open(this.props.previewUrl, "_blank");
     }
@@ -99,6 +117,13 @@ class Preview extends React.Component{
         if (this.props.previewUrl) disableGenerateEmail=true;
         return(
         <React.Fragment>
+            { this.state.showCopyToClipboard ?
+            <CopyToClipboardDialog
+                show={this.state.showCopyToClipboard}
+                onHide={this.handleHideCopyLink}
+                textToCopy={this.props.previewUrl}
+            />
+            : null}
             { this.state.showWizardUpload ?
             <WizardUpload
                 start={this.state.showWizardUpload}
@@ -134,24 +159,23 @@ class Preview extends React.Component{
             <div className="main-container">
             <div className="child scrollable">
             <Navbar bg="light" expand="lg" sticky="top">
-                <Container>
-                <Navbar.Brand>
-                    { this.props.width < 768 ?
-                    <a href="./savedsearches" >Back&nbsp;</a>
-                    :
-                    Preview
-                    }
-                </Navbar.Brand>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav
-                        onSelect={(selectedKey) => this.handleNav(selectedKey)}
-                    >
-                        <Nav.Link
-                            eventKey="settings"
-                        >Customization</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-                </Container>
+                    <Navbar.Brand>
+                        { this.props.width < 768 ?
+                        <a href="./savedsearches" >Back&nbsp;</a>
+                        :
+                        <span>Preview</span>
+                        }
+                    </Navbar.Brand>
+
+                    <Navbar.Collapse className="justify-content-end">
+                        <Nav
+                            onSelect={(selectedKey) => this.handleNav(selectedKey)}
+                        >
+                            <Nav.Link
+                                eventKey="settings"
+                            >Customization</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
             </Navbar>
             <div className="text-center p-2">
                 <h3>{this.props.selectedSavedSearchName}</h3>
@@ -190,6 +214,10 @@ class Preview extends React.Component{
                         as="button"
                         onClick={() => {this.handlePreviewEmail()}}
                     >Preview in New Window</Dropdown.Item>
+                    <Dropdown.Item
+                        as="button"
+                        onClick={() => {this.handleShowCopyLink()}}
+                    >Copy Link</Dropdown.Item>
                     { this.props.isMobile ?
                     <Dropdown.Item
                         as="button"
