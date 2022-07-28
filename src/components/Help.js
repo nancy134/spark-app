@@ -10,88 +10,60 @@ class Help extends React.Component{
             <div >
                 <div >
                     <div className="text-center px-5 pt-3">
-                        <h1>Create Beautiful Emails from FlexMLS</h1>
+                        <h1>Create Professional Emails from FlexMLS</h1>
                         <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Use your FlexMLS Account and your Saved Searches to automatically generate beautiful emails with our professionally designed templates</p> 
-                        <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Upload your emails to your email marketing system such as Constant Contact and MailChimp</p>
+                        <p style={{fontSize: "1.2rem"}} className="pl-5 pr-5">Send your email through Gmail or Constant Contact.  Or text a link to your email.</p>
                     </div>
                 </div>
                 <div className="text-center px-5">
-                    <h2>Step 1. Login with FlexMLS</h2>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/LoginButton.png"
-                        alt="FlexMLS Login"
-                        width="30%"
-                    />
-                    <br></br>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/Login.png"
-                        alt="FlexMLS Login"
-                        width="30%"
-                    />
+                    <h2>Upload email to Constant Contact</h2>
+                    <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/jGO5jqk0fcg"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen>
+                    </iframe>
                 </div>
-                <div className="p-3"></div>
                 <div className="text-center px-5">
-                    <h2>Step 2. Select a FlexMLS Saved Search</h2>
-                    <p>
-                        <span>If you dont have any Saved Searches, visit the FlexMLS instructions for saving a search: </span>
-                        <span>
-                             <a href="https://help.flexmls.com/en/save-a-search.html">Save Search Instructions</a>
-                        </span>
-                    </p>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/MurbanSavedSearches.png"
+                    <h2>View email in browser window</h2>
+                    <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/hOhc1ds1zKE"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen>
+                    </iframe>
+                </div>
+                <div className="text-center px-5">
+                    <h2>Copy link to email</h2>
+                    <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/_cZHOMiS-fQ"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen>
+                    </iframe>
+                </div>
 
-                        alt="FlexMLS Login"
-                        width="60%"
-                    />
-                </div>
-                <div className="p-3"></div>
                 <div className="text-center px-5">
-                    <h2>Step 3. Generate the email for selected Saved Search</h2>
-                    <p>
-                    <p>Select "Generate email..." to automatically generate the email content from the 1st seven listings in your Saved Search</p>
-                    <p>A preview of the email will be displayed below for review before uploading to Constant Contact</p>                    </p>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/MurbanGenerateEmail.png"
-                        alt="FlexMLS Login"
-                        width="60%"
-                    />
+                    <h2>Use Gmail to send HTML email</h2>
+                    <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/xaeorHF8mSc"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen>
+                    </iframe>
                 </div>
- 
-                <div className="p-3"></div>
-                <div className="text-center px-5">
-                    <h2>Step 4. Upload to Constant Contact</h2>
-                    <p>Select "Upload to Constant Contact" to upload your email</p>
-                    <p>You will be asked to login to Constant Contact so you must already have an account</p>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/MurbanUploadToConstantContact.png"
-                        alt="FlexMLS Login"
-                        width="60%"
-                    />
-                </div>
-                <div className="p-3"></div>
-                <div className="text-center px-5">
-                    <h2>Step 5. View Email in Constant Contact</h2>
-                    <p>After you have uploaded your email content to Constant Contacts, you can view it in Constant Contact by Selecting "View Email in Constant Contact"</p>
-                    <p>You will be asked to login to Constant Contact so you must already have an account</p>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/MurbanViewEmailInConstantContact.png"
-                        alt="FlexMLS Login"
-                        width="60%"
-                    />
-                    <div className="p-3"></div>
-                </div>
-                <div className="text-center px-5">
-                    <h2>Step 6. Live Preview in Constant Contact</h2>
-                    <p>When viewing your email in Constant Contact, select "Live Preview" to see what the email will look like before sending.</p>
-                    <p>Select "Continue" to send the email to your contacts</p>
-                    <img
-                        src="https://mu-s3-images.s3.amazonaws.com/ConstantContactPreview.png"
-                        alt="FlexMLS Login"
-                        width="60%"
-                    />
-                </div>
-                <div className="p-3"></div>
             </div>
             }                     
         </React.Fragment>
