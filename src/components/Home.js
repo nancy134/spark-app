@@ -46,10 +46,17 @@ function Home(){
                   </MDBRow>
               </MDBContainer>
           <MDBFooter>
-            <div className='text-center p-3' style={{ backgroundcolor: 'rgba(0, 0, 0, 0.2)' }}>
+            <MDBRow>
+            <MDBCol></MDBCol>
+            <MDBCol className="text-center">
               &copy; {new Date().getFullYear()}{' '}
               Murban, LLC.
-            </div>
+            </MDBCol>
+            <MDBCol className="text-right">
+            <a href="./terms">Terms & Conditions</a>&nbsp;
+            <a href="./privacy">Privacy Policy</a>
+            </MDBCol>
+            </MDBRow>
           </MDBFooter>
 
         </React.Fragment>
