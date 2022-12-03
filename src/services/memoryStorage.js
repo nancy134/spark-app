@@ -25,6 +25,7 @@ const MemoryStorage = (function(){
     // Spark Access Token
     //
     function _setAccessToken(accessToken){
+       console.log("accessToken: "+accessToken); 
        if (accessToken === null){
            console.log("passed null accesstoken");
            return;

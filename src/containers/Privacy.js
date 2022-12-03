@@ -8,7 +8,7 @@ export class Privacy extends React.Component {
         <React.Fragment>
 <Container>           
 <h1>ONLINE PRIVACY POLICY AGREEMENT</h1>
-<p>January 1, 1970
+<p>
 Murban, LLC ( Murban) values its users' privacy. This Privacy Policy ("Policy") will help you understand how we collect and use personal information from those who visit our website or make use of our online facilities and services, and what we will and will not do with the information we collect. Our Policy has been designed and created to ensure those affiliated with Murban, LLC of our commitment and realization of our obligation not only to meet, but to exceed, most existing privacy standards.
 </p>
 <p>
